@@ -7,13 +7,18 @@ var auth = jwt({
 });
 
 var ctrlProfile = require('../controllers/profile');
-var ctrlAuth = require('../controllers/authentication');
+var ctrlFunctions = require('../controllers/functionService');
+
 
 // profile
 router.get('/profile', auth, ctrlProfile.profileRead);
 
 // authentication
-router.post('/register', ctrlAuth.register);
-router.post('/login', ctrlAuth.login);
+router.post('/register', ctrlFunctions.register);
+router.post('/login', ctrlFunctions.login);
+
+//orders
+router.post('/orders', ctrlFunctions.placeOrder);
+router.post('/orders/new', ctrlFunctions.placeOrder);
 
 module.exports = router;

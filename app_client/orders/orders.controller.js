@@ -2,17 +2,39 @@
 
   angular
     .module('packageDelivery')
-    .controller('ordersCtrl', ordersCtrl);
+    .controller('OrderCtrl', OrderCtrl);
 
-  ordersCtrl.$inject = ['$location','authentication'];
-  function ordersCtrl($location, authentication) {
+  OrderCtrl.$inject = ['$location','functionService'];
+  function OrderCtrl($location, functionService) {
     var vm = this;
 
-    vm.isLoggedIn = authentication.isLoggedIn();
+    vm.isLoggedIn = functionService.isLoggedIn();
 
-    vm.currentUser = authentication.currentUser();
+    vm.currentUser = functionService.currentUser();
 
-    vm.newOrder 
+    vm.newOrder = {
+		userID: vm.currentUser.email,
+		pickUp: '',
+		dropOff: '',
+		notes: '',
+		isFragile: '',
+		isExpress: '',
+		state: 'new'
+    };
+
+    vm.onSubmit = function () {
+      functionService.register(null);
+      console.log('Placing Order');
+      console.log(vm.newOrder);
+      functionService
+        .placeOrder(vm.newOrder)
+        .error(function(err){
+          alert(err);
+        })
+        .then(function(){
+          $location.path('orders');
+        });
+    };
 
   }
 

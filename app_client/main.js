@@ -21,12 +21,12 @@
       })
       .when('/orders', {
         templateUrl: '/orders/orders.view.html',
-        controller: 'ordersCtrl',
+        controller: 'OrderCtrl',
         controllerAs: 'vm'
       })
       .when('/orders/new', {
         templateUrl: '/orders/newOrder.view.html',
-        controller: 'ordersCtrl',
+        controller: 'OrderCtrl',
         controllerAs: 'vm'
       })
       .otherwise({redirectTo: '/login'});
@@ -35,9 +35,9 @@
     $locationProvider.html5Mode(true);
   }
 
-  function run($rootScope, $location, authentication) {
+  function run($rootScope, $location, functionService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
+      if ($location.path() === '/profile' && !functionService.isLoggedIn()) {
         $location.path('/');
       }
     });
@@ -46,6 +46,6 @@
   angular
     .module('packageDelivery')
     .config(['$routeProvider', '$locationProvider', config])
-    .run(['$rootScope', '$location', 'authentication', run]);
+    .run(['$rootScope', '$location', 'functionService', run]);
 
 })();

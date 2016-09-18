@@ -104,33 +104,27 @@ module.exports.placeOrder = function(req, res) {
   console.log('Placing Order');
   var order = new Order();
 
-  order.userID = token.
+  order.userID = req.body.userID;
+  order.pickUp = req.body.pickUp;
+  order.dropOff = req.body.dropOff;
+  order.notes = req.body.notes;
+  order.isFragile = req.body.isFragile;
+  order.isExpress = req.body.isExpress;
+  order.state = req.body.state;
 
-  emailDomain = req.body.email.split('@');
-  console.log(emailDomain[1]);
 
-  if (emailDomain[1] == 'onthespot.com'){
-    user.isDriver = true;
-  }
-
-  if (req.body.email == 'admin@onthespot.com'){
-    user.isAdmin = true;
-  }
-
-  user.setPassword(req.body.password);
-
-  console.log(user);
-  user.save(function(err) {
+  console.log(order);
+  order.save(function(err) {
     if (err){
       console.log(err);
     }
     console.log('save being called');
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
+    // var token;
+    // token = user.generateJwt();
+    // res.status(200);
+    // res.json({
+    //   "token" : token
+    // });
   });
 };
 
