@@ -21,12 +21,17 @@
       })
       .when('/orders', {
         templateUrl: '/orders/orders.view.html',
-        controller: 'ordersCtrl',
+        controller: 'OrderCtrl',
         controllerAs: 'vm'
       })
       .when('/orders/new', {
         templateUrl: '/orders/newOrder.view.html',
-        controller: 'ordersCtrl',
+        controller: 'OrderCtrl',
+        controllerAs: 'vm'
+      })
+      .when('/driverorders', {
+        templateUrl: '/driverorders.view.html',
+        controller: 'OrderCtrl',
         controllerAs: 'vm'
       })
       .otherwise({redirectTo: '/login'});

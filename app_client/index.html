@@ -1,21 +1,37 @@
 <!DOCTYPE html>
-<html ng-app="packageDelivery">
+<html lang="en" ng-app="packageDelivery">
 <head>
-  <title>On the Spot</title>
+  <meta charset="UTF-8">
   <base href="/">
-  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="/style.css">
+  <title>On the Spot</title>
+
+  <!-- Bootstrap Paper -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css">
+
   <!-- material design font & icons -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <!-- Bootstrap Paper -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css">
+
+   <!-- Font awesome -->
+  <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+
+  <!-- JQuery -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+  <!-- Angular 1.5.8 -->
   <script src="lib/angular/angular.min.js"></script>
   <script src="lib/angular/angular-route.min.js"></script>
+
+  <!-- Custom styles -->  
+  <link rel="stylesheet" href="style.css">
+
+  <!-- App -->
   <script src="app.min.js"></script>
+
 </head>
-<body id ="bootstrap-overrides">
+<body id="bootstrap-overrides">
   <div ng-hide="hideTopBar()">
     <div class="container-fluid">
       <div class="row search-bar">
@@ -32,10 +48,10 @@
       <div class="col-md-12 top-bar">
         <ul class="nav nav-tabs">
           <li ng-class="{active: isActive('/user')}">
-            <a href="login" data-toggle="tab">PROFILE</a>
+            <a href="login" data-toggle="tab"><i class="material-icons account-icon">account_box</i>PROFILE</a>
           </li>
           <li ng-class="{active: isActive('/orders')}">
-            <a href="orders" data-toggle="tab">ORDERS</a>
+            <a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>MY ORDERS</a>
           </li>
         </ul>
       </div>

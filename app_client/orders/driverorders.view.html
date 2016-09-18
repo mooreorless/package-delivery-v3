@@ -1,0 +1,50 @@
+<div class='container' ng-controller='OrderCtrl'>
+	
+  <div class='row'>
+	<div class='col-md-8 orders-search'>
+		<input type="text" class="form-control" placeholder="Search orders">
+	</div>
+  </div>
+    
+  <div class='row' ng-repeat='order in orders'>
+  
+    <div class='col-md-8 order-container'>
+		<span class='float-right'><a href=''><i class="material-icons">delete_forever</i></span></a>
+		<span class='float-right'><a href=''><i class="material-icons">print</i></span></a>
+		
+		
+		
+		<div ng-if ="{{orders.express}}"> 
+			<span class='float-right'><i class="material-icons express-icon">directions_run</i></span>
+		</div>
+		
+		<div ng-if ='{{orders.valuable}}'> 
+			<span class='float-right'> <i class="material-icons valuable-icon">broken_image</i></span>
+		</div>
+		
+		<p <h5 class='card-order-id'><b>Order ID# {{order.id}}</b></h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>Destination: {{order.destination}}</small> </p>
+		<input class='float-right' type="checkbox" ng-model="myVar" ng-init="myVar = false">
+	</div>
+	
+	<div ng-if="myVar">
+		<div class='col-md-8 div-panel'>
+			<div class="progress progress-striped">
+				<div class="progress-bar progress-bar-success" style="width: {{order.progress}}"></div>
+			</div>
+			<button id="order-placed" class='col-sm-3 status-text-button'>
+				<p>Order placed</p>		  
+			</button>
+			<button class='col-md-3 status-text-button'>
+				<p>Driver en-route</p>				
+			</button>
+			<button class='col-md-3 status-text-button'>
+				<p>Parcel picked up</p>		  
+			</button>
+			<button class='col-md-3 status-text-button'>
+				<p>Delivered</p>		  
+			</button>		
+		</div>
+	</div>
+  </div>
+</div>
+<br><br>
