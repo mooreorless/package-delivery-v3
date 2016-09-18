@@ -112,19 +112,26 @@ module.exports.placeOrder = function(req, res) {
   order.isExpress = req.body.isExpress;
   order.state = req.body.state;
 
-
-  console.log(order);
   order.save(function(err) {
     if (err){
       console.log(err);
     }
     console.log('save being called');
+    res.status(200);
     // var token;
     // token = user.generateJwt();
     // res.status(200);
     // res.json({
     //   "token" : token
     // });
+  });
+};
+
+module.exports.getUserOrders = function(req, res){
+  Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes', function (err, orders) {
+    if (err) console.log(err);
+    console.log(orders); // Space Ghost is a talk show host.
+    res.send(orders);
   });
 };
 

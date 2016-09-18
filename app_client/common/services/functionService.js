@@ -65,6 +65,15 @@
       console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
         console.log(data);
+        console.log('finished posting to new order');
+      });
+    };
+
+    getUserOrders = function(user){
+      console.log(user);
+      console.log('calling get user on the front end');
+      return $http.get('/api/orders', {params: {user : user}}).success(function(data){
+        console.log(data);
       });
     };
 
@@ -76,7 +85,8 @@
       register : register,
       login : login,
       logout : logout,
-      placeOrder: placeOrder
+      placeOrder: placeOrder,
+      getUserOrders: getUserOrders
     };
   }
 

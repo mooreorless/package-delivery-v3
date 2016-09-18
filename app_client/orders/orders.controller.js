@@ -12,28 +12,45 @@
 
     vm.currentUser = functionService.currentUser();
 
-    vm.newOrder = {
-		userID: vm.currentUser.email,
-		pickUp: '',
-		dropOff: '',
-		notes: '',
-		isFragile: '',
-		isExpress: '',
-		state: 'new'
-    };
+    // console.log(vm.currentUser);
 
-    vm.onSubmit = function () {
-      console.log('Placing Order');
-      console.log(vm.newOrder);
-      functionService
-        .placeOrder(vm.newOrder)
+    // functionService.getUserOrders(vm.currentUser.email);
+
+        functionService
+        .getUserOrders(vm.currentUser.email)
         .error(function(err){
+          if (err){
           alert(err);
+          }
         })
         .then(function(){
           $location.path('orders');
         });
-    };
+
+  //   vm.newOrder = {
+		// userID: vm.currentUser.email,
+		// pickUp: '',
+		// dropOff: '',
+		// notes: '',
+		// isFragile: '',
+		// isExpress: '',
+		// state: 'new'
+  //   };
+
+
+
+  //   vm.onSubmit = function () {
+  //     console.log('Placing Order');
+  //     console.log(vm.newOrder);
+  //     functionService
+  //       .placeOrder(vm.newOrder)
+  //       .error(function(err){
+  //         alert(err);
+  //       })
+  //       .then(function(){
+  //         $location.path('orders');
+  //       });
+  //   };
 
   }
 

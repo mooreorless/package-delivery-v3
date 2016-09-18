@@ -18,7 +18,7 @@ router.post('/register', ctrlFunctions.register);
 router.post('/login', ctrlFunctions.login);
 
 //orders
-router.post('/orders', ctrlFunctions.placeOrder);
+router.get('/orders', ctrlFunctions.getUserOrders);
 router.post('/orders/new', ctrlFunctions.placeOrder);
 
 module.exports = router;

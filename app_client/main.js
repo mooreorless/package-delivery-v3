@@ -26,7 +26,7 @@
       })
       .when('/orders/new', {
         templateUrl: '/orders/newOrder.view.html',
-        controller: 'OrderCtrl',
+        controller: 'newOrderCtrl',
         controllerAs: 'vm'
       })
       .otherwise({redirectTo: '/login'});
