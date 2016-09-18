@@ -23,7 +23,6 @@
     };
 
     vm.onSubmit = function () {
-      functionService.register(null);
       console.log('Placing Order');
       console.log(vm.newOrder);
       functionService
