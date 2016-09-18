@@ -4,8 +4,8 @@
     .module('packageDelivery')
     .controller('OrderCtrl', OrderCtrl);
 
-  OrderCtrl.$inject = ['$location', '$scope', 'authentication'];
-  function OrderCtrl($location, $scope, authentication) {
+  OrderCtrl.$inject = ['$location', '$scope', 'functionService'];
+  function OrderCtrl($location, $scope, functionService) {
     
     $scope.orders = [{
       id: '12442',
