@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="packageDelivery">
+<head>
+  <title>On the Spot</title>
+  <base href="/">
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <!-- material design font & icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <!-- Bootstrap Paper -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css">
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular/angular-route.min.js"></script>
+  <script src="app.min.js"></script>
+</head>
+<body id ="bootstrap-overrides">
+  <div ng-hide="hideTopBar()">
+    <div class="container-fluid">
+      <div class="row search-bar">
+        <div class="container">
+          <div class="search-bar">
+            <form id="search-form">  
+              <i class="material-icons search-icon">search</i><input class="search" type="text" placeholder="Search by package ID, customer, order">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 top-bar">
+        <ul class="nav nav-tabs">
+          <li ng-class="{active: isActive('/user')}">
+            <a href="login" data-toggle="tab">PROFILE</a>
+          </li>
+          <li ng-class="{active: isActive('/orders')}">
+            <a href="orders" data-toggle="tab">ORDERS</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div ng-view></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<navigation></navigation>
+
+<div class="container">
+
+  <div class="row">
+          <form class='login-form' ng-submit='vm.onSubmit()'>
+      <div>
+        <label id='login-title'>Create Account</label>
+      </div>
+      <div class='row'>
+        <div class='col-md-6'>
+          <label class='control-label' for='focusedInput' >First Name</label>
+          <input class='form-control' id='firstName' type='text' placeholder='Peter' 
+          ng-model='vm.credentials.firstName'>
+        </div>
+        <div class='col-md-6'>
+          <label class='control-label' for='focusedInput' >Last Name</label>
+          <input class='form-control' id='lastName' type='text' placeholder='Griffin' 
+          ng-model='vm.credentials.lastName'>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <label class='control-label' for='focusedInput' >Email Address</label>
+          <input class='form-control' id='email' type='text' placeholder='someone@example.com' 
+          ng-model='vm.credentials.email'>
+        </div>
+      </div>
+      <div class ='row'>
+        <div class = 'col-md-6'>
+          <label class='control-label' for='focusedInput'>Password</label>
+          <input class='form-control' id='password' type='password' placeholder='**********' 
+          ng-model='vm.credentials.password'>
+        </div>
+      </div>
+      <div class = 'row'>
+        <div class = 'col-md-1'>
+          <label class='control-label' for='focusedInput'>Number</label>
+          <input class='form-control' id='streetNumber' type='text' placeholder='1' ng-model='vm.credentials.streetNumber'>
+        </div>
+        <div class = 'col-md-5'>
+          <label class='control-label' for='focusedInput'>Street</label>
+          <input class='form-control' id='streetName' type='text' placeholder='Spooner Street' 
+          ng-model='vm.credentials.streetName'>
+        </div>
+        <div class = 'col-md-4'>
+          <label class='control-label' for='focusedInput'>Suburb</label>
+          <input class='form-control' id='suburb' type='text' placeholder='Rhode Island'
+          ng-model='vm.credentials.suburb'>
+        </div>
+        <div class = 'col-md-2'>
+          <label class='control-label' for='focusedInput'>Post Code</label>
+          <input class='form-control' id='postCode' type='text' placeholder='4000'
+          ng-model='vm.credentials.postCode'>
+        </div>
+      </div>
+      <!-- <div class='row'> -->
+        <button class='login-button col-md-3 col-xs-12 btn btn-primary btn-lg' type="submit">
+          <a href=''>CREATE ACCOUNT</a>
+        <!-- </button> -->
+      </button>
+    </form>
+    </div>
+  </div>
+
+</div>

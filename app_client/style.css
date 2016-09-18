@@ -1,0 +1,144 @@
+* {
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+/*tabs bar*/
+.top-bar{
+	background-color: #10C3A2;
+	box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 4px 4px 0 rgba(0,0,0,0.24);
+}
+
+/*inactive nav items*/
+.nav-tabs > li{
+	float: none;
+	display: inline-block;
+	color: #ffae00;
+	border-bottom: none !important;
+}
+
+/*active nav items*/
+.nav-tabs > li > a{
+	font-size: 14px;
+	color: rgba(255,255,255,0.70);
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+	/*border: none !important;*/
+}
+
+/*nav hovering*/
+.nav-tabs > li > a:hover{
+	font-size: 14px;
+	color: rgba(255,255,255,0.70);
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+	/*border: none !important;*/
+}
+
+/*nav tabs general style (need for centering them)*/
+.nav-tabs{
+	text-align: center;
+	border-bottom: none !important;
+}
+
+/*current tab*/
+#bootstrap-overrides .active > a{
+	font-size: 14px;
+	letter-spacing: 0.5px;
+	color: white;
+	box-shadow: inset 0 -2px 0 #ffae00;
+}
+
+/*styling for form layout*/
+.form-wrapper{
+	/*flex-direction: column;*/
+	margin-top: 20vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*login form width*/
+.login-form{
+	width: 45vw;
+}
+
+/**/
+#bootstrap-overrides .form-control{
+	/*-webkit-box-shadow: inset 0 -1px 0 #ffae00;*/
+}
+
+#bootstrap-overrides .btn-primary{
+	background-color: #10C3A2;
+	color: white;
+}
+
+/*login button formatting*/
+.login-button{
+	text-align: right;
+	margin-top: 15px;
+}
+
+/*password reset link formatting*/
+.reset-link{
+	margin-top: 25px;
+	padding-left: 30px;
+}
+
+/*reset link coloured text*/
+.reset-link a{
+	color: #ffae00;
+}
+
+/*search bar formatting*/
+.search-bar{
+	height: 40px;
+	background-color: #10C3A2;
+	color: white;
+	align-items: center;
+}
+
+/*search input*/
+.search{
+	background-color: transparent;
+	color: white;
+	border: none;
+	width: 90%;
+	box-shadow: none !important;
+	vertical-align: -30%;
+	-webkit-box-shadow: none !important;
+}
+
+.search:focus{
+	outline: none;
+}
+
+/*search input placeholder*/
+::-webkit-input-placeholder{
+	color: white;
+	font-size: 13px;
+}
+
+/*search icon aligning*/
+.search-icon{
+	vertical-align: -60%;
+	margin-right: 10px;
+}
+
+
+.form-control{
+	margin-bottom: 10px;
+}
+
+#login-title{
+	width: 75vw;
+	margin-bottom: 25px;
+	display: block;
+	text-align: left;
+	font-size: 40px;
+}
+
+
+
