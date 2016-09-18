@@ -4,8 +4,8 @@
     .module('packageDelivery')
     .controller('registerCtrl', registerCtrl);
 
-  registerCtrl.$inject = ['$location', 'authentication'];
-  function registerCtrl($location, authentication) {
+  registerCtrl.$inject = ['$location', 'functionService'];
+  function registerCtrl($location, functionService) {
     var vm = this;
 
     vm.credentials = {
@@ -18,11 +18,11 @@
       suburb: "lol",
       postCode: "4051"
     };
-
+    
     vm.onSubmit = function () {
       console.log('Submitting registration');
       console.log(vm.credentials);
-      authentication
+      functionService
         .register(vm.credentials)
         .error(function(err){
           alert(err);

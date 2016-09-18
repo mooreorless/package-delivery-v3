@@ -2,10 +2,10 @@
 
   angular
     .module('packageDelivery')
-    .service('authentication', authentication);
+    .service('functionService', functionService);
 
-  authentication.$inject = ['$http', '$window'];
-  function authentication ($http, $window) {
+  functionService.$inject = ['$http', '$window'];
+  function functionService ($http, $window) {
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
@@ -45,6 +45,7 @@
     };
 
     register = function(user) {
+      console.log('register being called');
       return $http.post('/api/register', user).success(function(data){
         saveToken(data.token);
       });
@@ -60,6 +61,22 @@
       $window.localStorage.removeItem('mean-token');
     };
 
+    placeOrder = function(order){
+      console.log('calling placeOrder');
+      return $http.post('/api/orders/new', order).success(function(data){
+        console.log(data);
+        console.log('finished posting to new order');
+      });
+    };
+
+    getUserOrders = function(user){
+      console.log(user);
+      console.log('calling get user on the front end');
+      return $http.get('/api/orders', {params: {user : user}}).success(function(data){
+        console.log(data);
+      });
+    };
+
     return {
       currentUser : currentUser,
       saveToken : saveToken,
@@ -67,7 +84,9 @@
       isLoggedIn : isLoggedIn,
       register : register,
       login : login,
-      logout : logout
+      logout : logout,
+      placeOrder: placeOrder,
+      getUserOrders: getUserOrders
     };
   }
 

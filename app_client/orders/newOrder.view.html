@@ -1,13 +1,14 @@
-<div class='container' ng-controller=''>
+<div class='container' ng-controller='newOrderCtrl'>
   <div class='form-wrapper'>
-    <form class='login-form'>
+    <form class='login-form' ng-submit='vm.onSubmit()'>
       <div>
         <label id='login-title'>Place an order for pickup</label>
       </div>
       <div class='row'>
         <div class='col-lg-12'>
           <label for="pickupAddress">Pickup Address</label>
-          <input type="text" class="form-control" id="pickupAddress" placeholder="1 Spooner St, Rhode Island">
+          <input type="text" class="form-control" id="pickUp" placeholder="1 Spooner St, Rhode Island"
+          ng-model='vm.newOrder.pickUp'>
           <div class='col-lg-12'>         
           </div>
         </div>
@@ -15,26 +16,29 @@
       <div class='row'>
         <div class='col-lg-12'>
             <label for="deliveryAddress">Delivery Address</label>
-            <input type="text" class="form-control" id="deliveryAddress" placeholder="1 Renoops St, Rhode Island">
+            <input type="text" class="form-control" id="dropOff" placeholder="1 Renoops St, Rhode Island"
+            ng-model='vm.newOrder.dropOff'>
         </div>
       </div>
-      <div class='row'>
+<!--       <div class='row'>
             <div class="col-lg-12">
               <label for="datepicker">Date of pickup</label>
               <input type="text" class="form-control" id="datepicker" placeholder="07/11/2016">
             </div>
-      </div>
+      </div> -->
+      <!-- </div> -->
       <div class='row'>
             <div class="col-lg-12">
               <label for="extraInfo">Anything extra to tell our driver?</label>
-              <textarea class="form-control" rows="1" id="extraInfo" placeholder="Beware of the dog"></textarea>
+              <textarea class="form-control" rows="1" id="notes" placeholder="Beware of the dog"
+              ng-model='vm.newOrder.notes'></textarea>
             </div>
       </div>         
        <div class='row'>
             <div class="col-lg-9">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> My parcel is fragile or valuable
+                  <input type="checkbox" ng-model='vm.newOrder.isFragile'> My parcel is fragile or valuable
                 </label>
               </div>
             </div>
@@ -43,16 +47,15 @@
             <div class="col-lg-9">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> I would like express delivery 
+                  <input type="checkbox" ng-model='vm.newOrder.isExpress'> I would like express delivery 
                   <sup class='delivery-tooltip' data-toggle="tooltip" data-placement="right" title="Your package will be picked up &amp; delivered on the same day.">?</sup>
                 </label>
               </div>
             </div>
       </div>
-      <div class='row'>
-        <div class='login-button col-md-12 col-xs-12'><a href='' class='btn btn-primary btn-lg' 
-        ng-click='testUser()'>PLACE ORDER</a></div>
-      </div>
+        <button class='login-button col-md-3 col-xs-12 btn btn-primary btn-lg' type="submit">
+          PLACE ORDER
+      </button>
       <script>
         $( function() {
           $( "#datepicker" ).datepicker();

@@ -15,13 +15,17 @@ var orders = new mongoose.Schema({
     type: String,
     required: true
   },
+  notes: {
+    type: String,
+    required: false
+  },
   isFragile: {
     type: Boolean,
-    required: true
+    required: false
   },
   isExpress: {
     type: Boolean,
-    required: true
+    required: false
   },
   state: {
     type: String,

@@ -4,8 +4,8 @@
   .module('packageDelivery')
   .controller('loginCtrl', loginCtrl);
 
-  loginCtrl.$inject = ['$location', 'authentication'];
-  function loginCtrl($location, authentication) {
+  loginCtrl.$inject = ['$location', 'functionService'];
+  function loginCtrl($location, functionService) {
     var vm = this;
 
     vm.credentials = {
@@ -15,7 +15,7 @@
 
     vm.onSubmit = function () {
       console.log("submitting login");
-      authentication
+      functionService
         .login(vm.credentials)
         .error(function(err){
           alert(err);
