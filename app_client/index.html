@@ -57,7 +57,7 @@
             <a ng-hide ='vm.isLoggedIn()'href='orders/new' class='btn btn-warning btn-lg'><i class="material-icons account-icon">add</i>NEW ORDER</a>
           </li>
           <li ng-class="{active: isActive('/orders')}">
-            <a href='login' ng-click='logout()' class='btn btn-danger btn-lg'><i class="material-icons account-icon">exit_to_app</i>LOG OUT</a>
+            <a ng-hide='vm.isLoggedIn()' href='login' ng-click='logout()' class='btn btn-danger btn-lg'><i class="material-icons account-icon">exit_to_app</i>LOG OUT</a>
           </li>
         </ul>
       </div>
