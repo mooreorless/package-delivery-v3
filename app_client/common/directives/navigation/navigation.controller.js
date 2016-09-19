@@ -12,6 +12,11 @@
 
     vm.currentUser = functionService.currentUser();
 
+    var logout = function(){
+		functionService.logout();
+		console.log('logging out');
+    };
+
   }
 
 })();

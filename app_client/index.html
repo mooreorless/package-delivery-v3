@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="packageDelivery">
+<html lang="en" ng-app="packageDelivery" ng-controller='navigationCtrl'>
 <head>
   <meta charset="UTF-8">
   <base href="/">
@@ -48,13 +48,20 @@
       <div class="col-md-12 top-bar">
         <ul class="nav nav-tabs">
           <li ng-class="{active: isActive('/user')}">
-            <a href="login" data-toggle="tab"><i class="material-icons account-icon">account_box</i>PROFILE</a>
+            <a href="profile" data-toggle="tab"><i class="material-icons account-icon">account_box</i>PROFILE</a>
           </li>
           <li ng-class="{active: isActive('/orders')}">
             <a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>MY ORDERS</a>
           </li>
+          <li ng-class="{active: isActive('/orders')}">
+            <a ng-hide ='vm.isLoggedIn()'href='orders/new' class='btn btn-warning btn-lg'><i class="material-icons account-icon">add</i>NEW ORDER</a>
+          </li>
+          <li ng-class="{active: isActive('/orders')}">
+            <a href='login' ng-click='logout()' class='btn btn-danger btn-lg'><i class="material-icons account-icon">exit_to_app</i>LOG OUT</a>
+          </li>
         </ul>
       </div>
+      <button>
     </div>
   </div>
   <div class="tab-content">

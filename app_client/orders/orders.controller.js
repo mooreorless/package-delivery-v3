@@ -4,43 +4,16 @@
     .module('packageDelivery')
     .controller('OrderCtrl', OrderCtrl);
 
-  OrderCtrl.$inject = ['$location', '$scope', 'functionService'];
-  function OrderCtrl($location, $scope, functionService) {
-    
-    $scope.orders = [{
-      id: '12442',
-      destination: '78 Bel-air Ct, Hollywood',
-      progress: '15%',
-      express: 'true',
-      valuable: '0'
-    },
-    {
-      id: '12443',
-      destination: '12 Ballin St, Jimboomba',
-      progress: '40%',
-      express: 'true',
-      valuable: 'true'
-    },
-    {
-      id: '12444',
-      destination: '69 Kuakrahm St, Bauls',
-      progress: '65%',
-      express: 'false',
-      valuable: 'true'
-    },
-    {
-      id: '12445',
-      destination: '123 Fake St, Springfield',
-      progress: '100%',
-      express: 'false',
-      valuable: 'false'
-    }];
+  OrderCtrl.$inject = ['$location', '$scope', '$rootScope', 'functionService'];
+  function OrderCtrl($location, $scope, $rootScope, functionService) {
 
     var vm = this;
 
     vm.isLoggedIn = functionService.isLoggedIn();
 
     vm.currentUser = functionService.currentUser();
+
+ 
 
     // console.log(vm.currentUser);
 
@@ -55,6 +28,8 @@
         })
         .then(function(){
           $location.path('orders');
+          console.log('finished getting orders');
+          $scope.orders = functionService.loadOrders();
         });
 
   //   vm.newOrder = {

@@ -9,16 +9,16 @@
     var vm = this;
 
     vm.credentials = {
-      firstName : "Chris",
-      lastName : "Martin",
-      email : "lol@test.com",
-      password: "lol",
-      streetNumber: "4",
-      streetName: "lol street",
-      suburb: "lol",
-      postCode: "4051"
+      firstName : "",
+      lastName : "",
+      email : "",
+      password: "",
+      streetNumber: "",
+      streetName: "",
+      suburb: "",
+      postCode: ""
     };
-    
+
     vm.onSubmit = function () {
       console.log('Submitting registration');
       console.log(vm.credentials);

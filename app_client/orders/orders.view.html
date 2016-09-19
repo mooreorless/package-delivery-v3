@@ -7,10 +7,13 @@
   <div class='row' ng-repeat='order in orders'>
     <div class='col-md-8 card-container'>
       <span class='float-right'><a href=''><i class="material-icons">delete_forever</i></span></a>
-      <h5 class='card-order-id'><b>Order ID# {{order.id}}</b></h5>
-      <p class='card-dest-text'>Destination: {{order.destination}}</p>
+      <h5 class='card-order-id'><b>Order ID# {{order._id}}</b></h5>
+      <p>
+        <span class='card-dest-text'><strong>Pick Up</strong>: {{order.pickUp}}</span>
+        <span class='card-dest-text'><strong>Destination</strong>: {{order.dropOff}}</span>
+      </p>
       <div class="progress progress-striped">
-        <div class="progress-bar progress-bar-success" style="width: {{order.progress}}"></div>
+        <div class="progress-bar progress-bar-success" style="width: 15%"></div>
       </div>
         <div class='col-sm-3 status-text-center'>
           <p>Order placed</p>

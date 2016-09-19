@@ -4,8 +4,8 @@
     .module('packageDelivery')
     .controller('newOrderCtrl', newOrderCtrl);
 
-  newOrderCtrl.$inject = ['$location','functionService'];
-  function newOrderCtrl($location, functionService) {
+  newOrderCtrl.$inject = ['$location', '$rootScope','functionService'];
+  function newOrderCtrl($location, $rootScope, functionService) {
     var vm = this;
 
     vm.isLoggedIn = functionService.isLoggedIn();
@@ -22,6 +22,10 @@
     state: 'new'
     };
 
+    vm.redirect = function(){
+      $location.path('orders');
+    };
+
     vm.onSubmit = function () {
       console.log('Placing Order');
       console.log(vm.newOrder);
@@ -32,10 +36,7 @@
             alert(err);
           }
         })
-        .then(function(){
-          console.log('calling new order callback');
-          $location.path('orders');
-        });
+        .then(vm.redirect());
     };
 
   }

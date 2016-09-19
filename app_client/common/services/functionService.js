@@ -7,6 +7,8 @@
   functionService.$inject = ['$http', '$window'];
   function functionService ($http, $window) {
 
+    var orders;
+
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
       console.log(token);
@@ -70,11 +72,14 @@
     };
 
     getUserOrders = function(user){
-      console.log(user);
-      console.log('calling get user on the front end');
       return $http.get('/api/orders', {params: {user : user}}).success(function(data){
         console.log(data);
+        orders = data;
       });
+    };
+
+    loadOrders = function(){
+      return orders;
     };
 
     return {
@@ -86,7 +91,9 @@
       login : login,
       logout : logout,
       placeOrder: placeOrder,
-      getUserOrders: getUserOrders
+      getUserOrders: getUserOrders,
+      orders: orders,
+      loadOrders: loadOrders
     };
   }
 
