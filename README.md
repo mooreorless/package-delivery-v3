@@ -3,6 +3,10 @@
 ## Build process
 - Clone repo
 - cd into repo directory
+
+Install git-flow: check out docs here
+http://danielkummer.github.io/git-flow-cheatsheet/
+
 - npm i
 - npm i gulp -g
 - gulp
