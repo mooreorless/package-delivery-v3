@@ -3,7 +3,7 @@ var gracefulShutdown;
 // var dbURI = 'mongodb://admin:admin@ds019746.mlab.com:19746/deliverydb';
 
 // Heroku connection
-var dbURI = 'mongodb://admin:admin@ds035826.mlab.com:35826/heroku_1tt33bgj';
+var dbURI = 'mongodb://heroku_1tt33bgj:em003080#77@ds035826.mlab.com:35826/heroku_1tt33bgj';
 
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGOLAB_URI;
