@@ -13,3 +13,6 @@ http://danielkummer.github.io/git-flow-cheatsheet/
 - npm start 
 
 # If you make a change on your branch - run gulp && npm start
+
+
+https://onthespot-production.herokuapp.com
