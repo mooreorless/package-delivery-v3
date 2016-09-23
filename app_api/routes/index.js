@@ -11,14 +11,14 @@ var ctrlFunctions = require('../controllers/functionService');
 
 
 // profile
-router.get('/profile', auth, ctrlProfile.profileRead);
+router.get('app/profile', auth, ctrlProfile.profileRead);
 
 // authentication
-router.post('/register', ctrlFunctions.register);
-router.post('/login', ctrlFunctions.login);
+router.post('app/register', ctrlFunctions.register);
+router.post('app/login', ctrlFunctions.login);
 
 //orders
-router.get('/orders', ctrlFunctions.getUserOrders);
-router.post('/orders/new', ctrlFunctions.placeOrder);
+router.get('app/orders', ctrlFunctions.getUserOrders);
+router.post('app/orders/new', ctrlFunctions.placeOrder);
 
 module.exports = router;
