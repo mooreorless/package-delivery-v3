@@ -20,7 +20,8 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 router.post('/register', ctrlFunctions.register);
 router.post('/login', ctrlFunctions.login);
 
-//orders
+// orders
+// add in auth middleware
 router.get('/orders', ctrlFunctions.getUserOrders);
 router.post('/orders/new', ctrlFunctions.placeOrder);
 
