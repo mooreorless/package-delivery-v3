@@ -9,9 +9,9 @@ Whilst in repo:
 Git-Flow howto:
 http://danielkummer.github.io/git-flow-cheatsheet/
 
+Make your own branch - git flow feature start "branch-name"
+
 Run:
 - gulp && npm start
-
-# If you make a change on your branch - run gulp && npm start
 
 https://onthespot-production.herokuapp.com
