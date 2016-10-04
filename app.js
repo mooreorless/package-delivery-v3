@@ -14,13 +14,13 @@ var routesApi = require('./server/routes');
 
 var app = express();
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/assets/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Serves static assets
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'assets')));
 // Serves angular
 app.use(express.static(path.join(__dirname, 'client')));
 
