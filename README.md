@@ -2,17 +2,16 @@
 
 ## Build process
 - Clone repo
-- cd into repo directory
+Whilst in repo:
+    - Run npm i
+    - Install git flow
 
-Install git-flow: check out docs here
+Git-Flow howto:
 http://danielkummer.github.io/git-flow-cheatsheet/
 
-- npm i
-- npm i gulp -g
-- gulp
-- npm start 
+Run:
+- gulp && npm start
 
 # If you make a change on your branch - run gulp && npm start
-
 
 https://onthespot-production.herokuapp.com
