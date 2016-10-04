@@ -3,14 +3,12 @@
 ## Build process
 - Clone repo
 Whilst in repo:
-    - Run npm i
-    - Install git flow
-
-Git-Flow howto:
-http://danielkummer.github.io/git-flow-cheatsheet/
+    - Run ```npm i```
+    - Install git flow [Guide] http://danielkummer.github.io/git-flow-cheatsheet/
+    - Enable git flow ```git flow init``` 
 
 Make your own branch
- ```bash git flow feature start "branch-name" ```
+```git flow feature start "branch-name" ```
 
 Run:
 - gulp && npm start
