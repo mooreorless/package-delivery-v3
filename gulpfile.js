@@ -1,18 +1,14 @@
-var gulp    = require('gulp');
+var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify  = require('gulp-uglify');
 var watch = require('gulp-watch');
-var sourcemaps = require('gulp-sourcemaps');
 var ngHtml2Js = require("gulp-ng-html2js");
 
 gulp.task('scripts', function() {
   gulp.src(['./client/**/*.js', '!./client/**/*.test.js', '!./client/app.min.js'])
-    .pipe(sourcemaps.init())
-      .pipe(concat('./app.min.js'))
-      .pipe(uglify({mangle: true}))
-      .pipe(gulp.dest('client'))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('client'));
+		.pipe(concat('./app.min.js'))
+		.pipe(uglify({mangle: true}))
+		.pipe(gulp.dest('client'))
 });
 
 gulp.task('watch', function() {

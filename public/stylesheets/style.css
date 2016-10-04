@@ -1,8 +1,337 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+/*tabs bar*/
+.top-bar{
+	background-color: #10C3A2;
+	box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 4px 4px 0 rgba(0,0,0,0.24);
+}
+
+/*inactive nav items*/
+.nav-tabs > li{
+	float: none;
+	display: inline-block;
+	color: #ffae00;
+	border-bottom: none !important;
+}
+
+/*active nav items*/
+.nav-tabs > li > a{
+	font-size: 14px;
+	color: rgba(255,255,255,0.70);
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+	/*border: none !important;*/
+}
+
+/*nav hovering*/
+.nav-tabs > li > a:hover{
+	font-size: 14px;
+	color: white;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+	/*border: none !important;*/
+}
+
+.nav-tabs > li > a:focus:hover{
+	font-size: 14px;
+	color: white;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+	/*border: none !important;*/
+}
+
+.nav-tabs > li > a:focus{
+	font-size: 14px;
+	color: white;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: inset 0 -2px 0 #FFAE00;
+	/*border: none !important;*/
+}
+
+.nav-tabs > li > a:active{
+	font-size: 14px;
+	color: rgba(255,255,255,0.70);
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: inset 0 -2px 0 #FFAE00;
+	/*border: none !important;*/
+}
+
+/*nav tabs general style (need for centering them)*/
+.nav-tabs{
+	text-align: center;
+	border-bottom: none !important;
+}
+
+/*current tab*/
+#bootstrap-overrides .active > a{
+	font-size: 14px;
+	letter-spacing: 0.5px;
+	color: white;
+	box-shadow: inset 0 -2px 0 #ffae00;
+}
+
+/*styling for form layout*/
+.form-wrapper{
+	/*flex-direction: column;*/
+	margin-top: 20vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*styling for form layout*/
+.account-form-wrapper{
+	/*flex-direction: column;*/
+	margin-top: 5vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*login form width*/
+.login-form{
+	width: 45vw;
+}
+
+/*user form width*/
+.user-form{
+	width: 40vw;
+	align-items: center;
+}
+
+
+/**/
+#bootstrap-overrides .form-control{
+	/*-webkit-box-shadow: inset 0 -1px 0 #ffae00;*/
+}
+
+#bootstrap-overrides input[type=text]:focus{
+	-webkit-box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+#bootstrap-overrides input[type=password]:focus{
+	-webkit-box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+#bootstrap-overrides textarea:focus{
+	-webkit-box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+#bootstrap-overrides input[type=checkbox]:checked:after{
+	background-color: #FFAE00;
+	border-color: #FFAE00;
+}
+
+#bootstrap-overrides input[type=checkbox]:after{
+	border-color: #666666;
+}
+
+/**/
+#bootstrap-overrides .form-control{
+	
+}
+
+.btn-primary:active {
+    background-color: #10C3A2;
+    background-image: -webkit-radial-gradient(circle, #10C3A2 10%, #10C3A2 11%);
+    background-image: -o-radial-gradient(circle, #10C3A2 10%, #10C3A2 11%);
+    background-image: radial-gradient(circle, #10C3A2 10%, #10C3A2 11%);
+    background-repeat: no-repeat;
+    -webkit-background-size: 1000% 1000%;
+    background-size: 1000% 1000%;
+    -webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+/*login button formatting*/
+#bootstrap-overrides .btn-primary{
+	background-color: #10C3A2;
+	color: white;
+}
+
+/*login button formatting*/
+.login-button{
+	text-align: right;
+	margin-top: 15px;
+	margin-bottom: 5em;
+}
+
+/*password reset link formatting*/
+.reset-link{
+	margin-top: 25px;
+	padding-left: 30px;
+}
+
+/*reset link coloured text*/
+.reset-link a{
+	color: #ffae00;
+}
+
+/*search bar formatting*/
+.search-bar{
+	height: 40px;
+	background-color: #10C3A2;
+	color: white;
+	align-items: center;
+}
+
+/*search input*/
+.search{
+	background-color: transparent;
+	color: white;
+	border: none;
+	width: 90%;
+	box-shadow: none !important;
+	vertical-align: -30%;
+	-webkit-box-shadow: none !important;
+}
+
+.col{
+	display: inline-block;
+	padding: 10px;
+	vertical-align: text-top;
+}
+
+.search:focus{
+	outline: none;
+}
+
+/*search input placeholder*/
+::-webkit-input-placeholder{
+	color: white;
+	font-size: 13px;
+}
+
+/*search icon aligning*/
+.search-icon{
+	vertical-align: -60%;
+	margin-right: 10px;
+}
+
+.account-icon{
+	vertical-align: -30%;
+	margin-right: 0.3em;
+	font-size: 18px;
+}
+
+.arrow-icon{
+	vertical-align: -10%;
+	margin-right: 0.3em;
+	font-size: 18px;
+}
+
+.express-icon{
+	color: #E57373;
+}
+
+.valuable-icon{
+	color: #FF6D00;
+}
+
+.form-control{
+	margin-bottom: 10px;
+}
+
+#login-title{
+	width: 75vw;
+	margin-bottom: 25px;
+	display: block;
+	text-align: left;
+	font-size: 40px;
+}
+
+#user-title{
+	width: 75vw;
+	margin-bottom: 10px;
+	display: block;
+	text-align: left;
+	font-size: 20px;
+}
+
+.card-container {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	margin-left: 20%;
+	padding: 2em;
+	padding-bottom: 0em;
+	margin-top: 2em;
+	position: relative;
+	box-shadow: 0px 3px 6px -4px black;
+}
+
+/*Order Number and Address*/
+.order-container {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	margin-left: 20%;
+	padding: 1em;
+	padding-bottom: 0em;
+	margin-top: 2em;
+	position: relative;
+	box-shadow: 0px 3px 6px -4px black;		
+	text-align: left;	
+}
+
+/*Progress Panel*/
+.div-panel {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	margin-left: 20%;
+	padding: 2em;
+	padding-bottom: 0em;
+	margin-top: 0em;
+	position: relative;
+	box-shadow: 0px 3px 6px -4px black;
+	background-color: transparent;	
+	display:block;	
+}
+
+.card-order-id {
+	display: inline-block;	
+	font-size: 17px;	
+}
+
+.float-right {
+	float: right;
+}
+
+/*OrderState*/
+.status-text-center {
+	text-align: center;
+	padding: 0;
+}
+
+/*OrderStateButton*/
+.status-text-button {
+	text-align: center;
+	padding: 0;
+	background-color: transparent;
+	border: none;
+	position: relative;
+	outline-color: #10C3A2;	
+}
+
+.status-text-button:active {
+	/*Need to get current time and date and update progress*/	
+}
+
+.orders-search {
+	margin-left: 20%;
+	padding-top: 2em;
 }
 
 a {
-  color: #00B7FF;
+	color: rgba(0, 0, 0, 0.2);
+}
+
+a:hover {
+	color: rgba(0, 0, 0, 0.4);
 }

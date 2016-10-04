@@ -1,13 +1,12 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-// var dbURI = 'mongodb://admin:admin@ds019746.mlab.com:19746/deliverydb';
 
 // Heroku connection
 var dbURI = 'mongodb://admin:admin@ds035816.mlab.com:35816/heroku_mlqnlrcw';
 
 mongoose.connect(dbURI);
 
-// CONNECTION EVENTS
+
 mongoose.connection.on('connected', function() {
   console.log('Mongoose connected to ' + dbURI);
 });
@@ -45,6 +44,6 @@ process.on('SIGTERM', function() {
   });
 });
 
-// BRING IN YOUR SCHEMAS & MODELS
+// Load models
 require('./users');
 require('./orders');

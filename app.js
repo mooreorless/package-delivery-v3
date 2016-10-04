@@ -6,11 +6,11 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 
 // Load api models and auth
-require('./app_api/models/db');
-require('./app_api/config/passport');
+require('./server/models/db');
+require('./server/config/passport');
 
 // Load api endpoints
-var routesApi = require('./app_api/routes/index');
+var routesApi = require('./server/routes');
 
 var app = express();
 
