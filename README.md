@@ -9,7 +9,8 @@ Whilst in repo:
 Git-Flow howto:
 http://danielkummer.github.io/git-flow-cheatsheet/
 
-Make your own branch - git flow feature start "branch-name"
+Make your own branch
+ ```bash git flow feature start "branch-name" ```
 
 Run:
 - gulp && npm start
