@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-		"build:js": "uglifyjs ./client/**/*.js --ignore='./client/app.min.js' --mangle --output ./client/app.min.js"
+    "clean": "rm -f ./client/app.min.js",
+    "gulp": "gulp scripts",
+    "build:js": "npm run gulp",
+    "watch:all": "nodemon --watch ./client",
+    "dev": "npm run clean && npm run build:js && npm run watch:all && npm start"
   },
   "engines": {
     "node": "4.4.7"
@@ -22,6 +26,10 @@
     "serve-favicon": "~2.2.0"
   },
   "devDependencies": {
-    "uglify-js": "^2.7.3"
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^2.0.0",
+    "nodemon": "^1.10.2"
   }
 }
