@@ -14,7 +14,7 @@
 		
 		
 		
-		<div ng-if ="{{orders.express}}"> 
+		<div ng-if ="{{orders.express}}">
 			<span class='float-right'><i class="material-icons express-icon">directions_run</i></span>
 		</div>
 		
@@ -22,7 +22,7 @@
 			<span class='float-right'> <i class="material-icons valuable-icon">broken_image</i></span>
 		</div>
 		
-		<p <h5 class='card-order-id'><b>Order ID# {{order.id}}</b></h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small>Destination: {{order.destination}}</small> </p>
+		<p> <h5 class='card-order-id'><b>Order ID# {{order.id}}</b></h5><small>Destination: {{order.destination}}</small> </p>
 		<input class='float-right' type="checkbox" ng-model="myVar" ng-init="myVar = false">
 	</div>
 	

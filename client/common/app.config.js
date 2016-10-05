@@ -30,7 +30,7 @@
         controllerAs: 'vm'
       })
 			//change to driver/orders
-      .when('/driverorders', {
+      .when('/driver/orders', {
         templateUrl: '/driverorders.view.html',
         controller: 'OrderCtrl',
         controllerAs: 'vm'

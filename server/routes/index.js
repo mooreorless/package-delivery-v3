@@ -22,7 +22,7 @@ router.post('/login', ctrlFunctions.login);
 
 // orders
 // add in auth middleware
-router.get('/orders', ctrlFunctions.getUserOrders);
-router.post('/orders/new', ctrlFunctions.placeOrder);
+router.get('/orders', auth, ctrlFunctions.getUserOrders);
+router.post('/orders/new', auth, ctrlFunctions.placeOrder);
 
 module.exports = router;

@@ -15,7 +15,7 @@
 
  
 
-    // console.log(vm.currentUser);
+    console.log(vm.currentUser);
 
     // functionService.getUserOrders(vm.currentUser.email);
 

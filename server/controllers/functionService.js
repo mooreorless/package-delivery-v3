@@ -1,5 +1,6 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
+
 var User = mongoose.model('User');
 var Order = mongoose.model('Order');
 
@@ -130,7 +131,7 @@ module.exports.placeOrder = function(req, res) {
 module.exports.getUserOrders = function(req, res){
   Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress', function (err, orders) {
     if (err) console.log(err);
-    console.log(orders); // Space Ghost is a talk show host.
+    console.log(orders);
     res.send(orders);
   });
 };

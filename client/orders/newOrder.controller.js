@@ -13,13 +13,13 @@
     vm.currentUser = functionService.currentUser();
 
     vm.newOrder = {
-    userID: vm.currentUser.email,
-    pickUp: '',
-    dropOff: '',
-    notes: '',
-    isFragile: '',
-    isExpress: '',
-    state: 'new'
+			userID: vm.currentUser.email,
+			pickUp: '',
+			dropOff: '',
+			notes: '',
+			isFragile: '',
+			isExpress: '',
+			state: 'new'
     };
 
     vm.redirect = function(){
