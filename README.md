@@ -11,6 +11,6 @@ Make your own branch
 ```git flow feature start "branch-name" ```
 
 Run:
-- ```gulp && npm run dev```
+- ```npm run dev```
 
 https://onthespot-production.herokuapp.com
