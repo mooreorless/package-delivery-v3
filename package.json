@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "dev": "node ./bin/www",
     "clean": "rm -f ./client/app.min.js",
     "gulp": "gulp scripts",
     "build:js": "npm run gulp",
     "watch:all": "nodemon --watch ./client",
-    "dev": "npm run clean && npm run build:js && npm run watch:all && npm start"
+    "start": "npm run clean && npm run build:js && npm run watch:all && npm run dev"
   },
   "engines": {
     "node": "4.4.7"
