@@ -29,7 +29,7 @@
 
         return payload.exp > Date.now() / 1000;
       } else {
-        return false;
+        return false; //above statement is expr anyway
       }
     };
 

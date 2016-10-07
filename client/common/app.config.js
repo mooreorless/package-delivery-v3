@@ -43,9 +43,26 @@
 
   function run($rootScope, $location, functionService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if ($location.path() === '/profile' && !functionService.isLoggedIn()) {
-        $location.path('/');
-      }
+
+    	if (!functionService.isLoggedIn()) {
+				switch ($location.path()) {
+					case '/profile':
+						console.log('login to view profile');
+						$location.path('/');
+						break;
+
+					case '/orders':
+						console.log('login to view orders');
+						console.log('if user is logged in message with watermark here');
+						$location.path('/');
+						break;
+
+					case '/orders/new':
+						console.log('login to make an order');
+						$location.path('/');
+						break;
+				}
+			}
     });
   }
   
