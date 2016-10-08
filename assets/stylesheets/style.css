@@ -259,7 +259,7 @@
 .card-container {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	border-radius: 2px;
-	margin-left: 20%;
+	/*margin-left: 20%;*/
 	padding: 2em;
 	padding-bottom: 0em;
 	margin-top: 2em;
