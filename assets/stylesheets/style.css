@@ -324,9 +324,19 @@
 }
 
 .orders-search {
-	margin-left: 20%;
-	padding-top: 2em;
+	font-size: 1.1em;
+	padding-top: 1em;
+	margin-top: 1em;
 }
+
+#bootstrap-overrides .form-control.order-search-bar {
+	box-shadow: none;
+}
+
+#bootstrap-overrides .form-control.order-search-bar:focus {
+	box-shadow: none;
+}
+
 
 a {
 	color: rgba(0, 0, 0, 0.2);
