@@ -65,6 +65,10 @@ packageUsers.methods.generateJwt = function() {
     _id: this._id,
     email: this.email,
     firstName: this.firstName,
+		streetNumber: this.streetNumber,
+		streetName: this.streetName,
+		suburb: this.suburb,
+		postCode: this.postCode,
     exp: parseInt(expiry.getTime() / 1000),
   }, SECRET.TOKEN_SECRET);
 };

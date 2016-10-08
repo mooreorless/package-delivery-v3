@@ -50,7 +50,7 @@ module.exports.register = function(req, res) {
     if (err){
       console.log(err);
     }
-    console.log('save being called');
+
     var token;
     token = user.generateJwt();
     res.status(200);
@@ -130,9 +130,12 @@ module.exports.placeOrder = function(req, res) {
 
 module.exports.getUserOrders = function(req, res){
   Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress', function (err, orders) {
-    if (err) console.log(err);
-    console.log(orders);
-    res.send(orders);
+    if (err) {
+    	res.status(404).json({ error: err });
+    	console.log(err);
+		} else {
+			res.send(orders);
+		}
   });
 };
 

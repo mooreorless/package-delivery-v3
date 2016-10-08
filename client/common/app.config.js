@@ -54,12 +54,12 @@
 					case '/orders':
 						console.log('login to view orders');
 						console.log('if user is logged in message with watermark here');
-						$location.path('/');
+						// $location.path('/');
 						break;
 
 					case '/orders/new':
 						console.log('login to make an order');
-						$location.path('/');
+						// $location.path('/');
 						break;
 				}
 			}

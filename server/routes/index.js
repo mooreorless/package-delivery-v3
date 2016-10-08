@@ -21,8 +21,8 @@ router.post('/register', ctrlFunctions.register);
 router.post('/login', ctrlFunctions.login);
 
 // orders
-// add in auth middleware
-router.get('/orders', auth, ctrlFunctions.getUserOrders);
+// removed auth middleware due to it clashing with the frontend
+router.get('/orders', ctrlFunctions.getUserOrders);
 router.post('/orders/new', auth, ctrlFunctions.placeOrder);
 
 module.exports = router;

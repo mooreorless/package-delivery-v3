@@ -22,12 +22,12 @@
     vm.onSubmit = function () {
       console.log('Submitting registration');
       console.log(vm.credentials);
-			toastr.error('fuck you', 'error');
 
 			functionService
         .register(vm.credentials)
         .error(function(err){
-          alert(err);
+        	toastr.error('Something went wrong, please try again', 'Error');
+					console.log(err);
         })
         .then(function(){
           $location.path('profile');
