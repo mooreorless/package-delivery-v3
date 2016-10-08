@@ -6,8 +6,8 @@
   </div>
   <div class='row' ng-repeat='order in orders'>
     <div class='col-md-8 card-container'>
-      <span class='float-right'><a href=''><i class="material-icons">delete_forever</i></span></a>
-      <h5 class='card-order-id'><b>Order ID# {{order._id}}</b></h5>
+      <span class='float-right'><i class="material-icons">delete_forever</i></span>
+      <h5 class='card-order-id'><strong>Order ID# {{order._id}}</strong></h5>
       <p>
         <span class='card-dest-text'><strong>Pick Up</strong>: {{order.pickUp}}</span>
         <span class='card-dest-text'><strong>Destination</strong>: {{order.dropOff}}</span>

@@ -4,22 +4,24 @@
     .module('packageDelivery')
     .controller('newOrderCtrl', newOrderCtrl);
 
-  newOrderCtrl.$inject = ['$location', '$rootScope','functionService'];
-  function newOrderCtrl($location, $rootScope, functionService) {
+  newOrderCtrl.$inject = ['$location', '$rootScope','functionService', 'toastr'];
+  function newOrderCtrl($location, $rootScope, functionService, toastr) {
     var vm = this;
 
     vm.isLoggedIn = functionService.isLoggedIn();
 
     vm.currentUser = functionService.currentUser();
 
+		var streetFull = vm.currentUser.streetNumber + ' ' + vm.currentUser.streetName;
+
     vm.newOrder = {
-    userID: vm.currentUser.email,
-    pickUp: '',
-    dropOff: '',
-    notes: '',
-    isFragile: '',
-    isExpress: '',
-    state: 'new'
+			userID: vm.currentUser.email,
+			pickUp: streetFull,
+			dropOff: '',
+			notes: '',
+			isFragile: '',
+			isExpress: '',
+			state: 'new'
     };
 
     vm.redirect = function(){
@@ -32,9 +34,7 @@
       functionService
         .placeOrder(vm.newOrder)
         .error(function(err){
-          if (err){
-            alert(err);
-          }
+					toastr.error(err, 'Error');
         })
         .then(vm.redirect());
     };

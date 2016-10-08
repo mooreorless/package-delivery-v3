@@ -1,5 +1,6 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
+
 var User = mongoose.model('User');
 var Order = mongoose.model('Order');
 
@@ -49,7 +50,7 @@ module.exports.register = function(req, res) {
     if (err){
       console.log(err);
     }
-    console.log('save being called');
+
     var token;
     token = user.generateJwt();
     res.status(200);
@@ -68,17 +69,17 @@ module.exports.login = function(req, res) {
   //   return;
   // }
 
-  passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', { failureFlash: true }, function(err, user, info){
     var token;
 
-    // If Passport throws/catches an error
+		// If Passport throws/catches an error
     if (err) {
       res.status(404).json(err);
       return;
     }
 
     // If a user is found
-    if(user){
+    if (user) {
       token = user.generateJwt();
       res.status(200);
       res.json({
@@ -129,9 +130,12 @@ module.exports.placeOrder = function(req, res) {
 
 module.exports.getUserOrders = function(req, res){
   Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress', function (err, orders) {
-    if (err) console.log(err);
-    console.log(orders); // Space Ghost is a talk show host.
-    res.send(orders);
+    if (err) {
+    	res.status(404).json({ error: err });
+    	console.log(err);
+		} else {
+			res.send(orders);
+		}
   });
 };
 

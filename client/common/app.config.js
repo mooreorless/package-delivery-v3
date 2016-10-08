@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('packageDelivery', ['ngRoute']);
+  angular.module('packageDelivery', ['ngRoute', 'toastr']);
 
   function config ($routeProvider, $locationProvider) {
     $routeProvider
@@ -30,7 +30,7 @@
         controllerAs: 'vm'
       })
 			//change to driver/orders
-      .when('/driverorders', {
+      .when('/driver/orders', {
         templateUrl: '/driverorders.view.html',
         controller: 'OrderCtrl',
         controllerAs: 'vm'
@@ -43,14 +43,31 @@
 
   function run($rootScope, $location, functionService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if ($location.path() === '/profile' && !functionService.isLoggedIn()) {
-        $location.path('/');
-      }
+
+    	if (!functionService.isLoggedIn()) {
+				switch ($location.path()) {
+					case '/profile':
+						console.log('login to view profile');
+						// $location.path('/'); added redirect in individual route instead
+						break;
+
+					case '/orders':
+						console.log('login to view orders');
+						console.log('if user is logged in message with watermark here');
+						// $location.path('/');
+						break;
+
+					case '/orders/new':
+						console.log('login to make an order');
+						// $location.path('/');
+						break;
+				}
+			}
     });
   }
   
   angular
-    .module('packageDelivery')
+    .module('packageDelivery', ['ngRoute', 'toastr'])
     .config(['$routeProvider', '$locationProvider', config])
     .run(['$rootScope', '$location', 'functionService', run]);
 

@@ -4,13 +4,14 @@
     .module('packageDelivery')
     .service('functionService', functionService);
 
-  functionService.$inject = ['$http', '$window'];
-  function functionService ($http, $window) {
+  functionService.$inject = ['$http', '$window', 'toastr', '$location'];
+  function functionService ($http, $window, toastr, $location) {
 
     var orders;
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
+			toastr.success('Login successful', 'Success');
       console.log(token);
     };
 
@@ -29,19 +30,23 @@
 
         return payload.exp > Date.now() / 1000;
       } else {
-        return false;
+        return false; //above statement is expr anyway
       }
     };
 
     var currentUser = function() {
-      if(isLoggedIn()){
+      if (isLoggedIn()) {
         var token = getToken();
         var payload = token.split('.')[1];
         payload = $window.atob(payload);
         payload = JSON.parse(payload);
         return {
           email : payload.email,
-          name : payload.firstName
+          name : payload.firstName,
+					streetNumber: payload.streetNumber,
+					streetName: payload.streetName,
+					suburb: payload.suburb,
+					postCode: payload.postCode
         };
       }
     };
