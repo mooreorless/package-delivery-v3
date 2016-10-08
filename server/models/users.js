@@ -66,7 +66,7 @@ packageUsers.methods.generateJwt = function() {
     email: this.email,
     firstName: this.firstName,
     exp: parseInt(expiry.getTime() / 1000),
-  }, SECRET.TOKEN_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  }, SECRET.TOKEN_SECRET);
 };
 
 mongoose.model('User', packageUsers);

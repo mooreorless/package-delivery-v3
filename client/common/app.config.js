@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('packageDelivery', ['ngRoute']);
+  angular.module('packageDelivery', ['ngRoute', 'toastr']);
 
   function config ($routeProvider, $locationProvider) {
     $routeProvider
@@ -48,7 +48,7 @@
 				switch ($location.path()) {
 					case '/profile':
 						console.log('login to view profile');
-						$location.path('/');
+						// $location.path('/'); added redirect in individual route instead
 						break;
 
 					case '/orders':
@@ -67,7 +67,7 @@
   }
   
   angular
-    .module('packageDelivery')
+    .module('packageDelivery', ['ngRoute', 'toastr'])
     .config(['$routeProvider', '$locationProvider', config])
     .run(['$rootScope', '$location', 'functionService', run]);
 

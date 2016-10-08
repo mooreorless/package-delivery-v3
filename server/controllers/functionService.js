@@ -69,17 +69,17 @@ module.exports.login = function(req, res) {
   //   return;
   // }
 
-  passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', { failureFlash: true }, function(err, user, info){
     var token;
 
-    // If Passport throws/catches an error
+		// If Passport throws/catches an error
     if (err) {
       res.status(404).json(err);
       return;
     }
 
     // If a user is found
-    if(user){
+    if (user) {
       token = user.generateJwt();
       res.status(200);
       res.json({
