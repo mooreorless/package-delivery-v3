@@ -21,7 +21,7 @@
 			notes: '',
 			isFragile: '',
 			isExpress: '',
-			state: 'new'
+			state: 'Order Placed'
     };
 
     vm.redirect = function(){

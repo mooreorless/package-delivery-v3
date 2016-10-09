@@ -23,6 +23,6 @@ router.post('/login', ctrlFunctions.login);
 // orders
 // removed auth middleware due to it clashing with the frontend
 router.get('/orders', ctrlFunctions.getUserOrders);
-router.post('/orders/new', auth, ctrlFunctions.placeOrder);
+router.post('/orders/new', ctrlFunctions.placeOrder);
 
 module.exports = router;

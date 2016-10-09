@@ -29,7 +29,8 @@ var orders = new mongoose.Schema({
   },
   state: {
     type: String,
-    required: true
+    required: true,
+		default: 'Order Placed'
   },
 });
 

@@ -100,9 +100,7 @@ module.exports.placeOrder = function(req, res) {
   //   });
   //   return;
   // }
-
-  console.log(req.body);
-  console.log('Placing Order');
+	console.log('Placing Order');
   var order = new Order();
 
   order.userID = req.body.userID;
@@ -116,20 +114,15 @@ module.exports.placeOrder = function(req, res) {
   order.save(function(err) {
     if (err){
       console.log(err);
-    }
-    console.log('save being called');
-    res.status(200);
-    // var token;
-    // token = user.generateJwt();
-    // res.status(200);
-    // res.json({
-    //   "token" : token
-    // });
+    } else {
+			console.log('order saved');
+			res.status(200);
+		}
   });
 };
 
 module.exports.getUserOrders = function(req, res){
-  Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress', function (err, orders) {
+  Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress state', function (err, orders) {
     if (err) {
     	res.status(404).json({ error: err });
     	console.log(err);
