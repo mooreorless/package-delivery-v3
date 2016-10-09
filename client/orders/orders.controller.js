@@ -15,7 +15,7 @@
     console.log(vm.currentUser);
 
 		functionService
-			.getUserOrders(vm.currentUser.test)
+			.getUserOrders(vm.currentUser.email)
 			.error(function(err){
 				toastr.warning(err, 'Error');
 			})

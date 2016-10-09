@@ -41,10 +41,10 @@
         payload = $window.atob(payload);
         payload = JSON.parse(payload);
         return {
-          email : payload.email,
-          name : payload.firstName,
+          email: payload.email,
+          name: payload.firstName,
 					streetNumber: payload.streetNumber,
-					streetName: payload.streetName,
+					streetName : payload.streetName,
 					suburb: payload.suburb,
 					postCode: payload.postCode
         };
