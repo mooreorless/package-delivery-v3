@@ -122,13 +122,26 @@ module.exports.placeOrder = function(req, res) {
 };
 
 module.exports.getUserOrders = function(req, res){
-  Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress state', function (err, orders) {
-    if (err) {
-    	res.status(404).json({ error: err });
-    	console.log(err);
-		} else {
+	var userEmail = req.query.user.split('@');
+	//if logged in user is a driver
+	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
+		console.log('fetching orders assigned to ' + req.query.user);
+		Order.find({ 'driver': userEmail[0] }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, orders) {
+			if (err) console.log(err);
+			console.log(orders);
 			res.send(orders);
-		}
-  });
+		});
+	}
+	else{
+		console.log('fetching orders for ' + req.query.user);
+		Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, orders) {
+			if (err) {
+				res.status(404).json(err);
+			}
+			console.log(orders);
+			res.send(orders);
+		});
+	}
 };
+
 

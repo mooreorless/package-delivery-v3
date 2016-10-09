@@ -32,6 +32,9 @@ var orders = new mongoose.Schema({
     required: true,
 		default: 'Order Placed'
   },
+	driver: {
+  	type: String
+	}
 });
 
 orders.methods.setState = function(action){

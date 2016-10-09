@@ -345,3 +345,18 @@ a {
 a:hover {
 	color: rgba(0, 0, 0, 0.4);
 }
+
+
+/* dashboard */
+
+.dashboard-wrapper {
+	margin-top: 25px;
+}
+
+.widget-heading {
+	padding: .8em;
+}
+
+#bootstrap-overrides hr {
+	margin-top:	10px !important;
+}

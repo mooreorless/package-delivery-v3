@@ -66,6 +66,7 @@
 
     logout = function() {
       $window.localStorage.removeItem('mean-token');
+			$location.path('/login');
     };
 
     placeOrder = function(order){

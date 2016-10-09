@@ -1,3 +1,5 @@
+<navigation></navigation>
+
 <div class='container' ng-controller='OrderCtrl'>
   <div class='row'>
     <div class='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 orders-search panel panel-default'>
@@ -10,7 +12,13 @@
 				</div>
 			</form>
     </div>
-  </div>
+	</div>
+
+	<div class="row">
+		<div class='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1'>
+			<p class="lead">{{ordersMessage}}...</p>
+		</div>
+	</div>
 
   <div class='row' ng-repeat='order in orders'>
 		<div class='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1'>

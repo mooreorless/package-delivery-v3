@@ -4,19 +4,18 @@
     .module('packageDelivery')
     .controller('navigationCtrl', navigationCtrl);
 
-  navigationCtrl.$inject = ['$location','functionService'];
-  function navigationCtrl($location, functionService) {
-    var vm = this;
+  navigationCtrl.$inject = ['functionService', 'toastr'];
+  function navigationCtrl(functionService, toastr) {
+    var navvm = this;
 
-    vm.isLoggedIn = functionService.isLoggedIn();
+    navvm.isLoggedIn = functionService.isLoggedIn();
 
-    vm.currentUser = functionService.currentUser();
+    navvm.currentUser = functionService.currentUser();
 
-    var logout = function(){
+    navvm.logout = function(){
 		functionService.logout();
-		console.log('logging out');
+			toastr.warning('You have logged out', 'Warning');
     };
-
   }
 
 })();

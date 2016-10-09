@@ -314,7 +314,7 @@
       onHidden: null,
       onShown: null,
       onTap: null,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
       preventOpenDuplicates: false,
       progressBar: false,
