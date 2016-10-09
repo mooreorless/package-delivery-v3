@@ -29,12 +29,21 @@
         controller: 'newOrderCtrl',
         controllerAs: 'vm'
       })
-			//change to driver/orders
       .when('/driver/orders', {
         templateUrl: '/driverorders.view.html',
         controller: 'OrderCtrl',
         controllerAs: 'vm'
       })
+			.when('/admin/dashboard', {
+				templateUrl: '/admin/dashboard/dashboard.view.html',
+				controller: 'DashBoardCtrl',
+				controllerAs: 'vm'
+			})
+			.when('/admin/dashboard/item', {
+				templateUrl: '/admin/dashboard/individual-item/individual-item.view.html',
+				controller: 'ItemDashBoardCtrl',
+				controllerAs: 'vm'
+			})
       .otherwise({redirectTo: '/login'});
 
     // use the HTML5 History API
