@@ -346,6 +346,22 @@ a:hover {
 	color: rgba(0, 0, 0, 0.4);
 }
 
+/* account settings */
+
+.account-wrapper {
+	margin-top: 35px;
+}
+
+#bootstrap-overrides .nav-pills .active > a {
+	background: #10c3a2;
+	box-shadow: none;
+}
+
+.account-settings > .active > a {
+	background: #10c3a2;
+	box-shadow: none;
+}
+
 
 /* dashboard */
 
