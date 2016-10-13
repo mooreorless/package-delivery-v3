@@ -362,6 +362,22 @@ a:hover {
 	box-shadow: none;
 }
 
+.current-user {
+	vertical-align: top;
+	margin-left: 5px;
+}
+
+.settings-dropdown {
+	color: white;
+	margin-right: 50px;
+	margin-top: 10px;
+}
+
+/*dropdown*/
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+	background-color: transparent;
+}
+
 
 /* dashboard */
 
