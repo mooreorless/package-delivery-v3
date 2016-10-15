@@ -4,13 +4,8 @@
     .module('packageDelivery')
     .service('functionService', functionService);
 
-<<<<<<< HEAD
-  functionService.$inject = ['$http', '$window', '$location'];
-  function functionService ($http, $window, $location) {
-=======
   functionService.$inject = ['$http', '$window', 'toastr', '$location'];
   function functionService ($http, $window, toastr, $location) {
->>>>>>> 3d68839da13238c9376e23f74c107bb920024c90
 
     var orders;
     var order;
