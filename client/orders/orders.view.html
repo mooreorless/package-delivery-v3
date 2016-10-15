@@ -1,13 +1,18 @@
+<navigation></navigation>
+
 <div class='container' ng-controller='OrderCtrl'>
   <div class='row'>
+    <div class='col-md-8'>
+      <h4>{{vm.ordersMessage}}</h4>
+    </div>
     <div class='col-md-8 orders-search'>
       <input type="text" class="form-control" placeholder="Search orders">
     </div>
   </div>
-  <div class='row' ng-repeat='order in orders'>
+  <div class='row' ng-repeat='order in vm.orders'>
     <div class='col-md-8 card-container'>
       <span class='float-right'><a href=''><i class="material-icons">delete_forever</i></span></a>
-      <h5 class='card-order-id'><b>Order ID# {{order._id}}</b></h5>
+      <h5 class='card-order-id' ng-click='vm.openOrder(order)'><b>Order ID# {{order._id}}</b></h5>
       <p>
         <span class='card-dest-text'><strong>Pick Up</strong>: {{order.pickUp}}</span>
         <span class='card-dest-text'><strong>Destination</strong>: {{order.dropOff}}</span>

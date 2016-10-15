@@ -92,14 +92,6 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.placeOrder = function(req, res) {
-
-  // if(!req.body.name || !req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
-
   console.log(req.body);
   console.log('Placing Order');
   var order = new Order();
@@ -111,6 +103,14 @@ module.exports.placeOrder = function(req, res) {
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
   order.state = req.body.state;
+  // order.driver = 'jono';
+
+  if (Math.random() > 0.5){
+    order.driver = 'jono';
+  }
+  else{
+    order.driver = 'marco';
+  }
 
   order.save(function(err) {
     if (err){
@@ -118,20 +118,35 @@ module.exports.placeOrder = function(req, res) {
     }
     console.log('save being called');
     res.status(200);
-    // var token;
-    // token = user.generateJwt();
-    // res.status(200);
-    // res.json({
-    //   "token" : token
-    // });
   });
 };
 
 module.exports.getUserOrders = function(req, res){
-  Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress', function (err, orders) {
-    if (err) console.log(err);
-    console.log(orders); // Space Ghost is a talk show host.
-    res.send(orders);
+  emailDomain = req.query.user.split('@');
+  //if logged in user is a driver
+  if ((emailDomain[1] == 'onthespot.com') && (emailDomain[0] != 'admin')){
+        console.log('fetching orders assigned to ' + req.query.user);
+        Order.find({ 'driver': emailDomain[0] }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, orders) {
+      if (err) console.log(err);
+      console.log(orders);
+      res.send(orders);
+    });
+  }
+  else{
+    console.log('fetching orders for ' + req.query.user);
+    Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, orders) {
+      if (err) console.log(err);
+      console.log(orders);
+      res.send(orders);
+    });
+  }
+};
+
+module.exports.getSingleOrder = function(req, res){
+  // console.log(req.query.orderID);
+  Order.findOne({ '_id': req.query.orderID }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, order) {
+    // if (err) console.log(err);
+    res.send(order);
   });
 };
 

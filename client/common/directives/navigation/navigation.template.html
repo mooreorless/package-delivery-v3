@@ -1,13 +1,21 @@
-<!-- <div class="navbar navbar-default">
-  <div class="container">
-    <div id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="navvm.isLoggedIn"><a href="login">Sign in</a></li>
-        <li ng-show="navvm.isLoggedIn"><a href="profile">{{ navvm.currentUser.name }}</a></li>
+<div ng-hide="" ng-controller='navigationCtrl'>
+  <div class="row">
+    <div class="col-md-12 top-bar">
+      <ul class="nav nav-tabs">
+        <li ng-class="isActive()">
+          <a href="profile" data-toggle="tab"><i class="material-icons account-icon">account_box</i>PROFILE</a>
+        </li>
+        <li ng-class="{active: isActive('/orders')}">
+          <a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>MY ORDERS</a>
+        </li>
+        <li ng-class="{active: isActive('/orders')}">
+          <a href='orders/new' class='btn btn-warning btn-lg'><i class="material-icons account-icon">add</i>NEW ORDER</a>
+        </li>
+        <li ng-class="{active: isActive('/orders')}">
+          <a ng-click='navvm.logout()' class='btn btn-danger btn-lg'><i class="material-icons account-icon">exit_to_app</i>LOG OUT</a>
+        </li>
       </ul>
     </div>
+    <button>
   </div>
-</div> -->
+</div>

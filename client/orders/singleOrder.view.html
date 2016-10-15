@@ -1,0 +1,24 @@
+<navigation></navigation>
+
+<div class='container' ng-controller='singleOrderCtrl'>
+  <div class='row'>
+    <div class='col-md-offset-2 col-md-8'>
+    	<a href='/orders'>Back to all Orders</a>
+      <h4>Order #{{vm.order._id}}</h4>
+			<div class="panel panel-default">
+				<div class="panel-heading">Order Details</div>
+				<div class="panel-body">
+					Pick Up: <input ng-model='vm.order.pickUp'>
+				</div>
+				<div class="panel-body">
+					Pick Up: <input ng-model='vm.order.dropOff'>
+				</div>
+				<div class="panel-body">
+					Panel content
+				</div>
+			</div>
+    </div>
+    {{vm.order}}
+  </div>
+</div>
+<br><br>

@@ -29,10 +29,9 @@
         controller: 'newOrderCtrl',
         controllerAs: 'vm'
       })
-			//change to driver/orders
-      .when('/driverorders', {
-        templateUrl: '/driverorders.view.html',
-        controller: 'OrderCtrl',
+      .when('/order/:orderID', {
+        templateUrl: '/orders/singleOrder.view.html',
+        controller: 'singleOrderCtrl',
         controllerAs: 'vm'
       })
       .otherwise({redirectTo: '/login'});
@@ -41,17 +40,28 @@
     $locationProvider.html5Mode(true);
   }
 
-  function run($rootScope, $location, functionService) {
+  function run($rootScope, $location, $window, functionService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
       if ($location.path() === '/profile' && !functionService.isLoggedIn()) {
         $location.path('/');
       }
     });
+    // $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute){
+    //   if(currentRoute){
+    //     currURL = (nextRoute.$$route.originalPath);
+    //     prevURL = (currentRoute.$$route.originalPath);
+    //     if (currURL == '/login' || prevURL == '/login'){
+    //       console.log('force refresh!');
+    //       // $window.location.reload();
+    //       // $scope.$apply();
+    //     }
+    //   }
+    // });
   }
   
   angular
     .module('packageDelivery')
     .config(['$routeProvider', '$locationProvider', config])
-    .run(['$rootScope', '$location', 'functionService', run]);
+    .run(['$rootScope', '$location', '$window', 'functionService', run]);
 
 })();

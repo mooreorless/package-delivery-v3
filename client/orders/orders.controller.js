@@ -4,8 +4,8 @@
     .module('packageDelivery')
     .controller('OrderCtrl', OrderCtrl);
 
-  OrderCtrl.$inject = ['$location', '$scope', '$rootScope', 'functionService'];
-  function OrderCtrl($location, $scope, $rootScope, functionService) {
+  OrderCtrl.$inject = ['$location', '$rootScope', 'functionService'];
+  function OrderCtrl($location, $rootScope, functionService) {
 
     var vm = this;
 
@@ -13,49 +13,38 @@
 
     vm.currentUser = functionService.currentUser();
 
+    vm.ordersMessage = '';
  
+    functionService
+    .getUserOrders(vm.currentUser.email)
+    .error(function(err){
+      if (err){
+      alert(err);
+      }
+    })
+    .then(function(){
+      $location.path('orders');
+      console.log('finished getting orders');
+      vm.orders = functionService.loadOrders();
+    });
 
-    // console.log(vm.currentUser);
+    emailDomain = vm.currentUser.email.split('@');
 
-    // functionService.getUserOrders(vm.currentUser.email);
+    if ((emailDomain[1] == 'onthespot.com') && (emailDomain[0] != 'admin')){
+      vm.ordersMessage = 'Displaying all orders assigned to you (' + vm.currentUser.name + ')';
+    }
+    else{
+      vm.ordersMessage = 'Displaying all orders placed by you (' + vm.currentUser.name + ')';
+    }
 
-        functionService
-        .getUserOrders(vm.currentUser.email)
-        .error(function(err){
-          if (err){
-          alert(err);
-          }
-        })
-        .then(function(){
-          $location.path('orders');
-          console.log('finished getting orders');
-          $scope.orders = functionService.loadOrders();
-        });
+    vm.openOrder = function(order){
+      console.log(order);
+      $location.path('order/' + order._id);
+    };
 
-  //   vm.newOrder = {
-		// userID: vm.currentUser.email,
-		// pickUp: '',
-		// dropOff: '',
-		// notes: '',
-		// isFragile: '',
-		// isExpress: '',
-		// state: 'new'
-  //   };
-
-
-
-  //   vm.onSubmit = function () {
-  //     console.log('Placing Order');
-  //     console.log(vm.newOrder);
-  //     functionService
-  //       .placeOrder(vm.newOrder)
-  //       .error(function(err){
-  //         alert(err);
-  //       })
-  //       .then(function(){
-  //         $location.path('orders');
-  //       });
-  //   };
+    vm.test = function(){
+      console.log('test');
+    };
 
   }
 

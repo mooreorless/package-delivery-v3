@@ -25,4 +25,6 @@ router.post('/login', ctrlFunctions.login);
 router.get('/orders', ctrlFunctions.getUserOrders);
 router.post('/orders/new', ctrlFunctions.placeOrder);
 
+router.get('/singleOrder', ctrlFunctions.getSingleOrder);
+
 module.exports = router;

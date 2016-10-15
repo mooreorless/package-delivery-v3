@@ -22,14 +22,9 @@
           console.log(err);
         })
         .then(function(){
-          $location.path('profile');
+          $location.path('/profile');
         });
     };
-
-    function test(){
-      console.log("hi");
-    }
-
   }
 
 })();

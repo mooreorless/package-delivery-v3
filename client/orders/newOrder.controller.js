@@ -22,21 +22,19 @@
     state: 'new'
     };
 
-    vm.redirect = function(){
-      $location.path('orders');
-    };
-
     vm.onSubmit = function () {
       console.log('Placing Order');
       console.log(vm.newOrder);
       functionService
-        .placeOrder(vm.newOrder)
-        .error(function(err){
-          if (err){
-            alert(err);
-          }
-        })
-        .then(vm.redirect());
+      .placeOrder(vm.newOrder)
+      .error(function(err){
+        if (err){
+          alert(err);
+        }
+      })
+      .then(function(){
+        $location.path('orders');
+      });
     };
 
   }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="packageDelivery" ng-controller='navigationCtrl'>
+<html lang="en" ng-app="packageDelivery" ng-controller='homeCtrl'>
 <head>
   <meta charset="UTF-8">
   <base href="/">
@@ -32,38 +32,6 @@
 
 </head>
 <body id="bootstrap-overrides">
-  <div ng-hide="hideTopBar()">
-    <div class="container-fluid">
-      <div class="row search-bar">
-        <div class="container">
-          <div class="search-bar">
-            <form id="search-form">  
-              <i class="material-icons search-icon">search</i><input class="search" type="text" placeholder="Search by package ID, customer, order">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 top-bar">
-        <ul class="nav nav-tabs">
-          <li ng-class="{active: isActive('/user')}">
-            <a href="profile" data-toggle="tab"><i class="material-icons account-icon">account_box</i>PROFILE</a>
-          </li>
-          <li ng-class="{active: isActive('/orders')}">
-            <a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>MY ORDERS</a>
-          </li>
-          <li ng-class="{active: isActive('/orders')}">
-            <a ng-hide ='vm.isLoggedIn()'href='orders/new' class='btn btn-warning btn-lg'><i class="material-icons account-icon">add</i>NEW ORDER</a>
-          </li>
-          <li ng-class="{active: isActive('/orders')}">
-            <a ng-hide='vm.isLoggedIn()' href='login' ng-click='logout()' class='btn btn-danger btn-lg'><i class="material-icons account-icon">exit_to_app</i>LOG OUT</a>
-          </li>
-        </ul>
-      </div>
-      <button>
-    </div>
-  </div>
   <div class="tab-content">
     <div ng-view></div>
   </div>
