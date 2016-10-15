@@ -93,8 +93,7 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.placeOrder = function(req, res) {
-
-  // if(!req.body.name || !req.body.email || !req.body.password) {
+// if(!req.body.name || !req.body.email || !req.body.password) {
   //   sendJSONresponse(res, 400, {
   //     "message": "All fields required"
   //   });
@@ -116,6 +115,14 @@ module.exports.placeOrder = function(req, res) {
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
   order.state = req.body.state;
+  // order.driver = 'jono';
+
+  if (Math.random() > 0.5){
+    order.driver = 'jono';
+  }
+  else{
+    order.driver = 'marco';
+  }
 
   order.save(function(err) {
     if (err){
@@ -131,12 +138,12 @@ module.exports.updateDetails = function (req, res) {
 	console.log(req.body.email);
 	User.findOneAndUpdate({email: req.body.email}, req.body, {multi:false}, function(err,doc){
 		if(err) console.log(err);
-		console.log(doc)
+		console.log(doc);
 	});
 };
 
 module.exports.getUserOrders = function(req, res){
-	var userEmail = req.query.user.split('@');
+  var userEmail = req.query.user.split('@');
 	//if logged in user is a driver
 	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
 		console.log('fetching orders assigned to ' + req.query.user);
@@ -158,4 +165,11 @@ module.exports.getUserOrders = function(req, res){
 	}
 };
 
+module.exports.getSingleOrder = function(req, res){
+  // console.log(req.query.orderID);
+  Order.find({ '_id': req.query.orderID }, function (err, order) {
+    // if (err) console.log(err);
+    res.send(order);
+  });
+};
 

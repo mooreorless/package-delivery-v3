@@ -1,49 +1,48 @@
 (function () {
 
   angular
-    .module('packageDelivery')
-    .controller('newOrderCtrl', newOrderCtrl);
+	.module('packageDelivery')
+	.controller('newOrderCtrl', newOrderCtrl);
 
   newOrderCtrl.$inject = ['$location', '$rootScope','functionService', 'toastr'];
   function newOrderCtrl($location, $rootScope, functionService, toastr) {
-    var vm = this;
+	var vm = this;
 
-    vm.isLoggedIn = functionService.isLoggedIn();
+	vm.isLoggedIn = functionService.isLoggedIn();
 
-    vm.currentUser = functionService.currentUser();
+	vm.currentUser = functionService.currentUser();
 
-    vm.newOrder = {
-			userID: vm.currentUser.email,
-	    pickUpNumber: vm.currentUser.streetNumber,
-	    pickUpName: vm.currentUser.streetName,
-	    pickUpSuburb: vm.currentUser.suburb,
-	    pickUpPostcode: vm.currentUser.postCode,
-	    dropOffNumber: '',
-	    dropOffName: '',
-	    dropOffSuburb: '',
-	    dropOffPostcode: '',
-			notes: '',
-			isFragile: '',
-			isExpress: '',
-			state: 'Order Placed'
-    };
+	vm.newOrder = {
+		userID: vm.currentUser.email,
+		pickUpNumber: vm.currentUser.streetNumber,
+		pickUpName: vm.currentUser.streetName,
+		pickUpSuburb: vm.currentUser.suburb,
+		pickUpPostcode: vm.currentUser.postCode,
+		dropOffNumber: '',
+		dropOffName: '',
+		dropOffSuburb: '',
+		dropOffPostcode: '',
+		notes: '',
+		isFragile: '',
+		isExpress: '',
+		state: 'Order Placed'
+	};
 
-    vm.redirect = function(){
-      $location.path('orders');
-    };
+	vm.onSubmit = function () {
 
-    vm.onSubmit = function () {
-    	if (validateFields()) {
-		    console.log('Placing Order');
-		    console.log(vm.newOrder);
-		    functionService
-			    .placeOrder(vm.newOrder)
-			    .error(function(err){
-				    toastr.error(err, 'Error');
-		    })
-			    .then(vm.redirect());
-	    }
-    };
+		if (validateFields()) {
+			console.log('Placing Order');
+			console.log(vm.newOrder);
+			functionService
+				.placeOrder(vm.newOrder)
+				.error(function(err){
+					toastr.error(err, 'Error');
+			})
+			.then(function(){
+				$location.path('/orders')
+			});
+		}
+	};
 
 	  function validateFields() {
 		  return checkPickUpStreetNumber() && checkPickUpStreetName() && checkPickUpSuburb() && checkDropOffStreetNumber() && checkDropOffStreetName() && checkDropOffSuburb() && checkDropOffPostcode();

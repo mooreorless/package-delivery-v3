@@ -4,10 +4,16 @@
     .module('packageDelivery')
     .service('functionService', functionService);
 
+<<<<<<< HEAD
+  functionService.$inject = ['$http', '$window', '$location'];
+  function functionService ($http, $window, $location) {
+=======
   functionService.$inject = ['$http', '$window', 'toastr', '$location'];
   function functionService ($http, $window, toastr, $location) {
+>>>>>>> 3d68839da13238c9376e23f74c107bb920024c90
 
     var orders;
+    var order;
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
@@ -27,10 +33,11 @@
         payload = token.split('.')[1];
         payload = $window.atob(payload);
         payload = JSON.parse(payload);
-
+        // console.log('logged in!');
         return payload.exp > Date.now() / 1000;
       } else {
-        return false; //above statement is expr anyway
+        console.log('not logged in');
+        return false;
       }
     };
 
@@ -80,12 +87,12 @@
 
     logout = function() {
       $window.localStorage.removeItem('mean-token');
-			$location.path('/login');
+      $location.path('/login');
     };
 
     placeOrder = function(order){
       console.log('calling placeOrder');
-      return $http.post('/api/orders/new', order).success(function(data){
+      $http.post('/api/orders/new', order).success(function(data){
         console.log(data);
         console.log('finished posting to new order');
       });
@@ -93,7 +100,6 @@
 
     getUserOrders = function(user){
       return $http.get('/api/orders', {params: {user : user}}).success(function(data){
-        console.log(data);
         orders = data;
       });
     };
@@ -101,6 +107,19 @@
     loadOrders = function(){
       return orders;
     };
+
+    getSingleOrder = function(orderID){
+      return $http.get('/api/singleOrder', {params: {orderID: orderID}}).success(function(data){
+        order = data;
+        // console.log('from client side:' + data);
+      });
+    };
+
+    loadSingleOrder = function(){
+      return order;
+    };
+
+
 
     return {
       currentUser : currentUser,
@@ -114,7 +133,10 @@
       placeOrder: placeOrder,
       getUserOrders: getUserOrders,
       orders: orders,
-      loadOrders: loadOrders
+      loadOrders: loadOrders,
+      getSingleOrder: getSingleOrder,
+      loadSingleOrder: loadSingleOrder,
+      order: order
     };
   }
 

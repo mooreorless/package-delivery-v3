@@ -4,8 +4,11 @@
     .module('packageDelivery')
     .controller('homeCtrl', homeCtrl);
 
-    function homeCtrl () {
-      console.log('Home controller is running');
+    homeCtrl.$inject = ['$location', '$scope', 'functionService'];
+    function homeCtrl ($location, $scope, functionService) {
+		console.log('Home controller is running');
+		$scope.hidden = ($location.path() == '/login');
     }
 
+    
 })();

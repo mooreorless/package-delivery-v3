@@ -14,7 +14,7 @@
 
     navvm.logout = function(){
 		functionService.logout();
-			toastr.warning('You have logged out', 'Warning');
+		toastr.warning('You have logged out', 'Warning');
     };
   }
 

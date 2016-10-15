@@ -11,7 +11,7 @@
 
     vm.isLoggedIn = functionService.isLoggedIn();
     vm.currentUser = functionService.currentUser();
-
+    
 		$scope.ordersMessage = '';
 
 		functionService
@@ -33,6 +33,11 @@
 		else {
 			$scope.ordersMessage = 'Displaying all orders placed by you ' + vm.currentUser.name;
 		}
+
+    vm.openOrder = function(order){
+      console.log(order);
+      $location.path('order/' + order._id);
+    };
   }
 
 })();
