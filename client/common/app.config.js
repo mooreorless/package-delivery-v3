@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('packageDelivery', ['ngRoute']);
+  angular.module('packageDelivery', ['ngRoute', 'toastr']);
 
   function config ($routeProvider, $locationProvider) {
     $routeProvider
@@ -33,7 +33,22 @@
         templateUrl: '/orders/singleOrder.view.html',
         controller: 'singleOrderCtrl',
         controllerAs: 'vm'
-      })
+      }),
+			.when('/update/details', {
+				templateUrl: 'auth/update/details/user.view.html',
+				controller: 'updateUserCtrl',
+				controllerAs: 'vm'
+			})
+			.when('/admin/dashboard', {
+				templateUrl: '/admin/dashboard/dashboard.view.html',
+				controller: 'DashBoardCtrl',
+				controllerAs: 'vm'
+			})
+			.when('/admin/dashboard/item', {
+				templateUrl: '/admin/dashboard/individual-item/individual-item.view.html',
+				controller: 'ItemDashBoardCtrl',
+				controllerAs: 'vm'
+			})
       .otherwise({redirectTo: '/login'});
 
     // use the HTML5 History API
@@ -42,9 +57,26 @@
 
   function run($rootScope, $location, $window, functionService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if ($location.path() === '/profile' && !functionService.isLoggedIn()) {
-        $location.path('/');
-      }
+
+    	if (!functionService.isLoggedIn()) {
+				switch ($location.path()) {
+					case '/profile':
+						console.log('login to view profile');
+						// $location.path('/'); added redirect in individual route instead
+						break;
+
+					case '/orders':
+						console.log('login to view orders');
+						console.log('if user is logged in message with watermark here');
+						// $location.path('/');
+						break;
+
+					case '/orders/new':
+						console.log('login to make an order');
+						// $location.path('/');
+						break;
+				}
+			}
     });
     // $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute){
     //   if(currentRoute){
@@ -60,7 +92,7 @@
   }
   
   angular
-    .module('packageDelivery')
+    .module('packageDelivery', ['ngRoute', 'toastr'])
     .config(['$routeProvider', '$locationProvider', config])
     .run(['$rootScope', '$location', '$window', 'functionService', run]);
 

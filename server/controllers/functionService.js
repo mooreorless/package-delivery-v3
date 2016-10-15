@@ -1,5 +1,6 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
+
 var User = mongoose.model('User');
 var Order = mongoose.model('Order');
 
@@ -49,7 +50,7 @@ module.exports.register = function(req, res) {
     if (err){
       console.log(err);
     }
-    console.log('save being called');
+
     var token;
     token = user.generateJwt();
     res.status(200);
@@ -68,17 +69,17 @@ module.exports.login = function(req, res) {
   //   return;
   // }
 
-  passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', { failureFlash: true }, function(err, user, info){
     var token;
 
-    // If Passport throws/catches an error
+		// If Passport throws/catches an error
     if (err) {
       res.status(404).json(err);
       return;
     }
 
     // If a user is found
-    if(user){
+    if (user) {
       token = user.generateJwt();
       res.status(200);
       res.json({
@@ -92,13 +93,24 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.placeOrder = function(req, res) {
-  console.log(req.body);
-  console.log('Placing Order');
+// if(!req.body.name || !req.body.email || !req.body.password) {
+  //   sendJSONresponse(res, 400, {
+  //     "message": "All fields required"
+  //   });
+  //   return;
+  // }
+	console.log('Placing Order');
   var order = new Order();
 
   order.userID = req.body.userID;
-  order.pickUp = req.body.pickUp;
-  order.dropOff = req.body.dropOff;
+  order.pickUpNumber = req.body.pickUpNumber;
+	order.pickUpName = req.body.pickUpName;
+	order.pickUpSuburb = req.body.pickUpSuburb;
+	order.pickUpPostcode = req.body.pickUpPostcode;
+  order.dropOffNumber = req.body.dropOffNumber;
+	order.dropOffName = req.body.dropOffName;
+	order.dropOffSuburb = req.body.dropOffSuburb;
+	order.dropOffPostcode = req.body.dropOffPostcode;
   order.notes = req.body.notes;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
@@ -115,36 +127,47 @@ module.exports.placeOrder = function(req, res) {
   order.save(function(err) {
     if (err){
       console.log(err);
-    }
-    console.log('save being called');
-    res.status(200);
+    } else {
+			console.log('order saved');
+			res.status(200);
+		}
   });
 };
 
+module.exports.updateDetails = function (req, res) {
+	console.log(req.body.email);
+	User.findOneAndUpdate({email: req.body.email}, req.body, {multi:false}, function(err,doc){
+		if(err) console.log(err);
+		console.log(doc);
+	});
+};
+
 module.exports.getUserOrders = function(req, res){
-  emailDomain = req.query.user.split('@');
-  //if logged in user is a driver
-  if ((emailDomain[1] == 'onthespot.com') && (emailDomain[0] != 'admin')){
-        console.log('fetching orders assigned to ' + req.query.user);
-        Order.find({ 'driver': emailDomain[0] }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, orders) {
-      if (err) console.log(err);
-      console.log(orders);
-      res.send(orders);
-    });
-  }
-  else{
-    console.log('fetching orders for ' + req.query.user);
-    Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, orders) {
-      if (err) console.log(err);
-      console.log(orders);
-      res.send(orders);
-    });
-  }
+  var userEmail = req.query.user.split('@');
+	//if logged in user is a driver
+	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
+		console.log('fetching orders assigned to ' + req.query.user);
+		Order.find({ 'driver': userEmail[0] }, function (err, orders) {
+			if (err) console.log(err);
+			console.log(orders);
+			res.send(orders);
+		});
+	}
+	else{
+		console.log('fetching orders for ' + req.query.user);
+		Order.find({ 'userID': req.query.user }, function (err, orders) {
+			if (err) {
+				res.status(404).json(err);
+			}
+			console.log(orders);
+			res.send(orders);
+		});
+	}
 };
 
 module.exports.getSingleOrder = function(req, res){
   // console.log(req.query.orderID);
-  Order.findOne({ '_id': req.query.orderID }, 'pickUp dropOff notes isFragile isExpress state driver', function (err, order) {
+  Order.find({ '_id': req.query.orderID }, function (err, order) {
     // if (err) console.log(err);
     res.send(order);
   });

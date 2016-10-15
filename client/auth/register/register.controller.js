@@ -4,8 +4,8 @@
     .module('packageDelivery')
     .controller('registerCtrl', registerCtrl);
 
-  registerCtrl.$inject = ['$location', 'functionService'];
-  function registerCtrl($location, functionService) {
+  registerCtrl.$inject = ['$location', 'functionService', 'toastr'];
+  function registerCtrl($location, functionService, toastr) {
     var vm = this;
 
     vm.credentials = {
@@ -21,16 +21,174 @@
 
     vm.onSubmit = function () {
       console.log('Submitting registration');
-      console.log(vm.credentials);
-      functionService
-        .register(vm.credentials)
-        .error(function(err){
-          alert(err);
-        })
-        .then(function(){
-          $location.path('profile');
-        });
+			if (validateFields()) {
+				functionService
+					.register(vm.credentials)
+					.error(function(err){
+						toastr.error('Something went wrong, please try again', 'Error');
+						console.log(err);
+					})
+					.then(function(){
+						$location.path('profile');
+				});
+			}
     };
+
+    function validateFields() {
+	    return checkFirstName() && checkLastName() && checkEmail() && checkPassword() && checkStreetName() && checkStreetNumber() && checkSuburb() && checkPostcode();
+    }
+
+	  function checkFirstName() {
+		  var name = document.getElementById('firstName').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if(name === ''){
+			  document.getElementById("firstName").style.borderColor = "red";
+			  document.getElementById("firstName").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Please enter a first name";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  if(regExprContainsNumbers.test(name)){
+				  document.getElementById("firstName").style.borderColor = "red";
+				  document.getElementById("firstName").focus();
+				  document.getElementById("register-error-msg").innerHTML = "Please enter a valid first name";
+				  document.getElementById("register-error-msg").style.display = "block";
+				  return false;
+			  } else {
+				  document.getElementById("firstName").style.borderColor = "transparent";
+				  return true;
+			  }//end if
+		  }//end if
+	  }//end checkFirstName()
+
+	  function checkLastName() {
+		  var name = document.getElementById('lastName').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if(name === ''){
+			  document.getElementById("lastName").style.borderColor = "red";
+			  document.getElementById("lastName").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Please enter a last name";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  if(regExprContainsNumbers.test(name)){
+				  document.getElementById("lastName").style.borderColor = "red";
+				  document.getElementById("lastName").focus();
+				  document.getElementById("register-error-msg").innerHTML = "Please enter a valid last name";
+				  document.getElementById("register-error-msg").style.display = "block";
+				  return false;
+			  } else {
+				  document.getElementById("lastName").style.borderColor = "transparent";
+				  return true;
+			  }//end if
+		  }//end if
+	  }//end checkLastName()
+
+	  function checkEmail() {
+		  var email = document.getElementById('email').value;
+		  var re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+		  if(email === ''){
+			  document.getElementById("email").style.borderColor = "red";
+			  document.getElementById("email").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Please enter an email";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  if(re.test(email)){
+				  document.getElementById("email").style.borderColor = "transparent";
+				  return true;
+			  } else {
+				  document.getElementById("email").style.borderColor = "red";
+				  document.getElementById("email").focus();
+				  document.getElementById("register-error-msg").innerHTML = "Please enter a valid email";
+				  document.getElementById("register-error-msg").style.display = "block";
+				  return false;
+			  }//end if
+		  }//end if
+	  }//end checkEmail()
+
+	  function checkPassword() {
+		  var password = document.getElementById('password').value;
+		  if(password.length < 5) {
+			  document.getElementById("password").style.borderColor = "red";
+			  document.getElementById("password").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Password cannot be less than 5 characters";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else if(password.length > 20) {
+			  document.getElementById("password").style.borderColor = "red";
+			  document.getElementById("password").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Password cannot be more than 20 characters";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  document.getElementById("password").style.borderColor = "transparent";
+			  return true;
+		  }//end if
+	  }//end checkPassword()
+
+	  function checkStreetNumber() {
+		  var streetNumber = document.getElementById('streetNumber').value;
+		  var regExprContainsLetters = /[a-zA-Z]/;
+
+		  if((regExprContainsLetters.test(streetNumber)) || streetNumber == ''){
+			  document.getElementById("streetNumber").style.borderColor = "red";
+			  document.getElementById("streetNumber").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Please enter a valid street number";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkStreetNumber()
+
+	  function checkStreetName() {
+		  var streetName = document.getElementById('streetName').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if((regExprContainsNumbers.test(streetName)) || streetName == ''){
+			  document.getElementById("streetName").style.borderColor = "red";
+			  document.getElementById("streetName").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Please enter a valid street name";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkStreetName()
+
+	  function checkSuburb() {
+		  var suburb = document.getElementById('suburb').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if((regExprContainsNumbers.test(suburb)) || suburb == ''){
+			  document.getElementById("suburb").style.borderColor = "red";
+			  document.getElementById("suburb").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Please enter a valid suburb";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkSuburb()
+
+	  function checkPostcode() {
+		  var postCode = document.getElementById('postCode').value;
+		  var regExprContainsLetters = /[a-zA-Z]/;
+
+		  if((regExprContainsLetters.test(postCode)) || postCode == '' || postCode.length > 4 || postCode.length < 4){
+			  document.getElementById("postCode").style.borderColor = "red";
+			  document.getElementById("postCode").focus();
+			  document.getElementById("register-error-msg").innerHTML = "Please enter a valid postcode";
+			  document.getElementById("register-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkPostcode()
 
   }
 

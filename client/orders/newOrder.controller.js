@@ -1,41 +1,177 @@
 (function () {
 
   angular
-    .module('packageDelivery')
-    .controller('newOrderCtrl', newOrderCtrl);
+	.module('packageDelivery')
+	.controller('newOrderCtrl', newOrderCtrl);
 
-  newOrderCtrl.$inject = ['$location', '$rootScope','functionService'];
-  function newOrderCtrl($location, $rootScope, functionService) {
-    var vm = this;
+  newOrderCtrl.$inject = ['$location', '$rootScope','functionService', 'toastr'];
+  function newOrderCtrl($location, $rootScope, functionService, toastr) {
+	var vm = this;
 
-    vm.isLoggedIn = functionService.isLoggedIn();
+	vm.isLoggedIn = functionService.isLoggedIn();
 
-    vm.currentUser = functionService.currentUser();
+	vm.currentUser = functionService.currentUser();
 
-    vm.newOrder = {
-    userID: vm.currentUser.email,
-    pickUp: '',
-    dropOff: '',
-    notes: '',
-    isFragile: '',
-    isExpress: '',
-    state: 'new'
-    };
+	vm.newOrder = {
+		userID: vm.currentUser.email,
+		pickUpNumber: vm.currentUser.streetNumber,
+		pickUpName: vm.currentUser.streetName,
+		pickUpSuburb: vm.currentUser.suburb,
+		pickUpPostcode: vm.currentUser.postCode,
+		dropOffNumber: '',
+		dropOffName: '',
+		dropOffSuburb: '',
+		dropOffPostcode: '',
+		notes: '',
+		isFragile: '',
+		isExpress: '',
+		state: 'Order Placed'
+	};
 
-    vm.onSubmit = function () {
-      console.log('Placing Order');
-      console.log(vm.newOrder);
-      functionService
-      .placeOrder(vm.newOrder)
-      .error(function(err){
-        if (err){
-          alert(err);
-        }
-      })
-      .then(function(){
-        $location.path('orders');
-      });
-    };
+	vm.onSubmit = function () {
+
+		if (validateFields()) {
+			console.log('Placing Order');
+			console.log(vm.newOrder);
+			functionService
+				.placeOrder(vm.newOrder)
+				.error(function(err){
+					toastr.error(err, 'Error');
+			})
+			.then(function(){
+				$location.path('/orders')
+			});
+		}
+	};
+
+	  function validateFields() {
+		  return checkPickUpStreetNumber() && checkPickUpStreetName() && checkPickUpSuburb() && checkDropOffStreetNumber() && checkDropOffStreetName() && checkDropOffSuburb() && checkDropOffPostcode();
+	  }//end validateFields()
+
+
+	  //PICK UP VALIDATION
+
+	  function checkPickUpStreetNumber() {
+		  var streetNumber = document.getElementById('pickUpNumber').value;
+		  var regExprContainsLetters = /[a-zA-Z]/;
+
+		  if((regExprContainsLetters.test(streetNumber)) || streetNumber == ''){
+			  document.getElementById("pickUpNumber").style.borderColor = "red";
+			  document.getElementById("pickUpNumber").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up street number";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkPickupStreetNumber()
+
+	  function checkPickUpStreetName() {
+		  var streetName = document.getElementById('pickUpName').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if((regExprContainsNumbers.test(streetName)) || streetName == ''){
+			  document.getElementById("pickUpName").style.borderColor = "red";
+			  document.getElementById("pickUpName").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up street name";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkPickupStreetName()
+
+	  function checkPickUpSuburb() {
+		  var suburb = document.getElementById('pickUpSuburb').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if((regExprContainsNumbers.test(suburb)) || suburb == ''){
+			  document.getElementById("pickUpSuburb").style.borderColor = "red";
+			  document.getElementById("pickUpSuburb").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up suburb";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkPickUpSuburb()
+
+	  function checkPickupPostcode() {
+		  var postCode = document.getElementById('pickUpPostcode').value;
+		  var regExprContainsLetters = /[a-zA-Z]/;
+
+		  if((regExprContainsLetters.test(postCode)) || postCode == '' || postCode.length > 4 || postCode.length < 4){
+			  document.getElementById("pickUpPostcode").style.borderColor = "red";
+			  document.getElementById("pickUpPostcode").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up postcode";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkPickupPostcode()
+
+	  // DROP OFF VALIDATION
+
+	  function checkDropOffStreetNumber() {
+		  var streetNumber = document.getElementById('dropOffNumber').value;
+		  var regExprContainsLetters = /[a-zA-Z]/;
+
+		  if((regExprContainsLetters.test(streetNumber)) || streetNumber == ''){
+			  document.getElementById("dropOffNumber").style.borderColor = "red";
+			  document.getElementById("dropOffNumber").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery street number";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkDropOffStreetNumber()
+
+	  function checkDropOffStreetName() {
+		  var streetName = document.getElementById('dropOffName').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if((regExprContainsNumbers.test(streetName)) || streetName == ''){
+			  document.getElementById("dropOffName").style.borderColor = "red";
+			  document.getElementById("dropOffName").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery street name";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkDropOffStreetName()
+
+	  function checkDropOffSuburb() {
+		  var suburb = document.getElementById('dropOffSuburb').value;
+		  var regExprContainsNumbers = /[0-9]/;
+
+		  if((regExprContainsNumbers.test(suburb)) || suburb == ''){
+			  document.getElementById("dropOffSuburb").style.borderColor = "red";
+			  document.getElementById("dropOffSuburb").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery suburb";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkDropOffSuburb()
+
+	  function checkDropOffPostcode() {
+		  var postCode = document.getElementById('dropOffPostcode').value;
+		  var regExprContainsLetters = /[a-zA-Z]/;
+
+		  if((regExprContainsLetters.test(postCode)) || postCode == '' || postCode.length > 4 || postCode.length < 4){
+			  document.getElementById("dropOffPostcode").style.borderColor = "red";
+			  document.getElementById("dropOffPostcode").focus();
+			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery postcode";
+			  document.getElementById("order-error-msg").style.display = "block";
+			  return false;
+		  } else {
+			  return true;
+		  }
+	  }//end checkDropOffPostcode()
 
   }
 

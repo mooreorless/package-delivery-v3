@@ -4,14 +4,20 @@
     .module('packageDelivery')
     .service('functionService', functionService);
 
+<<<<<<< HEAD
   functionService.$inject = ['$http', '$window', '$location'];
   function functionService ($http, $window, $location) {
+=======
+  functionService.$inject = ['$http', '$window', 'toastr', '$location'];
+  function functionService ($http, $window, toastr, $location) {
+>>>>>>> 3d68839da13238c9376e23f74c107bb920024c90
 
     var orders;
     var order;
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
+			toastr.success('Login successful', 'Success');
       console.log(token);
     };
 
@@ -36,14 +42,19 @@
     };
 
     var currentUser = function() {
-      if(isLoggedIn()){
+      if (isLoggedIn()) {
         var token = getToken();
         var payload = token.split('.')[1];
         payload = $window.atob(payload);
         payload = JSON.parse(payload);
         return {
-          email : payload.email,
-          name : payload.firstName
+          email: payload.email,
+          name: payload.firstName,
+					lastName: payload.lastName,
+					streetNumber: payload.streetNumber,
+					streetName : payload.streetName,
+					suburb: payload.suburb,
+					postCode: payload.postCode
         };
       }
     };
@@ -60,6 +71,19 @@
         saveToken(data.token);
       });
     };
+
+		updateUser = function(user) {
+			console.log(user);
+
+			return $http.put('/api/update/details', user).success(function(err,data){
+				if (err) {
+					console.log(err);
+				}
+				console.log("Update user fin");
+				console.log(data);
+				saveToken(data.token);
+			});
+		};
 
     logout = function() {
       $window.localStorage.removeItem('mean-token');
@@ -104,6 +128,7 @@
       isLoggedIn : isLoggedIn,
       register : register,
       login : login,
+			updateUser: updateUser,
       logout : logout,
       placeOrder: placeOrder,
       getUserOrders: getUserOrders,

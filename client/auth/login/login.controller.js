@@ -4,8 +4,8 @@
   .module('packageDelivery')
   .controller('loginCtrl', loginCtrl);
 
-  loginCtrl.$inject = ['$location', 'functionService'];
-  function loginCtrl($location, functionService) {
+  loginCtrl.$inject = ['$location', 'functionService', 'toastr'];
+  function loginCtrl($location, functionService, toastr) {
     var vm = this;
 
     vm.credentials = {
@@ -14,12 +14,11 @@
     };
 
     vm.onSubmit = function () {
-      console.log("submitting login");
       functionService
         .login(vm.credentials)
         .error(function(err){
-          alert(err);
-          console.log(err);
+        	document.getElementById('login-error-msg').style.display = 'block';
+					console.log(err);
         })
         .then(function(){
           $location.path('/profile');

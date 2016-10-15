@@ -2,37 +2,59 @@
 
 <div class='container' ng-controller='OrderCtrl'>
   <div class='row'>
-    <div class='col-md-8'>
-      <h4>{{vm.ordersMessage}}</h4>
+	<div class='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 orders-search panel panel-default'>
+		<form action="#" class="form-group form-group-lg">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="material-icons">search</i>
+				</span>
+				<input type="text" class="form-control order-search-bar" placeholder="Search orders">
+			</div>
+		</form>
     </div>
-    <div class='col-md-8 orders-search'>
-      <input type="text" class="form-control" placeholder="Search orders">
-    </div>
-  </div>
-  <div class='row' ng-repeat='order in vm.orders'>
-    <div class='col-md-8 card-container'>
-      <span class='float-right'><a href=''><i class="material-icons">delete_forever</i></span></a>
-      <h5 class='card-order-id' ng-click='vm.openOrder(order)'><b>Order ID# {{order._id}}</b></h5>
-      <p>
-        <span class='card-dest-text'><strong>Pick Up</strong>: {{order.pickUp}}</span>
-        <span class='card-dest-text'><strong>Destination</strong>: {{order.dropOff}}</span>
-      </p>
-      <div class="progress progress-striped">
-        <div class="progress-bar progress-bar-success" style="width: 15%"></div>
-      </div>
-        <div class='col-sm-3 status-text-center'>
-          <p>Order placed</p>
-        </div>
-        <div class='col-md-3 status-text-center'>
-          <p>Driver en-route</p>
-        </div>
-        <div class='col-md-3 status-text-center'>
-          <p>Parcel picked up</p>
-        </div>
-        <div class='col-md-3 status-text-center'>
-          <p>Delivered</p>
-        </div>
-    </div>
+	</div>
+
+	<div class="row">
+		<div class='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1'>
+			<p class="lead">{{ordersMessage}}...</p>
+		</div>
+	</div>
+
+  <div class='row' ng-repeat='order in orders'>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Order ID# <strong>{{order._id}}</strong>
+					<span class='card-dest-text pull-right'><strong>Status: </strong>{{order.state}}</span>
+				</h3>
+			</div>
+			<div class="panel-body">
+				<p class='card-dest-text'><strong>Pick Up</strong>: {{order.pickUpNumber + ' ' + order.pickUpName + ' ' + order.pickUpSuburb}}</p>
+				<p class='card-dest-text'><strong>Destination</strong>: {{order.dropOffNumber + ' ' + order.dropOffName + ' ' + order.dropOffSuburb}}</p>
+				<span class='pull-right'>
+						<a href='#'><i class="material-icons">delete_forever</i></a>
+					</span>
+				<span class='float-right'>
+						<a href='#'><i class="material-icons">print</i></a>
+					</span>
+				<div>
+					<!--Metadata Icons-->
+					<div ng-if='order.isExpress'>
+						<span class='float-left' style="display: flex;">
+							<i class="material-icons express-icon">directions_run</i>
+							<span>Express</span>
+						</span>
+					</div>
+
+					<div ng-if='order.isFragile'>
+						<span class='float-left' style="display: flex;">
+							<i class="material-icons valuable-icon">broken_image</i>
+							<span>Fragile</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
   </div>
 </div>
-<br><br>
+

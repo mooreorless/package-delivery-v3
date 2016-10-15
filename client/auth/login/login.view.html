@@ -2,9 +2,13 @@
   <div class="form-wrapper">
     <form class="login-form" ng-submit="vm.onSubmit()">
         <div>
-          <label id="login-title">Login to On The Spot</label>
+					<span>
+						<img src="/img/logo-64.png" alt="logo">
+						<h3 id="login-title">On The Spot</h3>
+					</span>
         </div>
         <div>
+					<p id="login-error-msg" class="error-msg">Username or password incorrect</p>
           <label class="control-label" for="email" >Email Address</label>
           <input class="form-control" id="email" type="text" placeholder="someone@example.com" ng-model="vm.credentials.email">
         </div>
