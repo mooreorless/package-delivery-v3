@@ -2,22 +2,19 @@
 
 <div class="container account-wrapper">
 	<div class="row">
-		<!--<h2>Account</h2>-->
-		<!--<h5 class="text-muted">Change your basic account settings</h5>-->
-
 		<div class="col-sm-4">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked account-settings">
-						<li class="active"><a href="#">Account</a></li>
-						<li><a href="#">Billing</a></li>
-						<li><a href="#">Help</a></li>
+						<li id="account" class="active"><a href="#" ng-click="vm.setView('Account')">Account</a></li>
+						<li id="billing"><a href="#" ng-click="vm.setView('Billing')">Billing</a></li>
+						<li id="help"><a href="#" ng-click="vm.setView('Help')">Help</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-sm-8">
+		<div class="col-sm-8" ng-show="vm.view == 'Account'">
 			<div class="panel panel-default">
 				<div class="panel-body">
 
@@ -40,7 +37,25 @@
 					</p>
 				</div>
 			</div>
+			<a href="/update/details" class="btn btn-primary pull-right">Edit Details</a>
+		</div>
+
+		<div class="col-sm-8" ng-show="vm.view == 'Billing'">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="well-sm">
+						<h1 class="text-center">$12.50</h1>
+					</div>
+					<label for="first-name"><strong>Name on Card</strong></label>
+					<br><input type="text"/><br>
+
+					<label for="last-name"><strong>Last Name</strong></label>
+					<p class="form-control-static">{{ vm.user.lastName }}</p>
+
+					<label for="email"><strong>Email address</strong></label>
+					<p class="form-control-static">{{ vm.user.email }}</p>
+				</div>
+			</div>
 		</div>
 	</div>
-		<a href="/update/details" class="btn btn-primary pull-right">Edit Details</a>
 </div>
