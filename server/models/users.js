@@ -65,6 +65,7 @@ packageUsers.methods.generateJwt = function() {
     _id: this._id,
     email: this.email,
     firstName: this.firstName,
+		lastName: this.lastName,
 		streetNumber: this.streetNumber,
 		streetName: this.streetName,
 		suburb: this.suburb,

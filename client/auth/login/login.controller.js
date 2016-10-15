@@ -14,12 +14,11 @@
     };
 
     vm.onSubmit = function () {
-      console.log('Logging in');
       functionService
         .login(vm.credentials)
         .error(function(err){
-        	toastr.error('Login failed. Please try again', 'Error');
-          console.log(err);
+        	document.getElementById('login-error-msg').style.display = 'block';
+					console.log(err);
         })
         .then(function(){
           $location.path('profile');

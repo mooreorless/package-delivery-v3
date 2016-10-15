@@ -392,3 +392,15 @@ a:hover {
 #bootstrap-overrides hr {
 	margin-top:	10px !important;
 }
+
+.error-msg {
+	color: red;
+}
+
+#login-error-msg {
+	display: none;
+}
+
+#register-error-msg {
+	display: none;
+}

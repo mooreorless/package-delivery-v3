@@ -28,10 +28,10 @@
 		var userEmail = vm.currentUser.email.split('@');
 
 		if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
-			$scope.ordersMessage = 'Displaying all orders assigned to you (' + vm.currentUser.name + ')';
+			$scope.ordersMessage = 'Displaying all orders assigned to you ' + vm.currentUser.name;
 		}
-		else{
-			$scope.ordersMessage = 'Displaying all orders placed by you (' + vm.currentUser.name + ')';
+		else {
+			$scope.ordersMessage = 'Displaying all orders placed by you ' + vm.currentUser.name;
 		}
   }
 

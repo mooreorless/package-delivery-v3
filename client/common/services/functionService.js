@@ -43,6 +43,7 @@
         return {
           email: payload.email,
           name: payload.firstName,
+					lastName: payload.lastName,
 					streetNumber: payload.streetNumber,
 					streetName : payload.streetName,
 					suburb: payload.suburb,
@@ -63,6 +64,19 @@
         saveToken(data.token);
       });
     };
+
+		updateUser = function(user) {
+			console.log(user);
+
+			return $http.put('/api/update/details', user).success(function(err,data){
+				if (err) {
+					console.log(err);
+				}
+				console.log("Update user fin");
+				console.log(data);
+				saveToken(data.token);
+			});
+		};
 
     logout = function() {
       $window.localStorage.removeItem('mean-token');
@@ -95,6 +109,7 @@
       isLoggedIn : isLoggedIn,
       register : register,
       login : login,
+			updateUser: updateUser,
       logout : logout,
       placeOrder: placeOrder,
       getUserOrders: getUserOrders,

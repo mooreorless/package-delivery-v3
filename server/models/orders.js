@@ -7,14 +7,38 @@ var orders = new mongoose.Schema({
     type: String,
     required: true
   },
-  pickUp: {
-    type: String,
+  pickUpNumber: {
+    type: Number,
     required: true
   },
-  dropOff: {
-    type: String,
-    required: true
-  },
+	pickUpName: {
+  	type: String,
+		required: true
+	},
+	pickUpSuburb: {
+		type: String,
+		required: true
+	},
+	pickUpPostcode: {
+		type: Number,
+		required: true
+	},
+	dropOffNumber: {
+		type: Number,
+		required: true
+	},
+	dropOffName: {
+		type: String,
+		required: true
+	},
+	dropOffSuburb: {
+		type: String,
+		required: true
+	},
+	dropOffPostcode: {
+		type: Number,
+		required: true
+	},
   notes: {
     type: String,
     required: false
