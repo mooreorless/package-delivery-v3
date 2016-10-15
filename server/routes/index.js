@@ -19,6 +19,7 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 // authentication
 router.post('/register', ctrlFunctions.register);
 router.post('/login', ctrlFunctions.login);
+router.put('/update/details', ctrlFunctions.updateDetails);
 
 // orders
 // removed auth middleware due to it clashing with the frontend

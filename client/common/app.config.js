@@ -34,6 +34,11 @@
         controller: 'OrderCtrl',
         controllerAs: 'vm'
       })
+			.when('/update/details', {
+				templateUrl: 'auth/update/details/user.view.html',
+				controller: 'updateUserCtrl',
+				controllerAs: 'vm'
+			})
 			.when('/admin/dashboard', {
 				templateUrl: '/admin/dashboard/dashboard.view.html',
 				controller: 'DashBoardCtrl',

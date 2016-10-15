@@ -104,8 +104,14 @@ module.exports.placeOrder = function(req, res) {
   var order = new Order();
 
   order.userID = req.body.userID;
-  order.pickUp = req.body.pickUp;
-  order.dropOff = req.body.dropOff;
+  order.pickUpNumber = req.body.pickUpNumber;
+	order.pickUpName = req.body.pickUpName;
+	order.pickUpSuburb = req.body.pickUpSuburb;
+	order.pickUpPostcode = req.body.pickUpPostcode;
+  order.dropOffNumber = req.body.dropOffNumber;
+	order.dropOffName = req.body.dropOffName;
+	order.dropOffSuburb = req.body.dropOffSuburb;
+	order.dropOffPostcode = req.body.dropOffPostcode;
   order.notes = req.body.notes;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
@@ -121,14 +127,35 @@ module.exports.placeOrder = function(req, res) {
   });
 };
 
-module.exports.getUserOrders = function(req, res){
-  Order.find({ 'userID': req.query.user }, 'pickUp dropOff notes isFragile isExpress state', function (err, orders) {
-    if (err) {
-    	res.status(404).json({ error: err });
-    	console.log(err);
-		} else {
-			res.send(orders);
-		}
-  });
+module.exports.updateDetails = function (req, res) {
+	console.log(req.body.email);
+	User.findOneAndUpdate({email: req.body.email}, req.body, {multi:false}, function(err,doc){
+		if(err) console.log(err);
+		console.log(doc)
+	});
 };
+
+module.exports.getUserOrders = function(req, res){
+	var userEmail = req.query.user.split('@');
+	//if logged in user is a driver
+	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
+		console.log('fetching orders assigned to ' + req.query.user);
+		Order.find({ 'driver': userEmail[0] }, function (err, orders) {
+			if (err) console.log(err);
+			console.log(orders);
+			res.send(orders);
+		});
+	}
+	else{
+		console.log('fetching orders for ' + req.query.user);
+		Order.find({ 'userID': req.query.user }, function (err, orders) {
+			if (err) {
+				res.status(404).json(err);
+			}
+			console.log(orders);
+			res.send(orders);
+		});
+	}
+};
+
 

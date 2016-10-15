@@ -345,3 +345,62 @@ a {
 a:hover {
 	color: rgba(0, 0, 0, 0.4);
 }
+
+/* account settings */
+
+.account-wrapper {
+	margin-top: 35px;
+}
+
+#bootstrap-overrides .nav-pills .active > a {
+	background: #10c3a2;
+	box-shadow: none;
+}
+
+.account-settings > .active > a {
+	background: #10c3a2;
+	box-shadow: none;
+}
+
+.current-user {
+	vertical-align: top;
+	margin-left: 5px;
+}
+
+.settings-dropdown {
+	color: white;
+	margin-right: 50px;
+	margin-top: 10px;
+}
+
+/*dropdown*/
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+	background-color: transparent;
+}
+
+
+/* dashboard */
+
+.dashboard-wrapper {
+	margin-top: 25px;
+}
+
+.widget-heading {
+	padding: .8em;
+}
+
+#bootstrap-overrides hr {
+	margin-top:	10px !important;
+}
+
+.error-msg {
+	color: red;
+}
+
+#login-error-msg {
+	display: none;
+}
+
+#register-error-msg {
+	display: none;
+}

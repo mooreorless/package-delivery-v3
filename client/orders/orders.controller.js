@@ -12,7 +12,7 @@
     vm.isLoggedIn = functionService.isLoggedIn();
     vm.currentUser = functionService.currentUser();
 
-    console.log(vm.currentUser);
+		$scope.ordersMessage = '';
 
 		functionService
 			.getUserOrders(vm.currentUser.email)
@@ -24,6 +24,15 @@
 				//if no orders found, have watermark/empty state view etc
 				$scope.orders = functionService.loadOrders();
 		});
+
+		var userEmail = vm.currentUser.email.split('@');
+
+		if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
+			$scope.ordersMessage = 'Displaying all orders assigned to you ' + vm.currentUser.name;
+		}
+		else {
+			$scope.ordersMessage = 'Displaying all orders placed by you ' + vm.currentUser.name;
+		}
   }
 
 })();
