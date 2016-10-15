@@ -155,7 +155,7 @@ module.exports.getUserOrders = function(req, res){
 	}
 	else{
 		console.log('fetching orders for ' + req.query.user);
-		Order.find({ 'userID': req.query.user }, function (err, orders) {
+		Order.find({ userID: req.query.user }, function (err, orders) {
 			if (err) {
 				res.status(404).json(err);
 			}
@@ -167,7 +167,7 @@ module.exports.getUserOrders = function(req, res){
 
 module.exports.getSingleOrder = function(req, res){
   // console.log(req.query.orderID);
-  Order.find({ '_id': req.query.orderID }, function (err, order) {
+  Order.findOne({ _id: req.query.orderID }, function (err, order) {
     // if (err) console.log(err);
     res.send(order);
   });
