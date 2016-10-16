@@ -36,19 +36,6 @@
 			postCode: vm.currentUser.postCode
 		};
 
-		vm.onSubmit = function () {
-			console.log('Submitting update user details');
-			console.log(vm.credentials);
-			functionService
-				.register(vm.credentials)
-				.error(function(err){
-					alert(err);
-				})
-				.then(function(){
-					$location.path('profile');
-				});
-		};
-
 		vm.updateUser = function(){
 			// console.log();
 			functionService.updateUser(vm.newCredentials);

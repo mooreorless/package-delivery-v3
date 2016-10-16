@@ -1,47 +1,56 @@
 (function() {
-  
-  angular
-    .module('packageDelivery')
-    .controller('profileCtrl', profileCtrl);
+	
+	angular
+		.module('packageDelivery')
+		.controller('profileCtrl', profileCtrl);
 
-  profileCtrl.$inject = ['$location', 'meanData', 'toastr'];
-  function profileCtrl($location, meanData, toastr) {
-    var vm = this;
+	profileCtrl.$inject = ['$location', 'functionService', 'meanData', 'toastr'];
+	function profileCtrl($location, functionService, meanData, toastr) {
+		var vm = this;
 
-    vm.user = {};
+		vm.user = {};
 
-    meanData.getProfile()
-      .success(function(data) {
-        vm.user = data;
-      })
-      .error(function (e) {
-      	toastr.error('Please sign in or make an account', 'Error');
+		meanData.getProfile()
+			.success(function(data) {
+				vm.user = data;
+				console.log(data);
+			})
+			.error(function (e) {
+				toastr.error('Please sign in or make an account', 'Error');
 				$location.path('/');
-        console.log(e);
-      });
+				console.log(e);
+			});
 
-	  vm.view = "Account";
+			vm.view = "Account";
 
-	  vm.setView = function(view) {
-	  	switch (view) {
-			  case 'Account':
-				  document.getElementById('account').className = "active";
-				  document.getElementById('billing').className = "";
-				  document.getElementById('help').className = "";
-				  break;
-			  case 'Billing':
-				  document.getElementById('billing').className = "active";
-				  document.getElementById('account').className = "";
-				  document.getElementById('help').className = "";
-				  break;
-			  case 'Help':
-				  document.getElementById('help').className = "active";
-				  document.getElementById('account').className = "";
-				  document.getElementById('billing').className = "";
-				  break;
-		  }
-		  vm.view = view;
-	  }
-  }
+			vm.setView = function(view) {
+				switch (view) {
+							case 'Account':
+									document.getElementById('account').className = "active";
+									document.getElementById('billing').className = "";
+									document.getElementById('help').className = "";
+									break;
+							case 'Billing':
+										document.getElementById('billing').className = "active";
+									document.getElementById('account').className = "";
+									document.getElementById('help').className = "";
+									break;
+							case 'Help':
+									document.getElementById('help').className = "active";
+									document.getElementById('account').className = "";
+									document.getElementById('billing').className = "";
+									break;
+					}
+					vm.view = view;
+			};
+
+			vm.updateDetails = function(){
+			// console.log();
+			functionService.updateUser(vm.user);
+			toastr.success('Updated account details', 'Success');
+		};
+
+
+	}
 
 })();

@@ -23,6 +23,7 @@
 		dropOffSuburb: '',
 		dropOffPostcode: '',
 		notes: '',
+		pickUpDate: '',
 		isFragile: '',
 		isExpress: '',
 		state: 'Order Placed'
@@ -36,10 +37,11 @@
 			functionService
 				.placeOrder(vm.newOrder)
 				.error(function(err){
-					toastr.error(err, 'Error');
+					console.log(err);
 			})
 			.then(function(){
-				$location.path('/orders')
+				console.log('no error');
+				$location.path('/orders');
 			});
 		}
 	};

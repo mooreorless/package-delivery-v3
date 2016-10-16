@@ -99,6 +99,7 @@ module.exports.placeOrder = function(req, res) {
   //   });
   //   return;
   // }
+  console.log(req.body);
 	console.log('Placing Order');
   var order = new Order();
 
@@ -112,6 +113,7 @@ module.exports.placeOrder = function(req, res) {
 	order.dropOffSuburb = req.body.dropOffSuburb;
 	order.dropOffPostcode = req.body.dropOffPostcode;
   order.notes = req.body.notes;
+  order.pickUpDate = req.body.pickUpDate;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
   order.state = req.body.state;
@@ -124,19 +126,27 @@ module.exports.placeOrder = function(req, res) {
     order.driver = 'marco';
   }
 
+  console.log(order);
+
   order.save(function(err) {
     if (err){
       console.log(err);
+      res.json({
+        error:err
+      });
     } else {
 			console.log('order saved');
-			res.status(200);
+			res.sendStatus(200);
+      // res.json({
+      //   fuck:'fuck'
+      // });
 		}
   });
 };
 
 module.exports.updateDetails = function (req, res) {
-	console.log(req.body.email);
-	User.findOneAndUpdate({email: req.body.email}, req.body, {multi:false}, function(err,doc){
+	console.log(req.body);
+	User.findOneAndUpdate({_id : req.body._id}, req.body, {multi:false}, function(err,doc){
 		if(err) console.log(err);
 		console.log(doc);
 	});
