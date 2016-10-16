@@ -4,11 +4,11 @@
 			<li ng-class="{active: isActive('/user')}">
 				<a href="profile" data-toggle="tab"><i class="material-icons account-icon">account_box</i>PROFILE</a>
 			</li>
-			<li ng-class="{active: isActive('/orders')}">
+			<li id="myOrders" class="active" ng-class="{active: isActive('/orders')}">
 				<a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>MY ORDERS</a>
 			</li>
-			<li ng-class="{active: isActive('/orders')}">
-				<a href='orders/new' class='btn btn-warning btn-lg'><i class="material-icons account-icon">add</i>NEW ORDER</a>
+			<li id="newOrder" ng-class="{active: isActive('/orders')}">
+				<a href="orders/new" data-toggle="tab"><i class="material-icons account-icon">add</i>NEW ORDER</a>
 			</li>
 			<li ng-class="{active: isActive('/orders')}">
 				<a href="#" ng-click='' class='btn btn-danger btn-lg'><i class="material-icons account-icon">exit_to_app</i>LOG OUT</a>
@@ -16,8 +16,8 @@
 
 
 			<ul class="nav nav-tabs navbar-right">
-				<li>
-					<a href="profile" data-toggle="tab">
+				<li id="myProfile">
+					<a id="myUser" href="profile" data-toggle="tab">
 						<span><i class="material-icons">account_box</i><span  class="current-user">{{ navvm.currentUser.name }}</span></span>
 					</a>
 				</li>
@@ -28,7 +28,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">Settings</a></li>
-						<li><a href="#">Help</a></li>
+						<li><a href="profile#FAQ">Help</a></li>
 						<li class="divider"></li>
 						<li><a href="#" ng-click="navvm.logout()">Sign out</a></li>
 					</ul>

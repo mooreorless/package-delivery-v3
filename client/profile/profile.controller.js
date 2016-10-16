@@ -20,9 +20,19 @@
         console.log(e);
       });
 
+      $('[data-toggle="tooltip"]').tooltip();
+
 	  vm.view = "Account";
 
+	  if(window.location.hash == '#FAQ'){
+	  		document.getElementById('help').className = "active";
+			document.getElementById('account').className = "";
+			document.getElementById('billing').className = "";
+			vm.view = "Help";
+	  } 
+
 	  vm.setView = function(view) {
+
 	  	switch (view) {
 			  case 'Account':
 				  document.getElementById('account').className = "active";
