@@ -118,7 +118,7 @@ module.exports.placeOrder = function(req, res) {
   order.isExpress = req.body.isExpress;
 
   // Trying to setState
-  order.state = order.setState('Order Placed');
+  // order.state = order.setState('Order Placed');
 
 	order.pickUpDate = req.body.pickUpDate;
   // order.driver = 'jono';
@@ -142,7 +142,7 @@ module.exports.placeOrder = function(req, res) {
 			console.log('order saved');
 			res.sendStatus(200);
       // res.json({
-      //   fuck:'fuck'
+      //   status :'OK'
       // });
 		}
   });
