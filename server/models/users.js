@@ -4,6 +4,9 @@ var jwt = require('jsonwebtoken');
 
 var SECRET = require('../config/jwt');
 
+/*
+The data structure of the user for when it gets put into the database
+ */
 var packageUsers = new mongoose.Schema({
   firstName: {
     type: String,
@@ -46,16 +49,24 @@ var packageUsers = new mongoose.Schema({
   salt: String
 });
 
+/*
+Sets the password for the user using a random 16byte salt
+ */
 packageUsers.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
   this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
 };
-
+/*
+  Check to see if the password given by the user is correct by checking if the hash, after being salted, is equal.
+ */
 packageUsers.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
   return this.hash === hash;
 };
 
+/*
+Generates the Javascript Web Token for the sessions
+ */
 packageUsers.methods.generateJwt = function() {
   console.log('generating token');
   var expiry = new Date();
@@ -74,4 +85,7 @@ packageUsers.methods.generateJwt = function() {
   }, SECRET.TOKEN_SECRET);
 };
 
+/*
+Setting of the model user
+ */
 mongoose.model('User', packageUsers);

@@ -3,7 +3,9 @@ var router = express.Router();
 var jwt = require('express-jwt');
 
 var SECRET = require('../config/jwt');
-
+/*
+Authorising the user
+ */
 var auth = jwt({
   secret: SECRET.TOKEN_SECRET,
   userProperty: 'payload'
@@ -13,7 +15,7 @@ var ctrlProfile = require('../controllers/profile');
 var ctrlFunctions = require('../controllers/functionService');
 
 
-// profile
+// profile endpoint
 router.get('/profile', auth, ctrlProfile.profileRead);
 
 // authentication

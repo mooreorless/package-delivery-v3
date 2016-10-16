@@ -1,7 +1,12 @@
+/*
+ *Configuring the applications controllers and routes
+ */
 (function () {
 
   angular.module('packageDelivery', ['ngRoute', 'toastr']);
-
+  /*
+  Configuring the templates html and connecting them to their respective controllers
+   */
   function config ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/register', {
@@ -55,6 +60,9 @@
     $locationProvider.html5Mode(true);
   }
 
+  /*
+  Runs the specific route depending on the state of function service
+   */
   function run($rootScope, $location, $window, functionService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 
@@ -90,7 +98,8 @@
     //   }
     // });
   }
-  
+
+  // Alter the angular object so that all corresponding effects such as run and config are put onto it
   angular
     .module('packageDelivery', ['ngRoute', 'toastr'])
     .config(['$routeProvider', '$locationProvider', config])

@@ -10,6 +10,9 @@
 
     vm.user = {};
 
+		/*
+		 A route so that the profile with auth can be gotten from another part of the application
+		 */
     meanData.getProfile()
       .success(function(data) {
         vm.user = data;

@@ -9,8 +9,11 @@ var sendJSONresponse = function(res, status, content) {
   res.json(content);
 };
 
+/*
+Registers the user into the by adding them to the database and generating a jwt to validate them when needed
+ */
 module.exports.register = function(req, res) {
-
+  // Form validation to make sure the user adds the appropriate information
   // if(!req.body.name || !req.body.email || !req.body.password) {
   //   sendJSONresponse(res, 400, {
   //     "message": "All fields required"
@@ -34,7 +37,7 @@ module.exports.register = function(req, res) {
 
   emailDomain = req.body.email.split('@');
   console.log(emailDomain[1]);
-
+  // check if the user is user or admin using their email domain
   if (emailDomain[1] == 'onthespot.com'){
     user.isDriver = true;
   }
@@ -51,6 +54,7 @@ module.exports.register = function(req, res) {
       console.log(err);
     }
 
+    // Token used to continually validate the user post registration
     var token;
     token = user.generateJwt();
     res.status(200);
@@ -60,8 +64,11 @@ module.exports.register = function(req, res) {
   });
 };
 
+/*
+The function used to log the user into website
+ */
 module.exports.login = function(req, res) {
-
+  // Form validation to make sure the user adds the appropriate information
   // if(!req.body.email || !req.body.password) {
   //   sendJSONresponse(res, 400, {
   //     "message": "All fields required"
@@ -69,10 +76,11 @@ module.exports.login = function(req, res) {
   //   return;
   // }
 
+  // local authentication of the user
   passport.authenticate('local', { failureFlash: true }, function(err, user, info){
     var token;
 
-		// If Passport throws/catches an error
+		// If Passport throws/catches an error, send the error status code
     if (err) {
       res.status(404).json(err);
       return;
@@ -86,13 +94,17 @@ module.exports.login = function(req, res) {
         "token" : token
       });
     } else {
-      // If user is not found
+      // If user is not found, send the error status code
       res.status(401).json(info);
     }
   })(req, res);
 };
 
+/*
+Places an order into the database by adding the
+ */
 module.exports.placeOrder = function(req, res) {
+  // Form validation to make sure the user adds the appropriate information
 // if(!req.body.name || !req.body.email || !req.body.password) {
   //   sendJSONresponse(res, 400, {
   //     "message": "All fields required"
@@ -117,6 +129,7 @@ module.exports.placeOrder = function(req, res) {
   order.state = req.body.state;
   // order.driver = 'jono';
 
+  // Distribution of the orders between the drivers
   if (Math.random() > 0.5){
     order.driver = 'jono';
   }
@@ -134,14 +147,22 @@ module.exports.placeOrder = function(req, res) {
   });
 };
 
+/*
+Updates the users details they wish to update
+ */
 module.exports.updateDetails = function (req, res) {
 	console.log(req.body.email);
+  // Using the email as the key for the database retrieval, can not change unless admin is notified.
+  // All other fields can be changed
 	User.findOneAndUpdate({email: req.body.email}, req.body, {multi:false}, function(err,doc){
 		if(err) console.log(err);
 		console.log(doc);
 	});
 };
 
+/*
+Retrieves the users orders from the database
+ */
 module.exports.getUserOrders = function(req, res){
   var userEmail = req.query.user.split('@');
 	//if logged in user is a driver
@@ -157,7 +178,7 @@ module.exports.getUserOrders = function(req, res){
 		console.log('fetching orders for ' + req.query.user);
 		Order.find({ userID: req.query.user }, function (err, orders) {
 			if (err) {
-				res.status(404).json(err);
+				res.status(404).json(err); // Error in case the server does not reply
 			}
 			console.log(orders);
 			res.send(orders);
@@ -165,6 +186,9 @@ module.exports.getUserOrders = function(req, res){
 	}
 };
 
+/*
+Retrieves a single order from the database given who is logged in
+ */
 module.exports.getSingleOrder = function(req, res){
   // console.log(req.query.orderID);
   Order.findOne({ _id: req.query.orderID }, function (err, order) {

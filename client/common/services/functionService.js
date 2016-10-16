@@ -35,7 +35,7 @@
         return false;
       }
     };
-
+    // A getter for the current user
     var currentUser = function() {
       if (isLoggedIn()) {
         var token = getToken();

@@ -1,9 +1,12 @@
+/*
+Controller for the login function
+ */
 (function () {
 
   angular
   .module('packageDelivery')
   .controller('loginCtrl', loginCtrl);
-
+  //injecting
   loginCtrl.$inject = ['$location', 'functionService', 'toastr'];
   function loginCtrl($location, functionService, toastr) {
     var vm = this;
@@ -12,7 +15,9 @@
       email : "",
       password : ""
     };
-
+    /*
+     When the user submits the, do all validation and login
+     */
     vm.onSubmit = function () {
       functionService
         .login(vm.credentials)
