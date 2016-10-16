@@ -69,7 +69,6 @@
 
 		updateUser = function(user) {
 			console.log(user);
-
 			return $http.put('/api/update/details', user).success(function(err,data){
 				if (err) {
 					console.log(err);
@@ -87,9 +86,8 @@
 
     placeOrder = function(order){
       console.log('calling placeOrder');
-      $http.post('/api/orders/new', order).success(function(data){
+      return $http.post('/api/orders/new', order).success(function(data){
         console.log(data);
-        console.log('finished posting to new order');
       });
     };
 
@@ -114,7 +112,23 @@
       return order;
     };
 
+    getCurrentOrders = function() {
+    	return $http.get('/api/orders/current').success(function(data) {
+    		orders = data;
+	    });
+    };
 
+    getDeliveredOrders = function() {
+    	return $http.get('/api/orders/delivered').success(function(data) {
+    	  orders = data;
+	    });
+    };
+
+    getPlacedOrders = function() {
+    	return $http.get('/api/order/awaiting').success(function(data) {
+    	  orders = data;
+	    });
+    };
 
     return {
       currentUser : currentUser,
@@ -125,12 +139,15 @@
       login : login,
 			updateUser: updateUser,
       logout : logout,
-      placeOrder: placeOrder,
+	    placeOrder: placeOrder,
       getUserOrders: getUserOrders,
       orders: orders,
       loadOrders: loadOrders,
       getSingleOrder: getSingleOrder,
       loadSingleOrder: loadSingleOrder,
+	    getCurrentOrders: getCurrentOrders,
+	    getDeliveredOrders: getDeliveredOrders,
+	    getPlacedOrders: getPlacedOrders,
       order: order
     };
   }

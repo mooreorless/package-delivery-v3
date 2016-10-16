@@ -6,43 +6,46 @@
 
   newOrderCtrl.$inject = ['$location', '$rootScope','functionService', 'toastr'];
   function newOrderCtrl($location, $rootScope, functionService, toastr) {
-	var vm = this;
 
-	vm.isLoggedIn = functionService.isLoggedIn();
+		var vm = this;
 
-	vm.currentUser = functionService.currentUser();
+		vm.isLoggedIn = functionService.isLoggedIn();
 
-	vm.newOrder = {
-		userID: vm.currentUser.email,
-		pickUpNumber: vm.currentUser.streetNumber,
-		pickUpName: vm.currentUser.streetName,
-		pickUpSuburb: vm.currentUser.suburb,
-		pickUpPostcode: vm.currentUser.postCode,
-		dropOffNumber: '',
-		dropOffName: '',
-		dropOffSuburb: '',
-		dropOffPostcode: '',
-		notes: '',
-		isFragile: '',
-		isExpress: '',
-		state: 'Order Placed'
-	};
+		vm.currentUser = functionService.currentUser();
 
-	vm.onSubmit = function () {
+		vm.newOrder = {
+			userID: vm.currentUser.email,
+			pickUpNumber: vm.currentUser.streetNumber,
+			pickUpName: vm.currentUser.streetName,
+			pickUpSuburb: vm.currentUser.suburb,
+			pickUpPostcode: vm.currentUser.postCode,
+			dropOffNumber: '',
+			dropOffName: '',
+			dropOffSuburb: '',
+			dropOffPostcode: '',
+			notes: '',
+			isFragile: '',
+			isExpress: '',
+			state: 'Order Placed',
+			pickUpDate: ''
+		};
 
-		if (validateFields()) {
-			console.log('Placing Order');
-			console.log(vm.newOrder);
-			functionService
-				.placeOrder(vm.newOrder)
-				.error(function(err){
-					toastr.error(err, 'Error');
-			})
-			.then(function(){
-				$location.path('/orders')
-			});
-		}
-	};
+		vm.onSubmit = function () {
+
+			if (validateFields()) {
+				console.log('Placing Order');
+				console.log(vm.newOrder);
+				functionService
+					.placeOrder(vm.newOrder)
+					.error(function(err){
+						console.log(err);
+						toastr.error(err, 'Error');
+				})
+				.then(function(){
+					$location.path('orders')
+				});
+			}
+		};
 
 	  function validateFields() {
 		  return checkPickUpStreetNumber() && checkPickUpStreetName() && checkPickUpSuburb() && checkDropOffStreetNumber() && checkDropOffStreetName() && checkDropOffSuburb() && checkDropOffPostcode();

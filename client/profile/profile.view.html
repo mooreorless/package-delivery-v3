@@ -1,6 +1,5 @@
 
 <navigation></navigation>
-
 <div class="container account-wrapper">
 	<div class="row">
 		<div class="col-sm-4">
@@ -24,7 +23,7 @@
 					</fieldset>
 
 					<label for="first-name"><strong>First Name</strong></label>
-					<p class="form-control-static">{{ vm.user.firstName }}</p>
+					<p><input class="form-control-static" ng-model='vm.user.firstName' ng-blur='vm.updateDetails()'></input></p>
 
 					<label for="last-name"><strong>Last Name</strong></label>
 					<p class="form-control-static">{{ vm.user.lastName }}</p>

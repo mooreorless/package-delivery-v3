@@ -2,73 +2,84 @@
 
 <div class="container">
 	<div class="row">
-		<div class="dashboard-wrapper">
-			<div class="col-lg-3">
+		<div class="dashboard-wrapper col-md-8 col-md-offset-2">
+
+			<!-- Current Orders -->
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="widget-heading">
 						<h5>Current Orders</h5>
-						<span class="text-muted">Active Orders @Date</span>
+						<span class="text-muted">Active Today {{ vm.currentDate }}</span>
 						<hr>
-						<h2>44</h2>
+						<h2 class="text-center">{{ vm.currentOrderCount }}</h2>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-lg-3">
+			<!-- Orders Waiting -->
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="widget-heading">
 						<h5>Orders Waiting</h5>
-						<span class="text-muted">Orders left to ship</span>
+						<span class="text-muted">Awaiting Pickup</span>
 						<hr>
-						<h2>11</h2>
-					</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="panel panel-default">
-					<div class="panel-title">hello</div>
-					<div class="panel-body">test</div>
+						<h2 class="text-center">{{ vm.awaitingOrderCount }}</h2>
 				</div>
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="panel panel-default">
-					<div class="panel-title">hello</div>
-				</div>
-				<div class="row">
-					<div class="panel panel-default">
-						<div class="panel-title">hello</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="panel panel-default">
-						<div class="panel-title">hello</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-8">
-				<div class="panel panel-default">
-					<div class="panel-title">hello</div>
-				</div>
-			</div>
-	</div>
-
-
-	<div class="row">
-		<div class="col-md-6">
+		<!-- Delivered Today -->
+		<div class="col-md-4">
 			<div class="panel panel-default">
-				<div class="panel-title">hello</div>
+				<div class="widget-heading">
+					<h5>Delivered Today</h5>
+					<span class="text-muted">Orders successfully delivered</span>
+					<hr>
+					<h2 class="text-center">{{ vm.deliveredOrderCount }}</h2>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-6">
+
+		<!-- Extra Info -->
+		<div class="col-md-4">
 			<div class="panel panel-default">
-				<div class="panel-title">hello</div>
+				<div class="widget-heading">
+					<h5>Stats</h5>
+					<span class="text-muted">extra info</span>
+					<hr>
+				</div>
 			</div>
 		</div>
-	</div>
+
+		<!-- Assign Drivers -->
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="widget-heading">
+					<h5>Orders Awaiting Assignment</h5>
+					<span class="text-muted">Assign Drivers</span>
+					<hr>
+				</div>
+				<ul class="list-group">
+
+					<li class="list-group-item" ng-repeat="order in vm.orders | filter: { driver: 'unassigned' }">
+						OrderId# {{ order._id }}
+						<div class="btn-group dropup pull-right">
+							<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Choose Driver
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Marco</a></li>
+								<li><a href="#">Jono</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">Add New Driver</a></li>
+							</ul>
+						</div>
+					</li>
+
+
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
 </div>
-

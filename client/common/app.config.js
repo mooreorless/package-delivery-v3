@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('packageDelivery', ['ngRoute', 'toastr']);
+  angular.module('packageDelivery', ['ngRoute', 'toastr', 'ngMap']);
 
   function config ($routeProvider, $locationProvider) {
     $routeProvider
@@ -53,6 +53,7 @@
 
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
+
   }
 
   function run($rootScope, $location, $window, functionService) {
@@ -92,7 +93,7 @@
   }
   
   angular
-    .module('packageDelivery', ['ngRoute', 'toastr'])
+    .module('packageDelivery', ['ngRoute', 'toastr', 'ngMap'])
     .config(['$routeProvider', '$locationProvider', config])
     .run(['$rootScope', '$location', '$window', 'functionService', run]);
 

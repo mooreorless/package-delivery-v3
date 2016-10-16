@@ -1,21 +1,22 @@
 (function() {
-  
-  angular
-    .module('packageDelivery')
-    .controller('profileCtrl', profileCtrl);
+	
+	angular
+		.module('packageDelivery')
+		.controller('profileCtrl', profileCtrl);
 
-  profileCtrl.$inject = ['$location', 'meanData', 'toastr'];
-  function profileCtrl($location, meanData, toastr) {
-    var vm = this;
+	profileCtrl.$inject = ['$location', 'functionService', 'meanData', 'toastr'];
+	function profileCtrl($location, functionService, meanData, toastr) {
+		var vm = this;
 
-    vm.user = {};
+		vm.user = {};
 
-    meanData.getProfile()
-      .success(function(data) {
-        vm.user = data;
-      })
-      .error(function (e) {
-      	toastr.error('Please sign in or make an account', 'Error');
+		meanData.getProfile()
+			.success(function(data) {
+				vm.user = data;
+				console.log(data);
+			})
+			.error(function (e) {
+				toastr.error('Please sign in or make an account', 'Error');
 				$location.path('/');
         console.log(e);
       });
@@ -51,7 +52,13 @@
 				  break;
 		  }
 		  vm.view = view;
-	  }
+	  };
+
+  	vm.updateDetails = function(){
+		// console.log();
+		functionService.updateUser(vm.user);
+		toastr.success('Updated account details', 'Success');
+	};
   }
 
 })();

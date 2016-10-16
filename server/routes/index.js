@@ -28,4 +28,10 @@ router.post('/orders/new', ctrlFunctions.placeOrder);
 
 router.get('/singleOrder', ctrlFunctions.getSingleOrder);
 
+// admin actions
+router.get('/orders/current', ctrlFunctions.getCurrentOrderCount);
+router.get('/orders/delivered', ctrlFunctions.getDeliveredCount);
+router.get('/orders/awaiting', ctrlFunctions.getPlacedOrders);
+
+
 module.exports = router;

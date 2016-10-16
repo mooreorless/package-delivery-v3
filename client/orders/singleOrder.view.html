@@ -1,24 +1,39 @@
 <navigation></navigation>
 
-<div class='container' ng-controller='singleOrderCtrl'>
+<div class='container'>
   <div class='row'>
     <div class='col-md-offset-2 col-md-8'>
     	<a href='/orders'>Back to all Orders</a>
-      <h4>Order #{{vm.order._id}}</h4>
-			<div class="panel panel-default">
-				<div class="panel-heading">Order Details</div>
-				<div class="panel-body">
-					Pick Up: <input ng-model='vm.order.pickUpName'>
-				</div>
-				<div class="panel-body">
-					Pick Up: <input ng-model='vm.order.dropOffName'>
-				</div>
-				<div class="panel-body">
-					Panel content
-				</div>
+  		<h4>Order #{{vm.order._id}}</h4>
+		<div class="panel panel-default">
+			<div class="panel-heading">Order Details</div>
+			<div class="panel-body">
+				Pick Up: 
+				<input ng-model='vm.order.pickUpNumber'>
+				<input ng-model='vm.order.pickUpName'>
+				<input ng-model='vm.order.pickUpSuburb'>
+				<input ng-model='vm.order.pickUpPostcode'>
 			</div>
+			<div class="panel-body">
+				Drop Off:
+				<input ng-model='vm.order.dropOffNumber'>
+				<input ng-model='vm.order.dropOffName'>
+				<input ng-model='vm.order.dropOffSuburb'>
+				<input ng-model='vm.order.dropOffPostcode'>
+			</div>
+		</div>
     </div>
-    {{vm.order}}
+    <!-- {{vm.order}} -->
   </div>
+  <ng-map center="-27.46,153.02" zoom='11'>
+		<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png" on-click="vm.showCustomMarker()"></marker>
+   	<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png' on-click="vm.showCustomMarker()"></marker>
+		<directions 
+			suppress-markers="true"
+			origin="{{vm.pickUpAddress}}"
+			destination="{{vm.dropOffAddress}}">
+		</directions>
+	</ng-map>
+</div>
 </div>
 <br><br>
