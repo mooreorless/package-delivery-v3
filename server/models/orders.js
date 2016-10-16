@@ -55,6 +55,17 @@ var orders = new mongoose.Schema({
     type: Boolean,
     required: false
   },
+	pickUpDate: {
+  	type: String
+	},
+	timestamp: {
+		type: Object,
+		default: {
+			orderPlaced: Date.now(),
+			pickedUp: null,
+			delivered: null
+		},
+	},
   state: {
     type: String,
     required: true,
@@ -67,7 +78,26 @@ var orders = new mongoose.Schema({
 
 orders.methods.setState = function(action){
   this.state = action;
+	inputIntoTimestampArray(action);
 };
+
+/*
+ When an order is made it inputs the current time into the Database into the corresponding position in the array
+ // TODO rename these
+ */
+function inputIntoTimestampArray(action) {
+	switch (action.toLowerCase().replace(" ","")) {
+		case "orderplaced":
+			return this.timestamp.orderPlaced = Date.now();
+			break;
+		case "pickedup":
+			return this.timestamp.pickedup = Date.now();
+			break;
+		case "delivered":
+			return this.delivered = Date.now();
+			break;
+	}
+}
 
 
 mongoose.model('Order', orders);
