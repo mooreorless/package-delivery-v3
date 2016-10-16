@@ -391,6 +391,8 @@ a:hover {
 
 #bootstrap-overrides hr {
 	margin-top:	10px !important;
+	margin-bottom:	10px !important;
+
 }
 
 .error-msg {

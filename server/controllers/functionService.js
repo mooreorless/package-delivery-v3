@@ -114,7 +114,11 @@ module.exports.placeOrder = function(req, res) {
   order.notes = req.body.notes;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
-  order.state = req.body.state;
+
+  // Trying to setState
+  order.state = order.setState('Order Placed');
+
+	order.pickUpDate = req.body.pickUpDate;
   // order.driver = 'jono';
 
   if (Math.random() > 0.5){
@@ -135,9 +139,11 @@ module.exports.placeOrder = function(req, res) {
 };
 
 module.exports.updateDetails = function (req, res) {
-	console.log(req.body.email);
 	User.findOneAndUpdate({email: req.body.email}, req.body, {multi:false}, function(err,doc){
-		if(err) console.log(err);
+		if (err) {
+			console.log(err);
+		}
+		res.sendStatus(200);
 		console.log(doc);
 	});
 };
@@ -147,7 +153,7 @@ module.exports.getUserOrders = function(req, res){
 	//if logged in user is a driver
 	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
 		console.log('fetching orders assigned to ' + req.query.user);
-		Order.find({ 'driver': userEmail[0] }, function (err, orders) {
+		Order.find({ driver: userEmail[0] }, function (err, orders) {
 			if (err) console.log(err);
 			console.log(orders);
 			res.send(orders);
@@ -171,5 +177,46 @@ module.exports.getSingleOrder = function(req, res){
     // if (err) console.log(err);
     res.send(order);
   });
+};
+
+/* Admin actions */
+
+/*
+	Retrieves all orders that we placed at today's date
+ */
+module.exports.getCurrentOrderCount = function(req, res) {
+	Order.find({ state: 'Order Placed' }, function(err, orders) {
+		if (!err) {
+			res.send(orders);
+		} else {
+			console.error(err);
+		}
+	});
+};
+
+/*
+	Retrieves all orders that have been delivered today
+ */
+module.exports.getDeliveredCount = function(req, res) {
+	Order.find({ state: 'delivered' }, function(err, orders) {
+		if (!err) {
+			res.send(orders);
+		} else {
+			console.error(err);
+		}
+	});
+};
+
+/*
+	Retrieves all newly placed orders
+ */
+module.exports.getPlacedOrders = function(req, res) {
+	Order.find({ state: 'Order Placed' }, function(err, orders) {
+		if (!err) {
+			res.sendStatus(200).json(orders);
+		} else {
+			console.error(err);
+		}
+	});
 };
 
