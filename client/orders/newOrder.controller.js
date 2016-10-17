@@ -6,6 +6,7 @@
 
   newOrderCtrl.$inject = ['$location', '$rootScope','functionService', 'toastr'];
   function newOrderCtrl($location, $rootScope, functionService, toastr) {
+
 		var vm = this;
 
 		vm.isLoggedIn = functionService.isLoggedIn();

@@ -1,14 +1,14 @@
-<navigation></navigation>
 
+<navigation></navigation>
 <div class="container account-wrapper">
 	<div class="row">
 		<div class="col-sm-4">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked account-settings">
-						<li id="account" class="active"><a href="#" ng-click="vm.setView('Account')">Account</a></li>
-						<li id="billing"><a href="#" ng-click="vm.setView('Billing')">Billing</a></li>
-						<li id="help"><a href="#" ng-click="vm.setView('Help')">Help</a></li>
+						<li id="account" class="active"><a href="" ng-click="vm.setView('Account')">Account</a></li>
+						<li id="billing"><a href="" ng-click="vm.setView('Billing')">Billing</a></li>
+						<li id="help"><a href="" ng-click="vm.setView('Help')">Help</a></li>
 					</ul>
 				</div>
 			</div>
@@ -18,7 +18,12 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 
+					<fieldset>
+						<legend>Personal details</legend>
+					</fieldset>
+
 					<label for="first-name"><strong>First Name</strong></label>
+					<!-- <p><input class="form-control-static" ng-model='vm.user.firstName' ng-blur='vm.updateDetails()'></input></p> -->
 					<p class="form-control-static">{{ vm.user.firstName }}</p>
 
 					<label for="last-name"><strong>Last Name</strong></label>
@@ -35,25 +40,79 @@
 						{{ vm.user.streetName }}
 						{{ vm.user.postCode }}
 					</p>
+					<a href="/update/details"<i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit details">border_color</i></a>
 				</div>
 			</div>
-			<a href="/update/details" class="btn btn-primary pull-right">Edit Details</a>
+			<!-- <a href="/update/details" class="btn btn-primary pull-right">Edit Details</a> -->
 		</div>
 
 		<div class="col-sm-8" ng-show="vm.view == 'Billing'">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="well-sm">
+					<div class="well">
+						<p class="text-center">Amount to pay</p>
 						<h1 class="text-center">$12.50</h1>
 					</div>
-					<label for="first-name"><strong>Name on Card</strong></label>
-					<br><input type="text"/><br>
+					<fieldset>
+    					<legend>Payment details</legend>
+    					<div class="col-md-6">
+							<label for="first-name"><strong>Name on card</strong></label>
+							<p class="form-control-static">John Smith</p>
+							
+							<label for="last-name"><strong>Card number</strong></label>
+							<p class="form-control-static">1234 5678 9101 1121</p>
 
-					<label for="last-name"><strong>Last Name</strong></label>
-					<p class="form-control-static">{{ vm.user.lastName }}</p>
+							<label for="email"><strong>CVV<sup class='delivery-tooltip' data-toggle="tooltip" data-placement="right" title="The three digits on the back of your card">?</sup></strong></label>
+							<p class="form-control-static">123</p>
+						</div>
+						<div class="col-md-6">
+							<label for="last-name"><strong>Card type</strong></label>
+							<p class="form-control-static">Mastercard</p>
 
-					<label for="email"><strong>Email address</strong></label>
-					<p class="form-control-static">{{ vm.user.email }}</p>
+							<label for="email"><strong>Expiry date</strong></label>
+							<p class="form-control-static">01/17</p>
+							<br><br>
+							<a href="#"<i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit payment details">border_color</i></a>
+
+						</div>
+    				</fieldset>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-8" ng-show="vm.view == 'Help'">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<fieldset>
+    					<legend><div><i class="material-icons" id='help-info'>info_outline</i> 
+    						<span id='help-info2'>Help Information</span></div></legend>
+<!--     					<ul>
+    						<a href="#FAQ1" class="help-anchors"><li>How do I place an order?</li></a>
+    						<a href="#FAQ2" class="help-anchors"><li>How do I cancel an order?</li></a>
+    						<a href="#FAQ3" class="help-anchors"><li>How do I check the status of my order?</li></a>
+    						<a href="#FAQ4" class="help-anchors"><li>How do I change my password?</li></a>
+    						<a href="#FAQ5" class="help-anchors"><li>How do I change my pickup address?</li></a>
+    						<a href="#FAQ6" class="help-anchors"><li>How do I update my card details?</li></a>
+    					</ul>
+    					<hr> -->
+    					<h5 id="FAQ1">How do I place an order?</h5>
+    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum ligula in tincidunt tristique. Phasellus et dignissim sapien, hendrerit pretium odio. Donec non tortor ex. Donec tempus sit amet eros vel mollis. Curabitur non ex vitae dolor pellentesque scelerisque in hendrerit nibh. In gravida felis eu ante egestas, vitae ultrices eros euismod. Pellentesque in laoreet enim. Sed consequat ullamcorper luctus.</p>
+
+    					<h5 id="FAQ2">How do I cancel an order?</h5>
+    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum ligula in tincidunt tristique. Phasellus et dignissim sapien, hendrerit pretium odio. Donec non tortor ex. Donec tempus sit amet eros vel mollis. Curabitur non ex vitae dolor pellentesque scelerisque in hendrerit nibh.</p>
+
+    					<h5 id="FAQ3">How do I check the status of my order?</h5>
+    					<p>Phasellus et dignissim sapien, hendrerit pretium odio. Donec non tortor ex. Donec tempus sit amet eros vel mollis. Curabitur non ex vitae dolor pellentesque scelerisque in hendrerit nibh. In gravida felis eu ante egestas, vitae ultrices eros euismod. Pellentesque in laoreet enim. Sed consequat ullamcorper luctus.</p>
+
+    					<h5 id="FAQ4">How do I request express shipping?</h5>
+    					<p>Donec tempus sit amet eros vel mollis. Curabitur non ex vitae dolor pellentesque scelerisque in hendrerit nibh. In gravida felis eu ante egestas, vitae ultrices eros euismod. Pellentesque in laoreet enim. Sed consequat ullamcorper luctus.</p>
+
+    					<h5 id="FAQ5">How do I change my pickup address?</h5>
+    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum ligula in tincidunt tristique. Phasellus et dignissim sapien, hendrerit pretium odio. Donec non tortor ex. Donec tempus sit amet eros vel mollis. Curabitur non ex vitae dolor pellentesque scelerisque in hendrerit nibh. In gravida felis eu ante egestas, vitae ultrices eros euismod. Pellentesque in laoreet enim. Sed consequat ullamcorper luctus.</p>
+
+    					<h5 id="FAQ6">How do I update my card details?</h5>
+    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum ligula in tincidunt tristique. In gravida felis eu ante egestas, vitae ultrices eros euismod. Pellentesque in laoreet enim. Sed consequat ullamcorper luctus.</p>
+    				</fieldset>
 				</div>
 			</div>
 		</div>

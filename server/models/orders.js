@@ -39,6 +39,10 @@ var orders = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
+	pickUpDate: {
+		type: String,
+		required: true
+	},
   notes: {
     type: String,
     required: false

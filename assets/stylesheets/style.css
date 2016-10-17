@@ -24,7 +24,14 @@
 	letter-spacing: 0.5px;
 	text-align: center;
 	box-shadow: none;
-	/*border: none !important;*/
+}
+
+.nav-tabs > li > a:active{
+	font-size: 14px;
+	color: red;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
 }
 
 /*nav hovering*/
@@ -34,7 +41,6 @@
 	letter-spacing: 0.5px;
 	text-align: center;
 	box-shadow: none;
-	/*border: none !important;*/
 }
 
 .nav-tabs > li > a:focus:hover{
@@ -43,7 +49,6 @@
 	letter-spacing: 0.5px;
 	text-align: center;
 	box-shadow: none;
-	/*border: none !important;*/
 }
 
 .nav-tabs > li > a:focus{
@@ -52,16 +57,14 @@
 	letter-spacing: 0.5px;
 	text-align: center;
 	box-shadow: inset 0 -2px 0 #FFAE00;
-	/*border: none !important;*/
 }
 
 .nav-tabs > li > a:active{
 	font-size: 14px;
-	color: rgba(255,255,255,0.70);
+	color: red;
 	letter-spacing: 0.5px;
 	text-align: center;
 	box-shadow: inset 0 -2px 0 #FFAE00;
-	/*border: none !important;*/
 }
 
 /*nav tabs general style (need for centering them)*/
@@ -137,6 +140,16 @@
 /**/
 #bootstrap-overrides .form-control{
 	
+}
+
+#bootstrap-overrides .help-anchors{
+	color: #000000;
+	text-decoration: none;
+}
+
+#bootstrap-overrides a.help-anchors:hover{
+	color: #000000;
+	text-decoration: none;
 }
 
 .btn-primary:active {
@@ -405,4 +418,16 @@ a:hover {
 
 #register-error-msg {
 	display: none;
+}
+
+#help-info{
+	vertical-align: middle;
+}
+
+#help-info2{
+	vertical-align: middle;
+}
+
+#myUser { 
+	height: 45px;
 }

@@ -69,7 +69,6 @@
 
 		updateUser = function(user) {
 			console.log(user);
-
 			return $http.put('/api/update/details', user).success(function(err,data){
 				if (err) {
 					console.log(err);
@@ -87,9 +86,8 @@
 
     placeOrder = function(order){
       console.log('calling placeOrder');
-      return $http.post('/api/orders/new', order).success(function(data) {
-	      console.log(data);
-        console.log('finished posting to new order');
+      return $http.post('/api/orders/new', order).success(function(data){
+        console.log(data);
       });
     };
 
