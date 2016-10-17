@@ -1,6 +1,6 @@
 # From: https://github.com/github/gitignore/blob/master/Node.gitignore
 
-client/app.min.js
+
 
 .idea
 .DS_Store
