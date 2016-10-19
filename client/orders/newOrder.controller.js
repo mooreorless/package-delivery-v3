@@ -4,17 +4,20 @@
 	.module('packageDelivery')
 	.controller('newOrderCtrl', newOrderCtrl);
 
-  newOrderCtrl.$inject = ['$location', '$rootScope','functionService', 'toastr'];
-  function newOrderCtrl($location, $rootScope, functionService, toastr) {
+  newOrderCtrl.$inject = ['$location', '$rootScope', 'meanData', 'functionService', 'toastr'];
+  function newOrderCtrl($location, $rootScope, meanData, functionService, toastr) {
 
 		var vm = this;
+		vm.currentUser = {};
 
 		vm.isLoggedIn = functionService.isLoggedIn();
 
-		vm.currentUser = functionService.currentUser();
-
-		vm.newOrder = {
-			userID: vm.currentUser.email,
+		meanData.getProfile()
+		.success(function(data) {
+			vm.currentUser = data;
+			console.log(data);
+			vm.newOrder = {
+			userID: vm.currentUser._id,
 			pickUpNumber: vm.currentUser.streetNumber,
 			pickUpName: vm.currentUser.streetName,
 			pickUpSuburb: vm.currentUser.suburb,
@@ -28,7 +31,15 @@
 			isExpress: '',
 			state: 'Order Placed',
 			pickUpDate: ''
-		};
+			};
+		})
+		.error(function (e) {
+			toastr.error('Please sign in or make an account', 'Error');
+			$location.path('/');
+			console.log(e);
+		});
+
+
 
 		vm.onSubmit = function () {
 
