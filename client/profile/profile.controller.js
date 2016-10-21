@@ -18,7 +18,7 @@
 			.error(function (e) {
 				toastr.error('Please sign in or make an account', 'Error');
 				$location.path('/');
-        console.log(e);
+        		console.log(e);
       });
 
       $('[data-toggle="tooltip"]').tooltip();

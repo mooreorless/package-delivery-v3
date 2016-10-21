@@ -150,17 +150,28 @@ module.exports.placeOrder = function(req, res) {
 
 module.exports.updateDetails = function (req, res) {
 	console.log(req.body);
-	User.findOneAndUpdate({ email : req.body.email}, req.body, {multi:false}, function(err,doc){
+	User.findOneAndUpdate({ _id : req.body._id}, req.body, {multi:false, new:true}, function(err,doc){
 		if(err) {
       console.log(err);
     }
-    res.sendStatus(200);
-		console.log(doc);
+
+    console.log('logging updated user');
+    console.log(doc);
+    var token;
+    token = doc.generateJwt();
+    res.status(200);
+    res.json({
+      "token" : token
+    });
+    // res.send(token);
 	});
 };
 
 module.exports.getUserOrders = function(req, res){
-  var userEmail = req.query.user.split('@');
+  console.log(req.query.user);
+  var user = JSON.parse(req.query.user);
+  var userEmail = user.email.split('@');
+  // console.log(req.query.user.);
 	//if logged in user is a driver
 	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
 		console.log('fetching orders assigned to ' + req.query.user);
@@ -172,7 +183,7 @@ module.exports.getUserOrders = function(req, res){
 	}
 	else{
 		console.log('fetching orders for ' + req.query.user);
-		Order.find({ userID: req.query.user }, function (err, orders) {
+		Order.find({ userID: user._id }, function (err, orders) {
 			if (err) {
 				res.status(404).json(err);
 			}

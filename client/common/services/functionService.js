@@ -69,9 +69,9 @@
 
 		updateUser = function(user) {
 			console.log(user);
-			return $http.put('/api/update/details', user).success(function(err,data){
+			return $http.put('/api/update/details', user).success(function(data, err){
 				if (err) {
-					console.log(err);
+					console.log('error' + err);
 				}
 				console.log("Update user fin");
 				console.log(data);
