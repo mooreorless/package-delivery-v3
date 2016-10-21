@@ -18,8 +18,7 @@
 		vm.currentUser = data;
 		console.log('logging user from meanData');
 		console.log(vm.currentUser.firstName);
-		var userEmail = vm.currentUser.email.split('@');
-		if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
+		if (functionService.loggedInUserType == 'driver'){
 			vm.ordersMessage = 'Displaying all orders assigned to you ' + vm.currentUser.firstName;
 		}
 		else {

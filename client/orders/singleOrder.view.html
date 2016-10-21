@@ -6,7 +6,17 @@
     	<a href='/orders'>Back to all Orders</a>
   		<h4>Order #{{vm.order._id}}</h4>
 		<div class="panel panel-default">
-			<div class="panel-heading">Order Details</div>
+			<div class="panel-heading">
+				Order Details
+				<select ng-model='vm.state' ng-change='vm.updateJobState(vm.state)' class='pull-right jobstate-dropdown'
+				ng-hide='vm.loggedInUserType() == "customer"'>
+					<option selected="vm.state == 'Order Placed'" value='Order Placed'>Order Placed</option>
+					<option selected="vm.state == 'Picked Up'" value='Picked Up'>Picked Up</option>
+					<option selected="vm.state == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
+				</select>
+				<span class='pull-right' ng-hide='vm.loggedInUserType() == "customer"'>Job Status</span>
+				<span class='pull-right' ng-show='vm.loggedInUserType() == "customer"'>Job Status: {{vm.state}}</span>
+			</div>
 			<div class="panel-body">
 				Pick Up: 
 				<p>{{vm.pickUpAddress}}</p>
@@ -25,7 +35,6 @@
 			</div>
 		</div>
     </div>
-    <!-- {{vm.order}} -->
   </div>
   <ng-map center="-27.46,153.02" zoom='11'>
 		<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png" on-click="vm.showCustomMarker()"></marker>

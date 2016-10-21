@@ -431,3 +431,9 @@ a:hover {
 #myUser { 
 	height: 45px;
 }
+
+/*Job State Dropdown*/
+.jobstate-dropdown{
+	margin-left: 10px;
+	width: 110px;
+}
