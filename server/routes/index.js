@@ -25,6 +25,7 @@ router.put('/update/details', ctrlFunctions.updateDetails);
 // removed auth middleware due to it clashing with the frontend
 router.get('/orders', ctrlFunctions.getUserOrders);
 router.post('/orders/new', ctrlFunctions.placeOrder);
+router.put('/update/jobstate', ctrlFunctions.updateJobState);
 
 router.get('/singleOrder', ctrlFunctions.getSingleOrder);
 

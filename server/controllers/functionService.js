@@ -154,7 +154,6 @@ module.exports.updateDetails = function (req, res) {
 		if(err) {
       console.log(err);
     }
-
     console.log('logging updated user');
     console.log(doc);
     var token;
@@ -165,6 +164,20 @@ module.exports.updateDetails = function (req, res) {
     });
     // res.send(token);
 	});
+};
+
+module.exports.updateJobState = function(req, res){
+  Order.findOneAndUpdate({_id:req.body._id}, {state:req.body.state}, {mutli:false, new:true}, function(err, doc){
+    if(err) {
+      console.log(err);
+    }
+    console.log('updating job state');
+    console.log(doc);
+    res.status(200);
+    res.json({
+      "job" : doc
+    });
+  });
 };
 
 module.exports.getUserOrders = function(req, res){

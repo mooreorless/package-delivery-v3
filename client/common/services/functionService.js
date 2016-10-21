@@ -12,7 +12,6 @@
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
-			toastr.success('Login successful', 'Success');
       console.log(token);
     };
 
@@ -54,6 +53,30 @@
       }
     };
 
+    var loggedInUserType = function(){
+      if (isLoggedIn()) {
+        var token = getToken();
+        var payload = token.split('.')[1];
+        payload = $window.atob(payload);
+        payload = JSON.parse(payload);
+        //split logged in email address
+        userEmail = payload.email.split('@');
+        // console.log(userEmail);
+        //check for a customer
+        if (userEmail[1] != 'onthespot.com'){
+          return 'customer';
+        }
+        else {
+          if (userEmail[0] == 'admin'){
+            return 'admin';
+          }
+          else{
+            return 'driver';
+          }
+        }
+      }
+    };
+
     register = function(user) {
       console.log('register being called');
       return $http.post('/api/register', user).success(function(data){
@@ -64,6 +87,7 @@
     login = function(user) {
       return $http.post('/api/login', user).success(function(data) {
         saveToken(data.token);
+        toastr.success('Login successful', 'Success');
       });
     };
 
@@ -73,6 +97,7 @@
 				if (err) {
 					console.log('error' + err);
 				}
+        toastr.success('Updated Profile', 'Success');
 				console.log("Update user fin");
 				console.log(data);
 				saveToken(data.token);
@@ -130,6 +155,13 @@
 	    });
     };
 
+    updateJobState = function(update){
+      return $http.put('/api/update/jobstate', update).success(function(data){
+        console.log('job state changed');
+        toastr.success('Job State Changed', 'Success');
+      });
+    };
+
     return {
       currentUser : currentUser,
       saveToken : saveToken,
@@ -148,7 +180,9 @@
 	    getCurrentOrders: getCurrentOrders,
 	    getDeliveredOrders: getDeliveredOrders,
 	    getPlacedOrders: getPlacedOrders,
-      order: order
+      order: order,
+      loggedInUserType: loggedInUserType,
+      updateJobState: updateJobState
     };
   }
 
