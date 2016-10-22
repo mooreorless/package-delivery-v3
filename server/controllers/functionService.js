@@ -5,8 +5,7 @@ var User = mongoose.model('User');
 var Order = mongoose.model('Order');
 
 var sendJSONresponse = function(res, status, content) {
-  res.status(status);
-  res.json(content);
+  res.status(status).json(content);
 };
 
 module.exports.register = function(req, res) {
@@ -29,34 +28,29 @@ module.exports.register = function(req, res) {
   user.streetName = req.body.streetName;
   user.suburb = req.body.suburb;
   user.postCode = req.body.postCode;
-  user.isDriver = false;
-  user.isAdmin = false;
 
-  emailDomain = req.body.email.split('@');
-  console.log(emailDomain[1]);
+	var userEmail = (req.body.email).split('@');
 
-  if (emailDomain[1] == 'onthespot.com'){
-    user.isDriver = true;
-  }
-
-  if (req.body.email == 'admin@onthespot.com'){
-    user.isAdmin = true;
-  }
+	var driverOrAdmin = function(username, domain) {
+		if (domain.includes('onthespot.com')) {
+			user.isDriver = true;
+		} else if (username.includes('admin')) {
+			user.isAdmin = true;
+		}
+	};
+	driverOrAdmin.apply(null, userEmail);
 
   user.setPassword(req.body.password);
 
   console.log(user);
   user.save(function(err) {
     if (err){
-      console.log(err);
+	    res.status(500).json(err);
+    } else {
+	    var token;
+	    token = user.generateJwt();
+	    res.status(200).json({ "token": token });
     }
-
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
   });
 };
 

@@ -61,18 +61,16 @@
         payload = JSON.parse(payload);
         //split logged in email address
         userEmail = payload.email.split('@');
-        // console.log(userEmail);
+	      // console.log(userEmail);
         //check for a customer
         if (userEmail[1] != 'onthespot.com'){
           return 'customer';
         }
-        else {
-          if (userEmail[0] == 'admin'){
-            return 'admin';
-          }
-          else{
-            return 'driver';
-          }
+        else if (userEmail[0] == 'admin'){
+          return 'admin';
+        }
+        else{
+          return 'driver';
         }
       }
     };
@@ -80,6 +78,7 @@
     register = function(user) {
       console.log('register being called');
       return $http.post('/api/register', user).success(function(data){
+      	toastr.success('Account created', 'Success');
         saveToken(data.token);
       });
     };
@@ -92,13 +91,10 @@
     };
 
 		updateUser = function(user) {
-			console.log(user);
-			return $http.put('/api/update/details', user).success(function(data, err){
-				if (err) {
-					console.log('error' + err);
-				}
-        toastr.success('Updated Profile', 'Success');
-				console.log("Update user fin");
+			return $http.put('/api/update/details', user).success(function(data){
+        toastr.success('Updated profile', 'Success');
+				// Forces toastr to show success more than once
+				toastr.hidden('Hidden', 'Hidden');
 				console.log(data);
 				saveToken(data.token);
 			});
@@ -112,7 +108,9 @@
     placeOrder = function(order){
       console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
-        console.log(data);
+      	toastr.success('Order placed', 'Success');
+	      toastr.hidden('Hidden', 'Hidden');
+	      console.log(data);
       });
     };
 
