@@ -96,19 +96,8 @@ module.exports.placeOrder = function(req, res) {
 	order.dropOffSuburb = req.body.dropOffSuburb;
 	order.dropOffPostcode = req.body.dropOffPostcode;
   order.notes = req.body.notes;
-  order.pickUpDate = req.body.pickUpDate;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
-	order.pickUpDate = req.body.pickUpDate;
-
-  // if (Math.random() > 0.5){
-  //   order.driver = 'jono';
-  // }
-  // else{
-  //   order.driver = 'marco';
-  // }
-
-  console.log(order);
 
   order.save(function(err) {
     if (err){
@@ -119,9 +108,6 @@ module.exports.placeOrder = function(req, res) {
     } else {
 			console.log('order saved');
 			res.sendStatus(200);
-      // res.json({
-      //   status :'OK'
-      // });
 		}
   });
 };
@@ -142,7 +128,10 @@ module.exports.updateDetails = function (req, res) {
 };
 
 module.exports.updateJobState = function(req, res){
-  Order.findOneAndUpdate({_id:req.body._id}, {state:req.body.state}, {mutli:false, new:true}, function(err, doc){
+    // update job state
+    // change the created at
+    console.log(req.body);
+  Order.findOneAndUpdate({_id:req.body._id}, req.body, {mutli:false, new:true}, function(err, doc){
     if(err) {
       res.status(500).json(err);
     }
@@ -181,7 +170,21 @@ module.exports.getSingleOrder = function(req, res){
     if (err) {
     	console.log(err);
     }
-    res.send(order);
+    else{
+      res.send(order);
+    }
+  });
+};
+
+module.exports.markJobAsSeen = function(req, res){
+  Order.findOneAndUpdate({ _id:req.body._id}, {seenByDriver: true}, function (err, order){
+    if (err) {
+      console.log(err);
+    }
+    else{
+      console.log('job marked as seen');
+      res.send(order);
+    }
   });
 };
 

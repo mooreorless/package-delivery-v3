@@ -40,7 +40,7 @@
 				<b>Placed By:</b>
 				<p class='singleOrderLabels'>{{vm.order.userName || 'Old Order - No UserName Field'}}</p>
 				<b>Placed On:</b>
-				<p class='singleOrderLabels'>{{vm.order.timestamp.orderPlaced}}</p>
+				<p class='singleOrderLabels'>{{vm.order.orderPlacedAt | date : "dd/MM/yyyy"}}</p>
 			</div>
 		</div>
 		<div class="panel panel-default" ng-show='vm.state == "Picked Up"'>
@@ -52,7 +52,7 @@
 				<b>Picked Up By:</b>
 				<p class='singleOrderLabels'>{{vm.order.driver}}</p>
 				<b>Placed On:</b>
-				<p class='singleOrderLabels'>{{vm.order.timestamp.pickedUp || 'Order waiting to be picked up'}}</p>
+				<p class='singleOrderLabels'>{{vm.order.pickedUpAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}</p>
 			</div>
 		</div>
 		<div class="panel panel-default" ng-show='vm.state == "Dropped Off"'>
@@ -105,6 +105,25 @@
 		destination="{{vm.dropOffAddress}}">
 	</directions>
 	</ng-map>
+
+	<ul ng-show="vm.loggedInUserType() == 'admin'">
+		<li>
+			Order placed at
+			{{vm.order.orderPlacedAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}
+		</li>
+		<li>
+			Order picked up at
+			{{vm.order.pickedUpAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}
+		</li>
+		<li>
+			Order delivered at
+			{{vm.order.droppedOffAt | date : "dd/MM/yyyy" || 'Order waiting to be delivered'}}
+		</li>
+		<li>
+			Order paid for at
+			{{vm.order.paidAt | date : "dd/MM/yyyy" || 'Order waiting to be paid for'}}
+		</li>
+	</ul>
 </div>
 </div>
 <br><br>

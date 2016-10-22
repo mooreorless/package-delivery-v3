@@ -30,23 +30,39 @@
 		$location.path('/');
 	})
 	.then(function(){
-		// if (functionService.loggedInUserType() === 'admin') {
-		// 	functionService.getCurrentOrders()
-		// 		.then(function() {
-		// 			vm.orders = functionService.loadOrders();
-		// 		});
-		// } else {
+		if (functionService.loggedInUserType() === 'admin') {
+			functionService.getCurrentOrders()
+				.then(function() {
+					vm.orders = functionService.loadOrders();
+				});
+		} else {
 			functionService
 				.getUserOrders(vm.currentUser)
 				.error(function(err){
 					toastr.warning(err, 'Error');
 				})
 				.then(function(){
-					$location.path('orders');
 					//if no orders found, have watermark/empty state view etc
 					vm.orders = functionService.loadOrders();
+					vm.newOrderCount = 0;
+					if (functionService.loggedInUserType() == 'driver'){
+						vm.orders.forEach(function(item, index){
+							if (item.seenByDriver === false){
+								vm.newOrderCount++;
+								vm.orders[index].panelClass = 'panel panel-warning';
+							}
+							else{
+								vm.orders[index].panelClass = 'panel panel-default';
+							}
+						});
+					}
+					else{
+						vm.orders.forEach(function(item, index){
+							vm.orders[index].panelClass = 'panel panel-default';
+						});
+					}
 				});
-		//}
+		}
 	});
 
     vm.openOrder = function(order){

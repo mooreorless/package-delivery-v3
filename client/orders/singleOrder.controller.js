@@ -19,6 +19,7 @@
 		vm.orderID = $routeParams.orderID;
 
 
+
 		//variable to help with page layout during different job states
 		vm.googleMapsUrl = '<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0ZemKOuENUDXYGs4GVAVIbkPs3vyqJXA"></script>';
 
@@ -36,17 +37,22 @@
 			vm.pickUpAddress = vm.order.pickUpNumber+' '+vm.order.pickUpName+' '+vm.order.pickUpSuburb+' '+vm.order.pickUpPostcode;
 			vm.dropOffAddress = vm.order.dropOffNumber+' '+vm.order.dropOffName+' '+vm.order.dropOffSuburb+' '+vm.order.dropOffPostcode;
 			vm.state = vm.order.state;
-
 			console.log(vm.order);
 			console.log(vm.pickUpAddress);
+			//if we are logged in as a driver, set isSeen to true on order object
+			if (vm.loggedInUserType() == 'driver' && vm.order.seenByDriver === false){
+				console.log('calling mark job as seen');
+				functionService.markJobAsSeen({_id : vm.order._id});
+			}
 		});
 
 		NgMap.getMap().then(function(map) {
-			console.log(map.getCenter());
-			console.log('markers', map.markers);
-			console.log('shapes', map.shapes);
+			// console.log(map.getCenter());
+			// console.log('markers', map.markers);
+			// console.log('shapes', map.shapes);
 		});
 
+		console.log(vm.order);
 		vm.updateJobState = function(newState){
 			console.log('dropdown changed');
 			console.log(newState);
@@ -54,9 +60,38 @@
 			update = {
 				_id: vm.orderID,
 				state: newState,
+				pickedUpAt: vm.order.pickedUpAt,
+				droppedOffAt: vm.order.droppedOffAt,
+				paidAt: vm.order.paidAt
 			};
-			functionService.updateJobState(update);
-		};
+			if (newState.toLowerCase().replace(' ', '') == 'pickedup'){
+				update.pickedUpAt = Date.now();
+				console.log('Picked Up Selected');
+				console.log(update);
+			} else if (newState.toLowerCase().replace(' ', '') == 'droppedoff'){
+				update.droppedOffAt = Date.now();
+				console.log('Dropped Off Selected');
+				console.log(update);
+			} else 	if (newState.toLowerCase().replace(' ', '') == 'paid'){
+				update.paidAt = Date.now();
+				console.log('Paid At Selected');
+				console.log(update);
+				//todo format date
+			}
 
+
+			functionService.updateJobState(update).then(function(){
+				functionService
+				.getSingleOrder(vm.orderID)
+				.error(function(err){
+					if (err){
+						alert(err);
+					}
+				})
+				.then(function(){
+					vm.order = functionService.loadSingleOrder();
+				});
+			});
+		};
 	}
 })();

@@ -1,20 +1,16 @@
-var mongoose = require( 'mongoose' );
+var mongoose = require('mongoose');
 var crypto = require('crypto');
 
 
 var orders = new mongoose.Schema({
-  userID: {
-    type: String,
-    required: true
-  },
-  userName: {
-    type: String,
-    required: true
-  },
-  pickUpNumber: {
-    type: Number,
-    required: true
-  },
+	userID: {
+		type: String,
+		required: true
+	},
+	pickUpNumber: {
+		type: Number,
+		required: true
+	},
 	pickUpName: {
 		type: String,
 		required: true
@@ -43,10 +39,6 @@ var orders = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-	pickUpDate: {
-		type: String,
-		required: true
-	},
   notes: {
     type: String,
     required: false
@@ -59,52 +51,40 @@ var orders = new mongoose.Schema({
     type: Boolean,
     required: false
   },
-	pickUpDate: {
-  	type: String
+	orderPlacedAt: {
+		type: Date,
+		default: Date.now
 	},
-	timestamp: {
-		type: Object,
-		default: {
-			orderPlaced: Date.now(),
-			pickedUp: null,
-			delivered: null
-		},
+	pickedUpAt:{
+		type: Date,
+		default: null
+	},
+	droppedOffAt:{
+		type: Date,
+		default: null
+	},
+	paidAt: {
+		type: Date,
+		default: null
 	},
   state: {
     type: String,
     required: true,
 		default: 'Order Placed'
-  },
+	},
 	driver: {
   	type: String,
 		default: 'unassigned'
+	},
+	seenByDriver: {
+		type: Boolean,
+		default: false
 	}
 });
 
-//changed default state on job to 'unassigned'
-
 orders.methods.setState = function(action){
   this.state = action;
-	inputIntoTimestampArray(action);
 };
-
-/*
- When an order is made it inputs the current time into the Database into the corresponding position in the array
- // TODO rename these
- */
-function inputIntoTimestampArray(action) {
-	switch (action.toLowerCase().replace(" ","")) {
-		case "orderplaced":
-			return this.timestamp.orderPlaced = Date.now();
-			break;
-		case "pickedup":
-			return this.timestamp.pickedup = Date.now();
-			break;
-		case "delivered":
-			return this.delivered = Date.now();
-			break;
-	}
-}
 
 
 mongoose.model('Order', orders);
