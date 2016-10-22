@@ -62,13 +62,6 @@ module.exports.register = function(req, res) {
 
 module.exports.login = function(req, res) {
 
-  // if(!req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
-
   passport.authenticate('local', { failureFlash: true }, function(err, user, info){
     var token;
 
@@ -93,17 +86,13 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.placeOrder = function(req, res) {
-// if(!req.body.name || !req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
+
   console.log(req.body);
 	console.log('Placing Order');
   var order = new Order();
 
   order.userID = req.body.userID;
+  order.userName = req.body.userName;
   order.pickUpNumber = req.body.pickUpNumber;
 	order.pickUpName = req.body.pickUpName;
 	order.pickUpSuburb = req.body.pickUpSuburb;
@@ -116,12 +105,7 @@ module.exports.placeOrder = function(req, res) {
   order.pickUpDate = req.body.pickUpDate;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
-
-  // Trying to setState
-  // order.state = order.setState('Order Placed');
-
 	order.pickUpDate = req.body.pickUpDate;
-  // order.driver = 'jono';
 
   if (Math.random() > 0.5){
     order.driver = 'jono';

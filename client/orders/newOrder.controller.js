@@ -17,21 +17,23 @@
 			vm.currentUser = data;
 			console.log(data);
 			vm.newOrder = {
-			userID: vm.currentUser._id,
-			pickUpNumber: vm.currentUser.streetNumber,
-			pickUpName: vm.currentUser.streetName,
-			pickUpSuburb: vm.currentUser.suburb,
-			pickUpPostcode: vm.currentUser.postCode,
-			dropOffNumber: '',
-			dropOffName: '',
-			dropOffSuburb: '',
-			dropOffPostcode: '',
-			notes: '',
-			isFragile: '',
-			isExpress: '',
-			state: 'Order Placed',
-			pickUpDate: ''
+				userID: vm.currentUser._id,
+				userName: vm.currentUser.firstName+' '+vm.currentUser.lastName,
+				pickUpNumber: vm.currentUser.streetNumber,
+				pickUpName: vm.currentUser.streetName,
+				pickUpSuburb: vm.currentUser.suburb,
+				pickUpPostcode: vm.currentUser.postCode,
+				dropOffNumber: '',
+				dropOffName: '',
+				dropOffSuburb: '',
+				dropOffPostcode: '',
+				notes: '',
+				isFragile: '',
+				isExpress: '',
+				state: 'Order Placed',
+				pickUpDate: ''
 			};
+			console.log(vm.newOrder);
 		})
 		.error(function (e) {
 			toastr.error('Please sign in or make an account', 'Error');

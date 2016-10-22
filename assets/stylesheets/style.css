@@ -437,3 +437,23 @@ a:hover {
 	margin-left: 10px;
 	width: 110px;
 }
+
+/*pay button on payment panel*/
+.pay-btn-col{
+	position: absolute;
+    right: 35px;
+    bottom: 55px;
+}
+
+.singleOrderLabels{
+	margin-top: 12px;
+	margin-bottom: 15px;
+}
+
+@media (max-width: 460px){
+	.pay-btn-col{
+		position: absolute;
+    	right: 35px;
+    	bottom: 25px;
+	}
+}

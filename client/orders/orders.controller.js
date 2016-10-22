@@ -18,7 +18,7 @@
 		vm.currentUser = data;
 		console.log('logging user from meanData');
 		console.log(vm.currentUser.firstName);
-		if (functionService.loggedInUserType == 'driver'){
+		if (functionService.loggedInUserType() == 'driver'){
 			vm.ordersMessage = 'Displaying all orders assigned to you ' + vm.currentUser.firstName;
 		}
 		else {
