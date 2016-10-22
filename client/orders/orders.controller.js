@@ -34,7 +34,12 @@
 			functionService.getCurrentOrders()
 				.then(function() {
 					vm.orders = functionService.loadOrders();
-				});
+				})
+				.then(function() {
+					vm.orders.forEach(function(item, index) {
+						vm.orders[index].panelClass = 'panel panel-default';
+					});
+				})
 		} else {
 			functionService
 				.getUserOrders(vm.currentUser)
