@@ -93,6 +93,8 @@
 		updateUser = function(user) {
 			return $http.put('/api/update/details', user).success(function(data){
         toastr.success('Updated profile', 'Success');
+				// Forces toastr to show success more than once
+				toastr.hidden('Hidden', 'Hidden');
 				console.log(data);
 				saveToken(data.token);
 			});

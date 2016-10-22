@@ -24,6 +24,7 @@
       remove: remove,
       success: success,
       warning: warning,
+	    hidden: hidden,
       refreshTimer: refreshTimer
     };
 
@@ -65,6 +66,11 @@
     function warning(message, title, optionsOverride) {
       var type = _getOptions().iconClasses.warning;
       return _buildNotification(type, message, title, optionsOverride);
+    }
+
+    function hidden(message, title, optionsOverride) {
+    	var type = _getOptions().iconClasses.hidden;
+	    return _buildNotification(type, message, title, optionsOverride);
     }
 
     function refreshTimer(toast, newTime) {
@@ -306,7 +312,8 @@
         error: 'toast-error',
         info: 'toast-info',
         success: 'toast-success',
-        warning: 'toast-warning'
+        warning: 'toast-warning',
+	      hidden: 'toast-hidden'
       },
       maxOpened: 0,
       messageClass: 'toast-message',
@@ -324,7 +331,7 @@
         toast: 'directives/toast/toast.html',
         progressbar: 'directives/progressbar/progressbar.html'
       },
-      timeOut: 5000,
+      timeOut: 3000,
       titleClass: 'toast-title',
       toastClass: 'toast'
     });
