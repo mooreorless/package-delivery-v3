@@ -50,8 +50,8 @@
 			</div>
 			<div class="panel-body">
 				<b>Picked Up By:</b>
-				<p class='singleOrderLabels'>{{vm.order.driver}}</p>
-				<b>Placed On:</b>
+				<p class='singleOrderLabels'>{{vm.order.driver.charAt(0).toUpperCase() + vm.order.driver.slice(1)}}</p>
+				<b>Picked Up On:</b>
 				<p class='singleOrderLabels'>{{vm.order.pickedUpAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}</p>
 			</div>
 		</div>
