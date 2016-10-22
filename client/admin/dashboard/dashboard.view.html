@@ -2,10 +2,10 @@
 
 <div class="container">
 	<div class="row">
-		<div class="dashboard-wrapper col-md-8 col-md-offset-2">
+		<div class="dashboard-wrapper col-md-12">
 
 			<!-- Current Orders -->
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="panel panel-default">
 					<div class="widget-heading">
 						<h5>Current Orders</h5>
@@ -17,7 +17,7 @@
 			</div>
 
 			<!-- Orders Waiting -->
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="panel panel-default">
 					<div class="widget-heading">
 						<h5>Orders Waiting</h5>
@@ -29,7 +29,7 @@
 		</div>
 
 		<!-- Delivered Today -->
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="widget-heading">
 					<h5>Delivered Today</h5>
@@ -40,19 +40,32 @@
 			</div>
 		</div>
 
-		<!-- Extra Info -->
-		<div class="col-md-4">
+		<!-- Other -->
+		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="widget-heading">
-					<h5>Stats</h5>
-					<span class="text-muted">extra info</span>
+					<h5>Other</h5>
+					<span class="text-muted">Other</span>
 					<hr>
+					<h2 class="text-center">{{ vm.deliveredOrderCount }}</h2>
+				</div>
+			</div>
+		</div>
+
+		<!-- Extra Info/Map -->
+		<div class="col-md-5">
+			<div class="panel panel-default">
+				<div class="widget-heading">
+					<!--<h5>Stats</h5>-->
+					<img src="http://i.stack.imgur.com/dApg7.png" width="425" height="400" alt="map">
+					<!--<span class="text-muted">extra info</span>-->
+					<!--<hr>-->
 				</div>
 			</div>
 		</div>
 
 		<!-- Assign Drivers -->
-		<div class="col-md-8">
+		<div class="col-md-7">
 			<div class="panel panel-default">
 				<div class="widget-heading">
 					<h5>Orders Awaiting Assignment</h5>
