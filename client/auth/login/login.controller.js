@@ -20,7 +20,11 @@
         	document.getElementById('login-error-msg').style.display = 'block';
         })
         .then(function(){
-          $location.path('/profile');
+        	if (functionService.loggedInUserType() === 'admin') {
+        		$location.path('/admin/dashboard');
+	        } else {
+		        $location.path('/profile');
+	        }
         });
     };
   }

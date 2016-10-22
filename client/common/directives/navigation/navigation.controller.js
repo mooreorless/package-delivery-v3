@@ -23,6 +23,11 @@
       document.getElementById('myOrders').className = "";
       document.getElementById('newOrder').className = "";
       document.getElementById('myProfile').className = "active";
+    } else if (path === "/admin/dashboard") {
+	    document.getElementById('myOrders').className = "";
+	    document.getElementById('newOrder').className = "";
+	    document.getElementById('myProfile').className = "";
+	    document.getElementById('dashboard').className = "active";
     }
 
     navvm.isLoggedIn = functionService.isLoggedIn();

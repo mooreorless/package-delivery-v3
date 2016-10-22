@@ -16,20 +16,18 @@
 	meanData.getProfile()
 	.success(function(data) {
 		vm.currentUser = data;
-		console.log('logging user from meanData');
-		console.log(vm.currentUser.firstName);
-		if (functionService.loggedInUserType() == 'driver'){
+		if (functionService.loggedInUserType() === 'driver'){
 			vm.ordersMessage = 'Displaying all orders assigned to you ' + vm.currentUser.firstName;
 		}
-		else {
+		else if (functionService.loggedInUserType() === 'customer') {
 			vm.ordersMessage = 'Displaying all orders placed by you ' + vm.currentUser.firstName;
+		} else {
+			vm.ordersMessage = 'Displaying all orders';
 		}
-		console.log('finished logging from meanData');
 	})
 	.error(function (e) {
 		toastr.error('Please sign in or make an account', 'Error');
 		$location.path('/');
-		console.log(e);
 	})
 	.then(function(){
 		functionService

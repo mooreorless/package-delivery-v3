@@ -2,7 +2,7 @@
 	<div class="col-md-12 top-bar">
 		<ul class="nav nav-tabs">
 			<!--Admin changed from ng-if-->
-			<li ng-show="navvm.userType === 'admin'" ng-class="{ active: isActive('/admin/dashboard') }">
+			<li id="dashboard" ng-show="navvm.userType === 'admin'" ng-class="{ active: isActive('/orders') }">
 				<a href="admin/dashboard" data-toggle="tab"><i class="material-icons account-icon">dashboard</i>DASHBOARD</a>
 			</li>
 
