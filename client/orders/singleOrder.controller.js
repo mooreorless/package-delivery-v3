@@ -52,6 +52,7 @@
 			// console.log('shapes', map.shapes);
 		});
 
+		console.log(vm.order);
 		vm.updateJobState = function(newState){
 			console.log('dropdown changed');
 			console.log(newState);
@@ -59,8 +60,41 @@
 			update = {
 				_id: vm.orderID,
 				state: newState,
+				pickedUpAt: vm.order.pickedUpAt,
+				droppedOffAt: vm.order.droppedOffAt,
+				paidAt: vm.order.paidAt
 			};
-			functionService.updateJobState(update);
+			if (newState.toLowerCase().replace(' ', '') == 'pickedup'){
+				update.pickedUpAt = Date.now();
+				console.log('Picked Up Selected');
+				console.log(update);
+			} else if (newState.toLowerCase().replace(' ', '') == 'droppedoff'){
+				update.droppedOffAt = Date.now();
+				console.log('Dropped Off Selected');
+				console.log(update);
+			} else 	if (newState.toLowerCase().replace(' ', '') == 'paid'){
+				update.paidAt = Date.now();
+				console.log('Paid At Selected');
+				console.log(update);
+				//todo format date
+			}
+			else{
+				console.log('CUNT');
+			}
+
+
+			functionService.updateJobState(update).then(function(){
+				functionService
+				.getSingleOrder(vm.orderID)
+				.error(function(err){
+					if (err){
+						alert(err);
+					}
+				})
+				.then(function(){
+					vm.order = functionService.loadSingleOrder();
+				});
+			});
 		};
 
 	}

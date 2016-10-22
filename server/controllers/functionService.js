@@ -96,10 +96,8 @@ module.exports.placeOrder = function(req, res) {
 	order.dropOffSuburb = req.body.dropOffSuburb;
 	order.dropOffPostcode = req.body.dropOffPostcode;
   order.notes = req.body.notes;
-  order.pickUpDate = req.body.pickUpDate;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
-	order.pickUpDate = req.body.pickUpDate;
 
   if (Math.random() > 0.5){
     order.driver = 'jono';
@@ -145,7 +143,10 @@ module.exports.updateDetails = function (req, res) {
 };
 
 module.exports.updateJobState = function(req, res){
-  Order.findOneAndUpdate({_id:req.body._id}, {state:req.body.state}, {mutli:false, new:true}, function(err, doc){
+    // update job state
+    // change the created at
+    console.log(req.body);
+  Order.findOneAndUpdate({_id:req.body._id}, req.body, {mutli:false, new:true}, function(err, doc){
     if(err) {
       console.log(err);
     }
