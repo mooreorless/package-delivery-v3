@@ -68,8 +68,9 @@
 								Choose Driver
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">Marco</a></li>
-								<li><a href="#">Jono</a></li>
+								<li ng-repeat="driver in vm.drivers">
+									<a href="#">{{ driver.firstName }}</a>
+								</li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#">Add New Driver</a></li>
 							</ul>

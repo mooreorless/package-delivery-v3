@@ -9,6 +9,7 @@
 
     var orders;
     var order;
+	  var drivers;
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
@@ -160,6 +161,23 @@
       });
     };
 
+    loadDrivers = function() {
+      return drivers;
+    };
+
+    getAllDrivers = function() {
+    	return $http.get('/api/drivers/all').success(function(data) {
+				drivers = data;
+	    });
+    };
+
+    assignDriver = function(driver) {
+    	return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
+    		console.log('assigned driver');
+		    toastr.success('Assigned ' + driver + 'to job');
+	    });
+    };
+
     return {
       currentUser : currentUser,
       saveToken : saveToken,
@@ -180,7 +198,11 @@
 	    getPlacedOrders: getPlacedOrders,
       order: order,
       loggedInUserType: loggedInUserType,
-      updateJobState: updateJobState
+      updateJobState: updateJobState,
+	    drivers: drivers,
+	    loadDrivers: loadDrivers,
+	    getAllDrivers: getAllDrivers,
+	    assignDriver: assignDriver
     };
   }
 

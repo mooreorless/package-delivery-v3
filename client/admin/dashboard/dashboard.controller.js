@@ -12,6 +12,12 @@
 		var date = new Date();
 		vm.currentDate = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
 
+		// Get drivers to then be assigned
+		functionService.getAllDrivers()
+			.then(function() {
+				vm.drivers = functionService.loadDrivers();
+			});
+
 		functionService.getCurrentOrders()
 			.then(function() {
 				vm.orders = functionService.loadOrders();

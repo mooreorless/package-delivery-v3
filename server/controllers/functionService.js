@@ -192,6 +192,24 @@ module.exports.getSingleOrder = function(req, res){
   });
 };
 
+/* Driver Assignment */
+
+/*
+  Get all drivers
+ */
+module.exports.getAllDrivers = function(req, res) {
+	User.find({ isDriver: true, isAdmin: false }, function(err, drivers) {
+		if (!err) {
+			res.status(200).json(drivers);
+		} else {
+			res.status(500).json({ message: err });
+		}
+	});
+};
+
+
+
+
 /* Admin actions */
 
 /*

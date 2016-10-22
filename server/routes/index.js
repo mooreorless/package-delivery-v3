@@ -34,5 +34,7 @@ router.get('/orders/current', ctrlFunctions.getCurrentOrderCount);
 router.get('/orders/delivered', ctrlFunctions.getDeliveredCount);
 router.get('/orders/awaiting', ctrlFunctions.getPlacedOrders);
 
+router.get('/drivers/all', ctrlFunctions.getAllDrivers);
+// router.put('/orders/assign/driver', ctrlFunctions.assignDriver);
 
 module.exports = router;
