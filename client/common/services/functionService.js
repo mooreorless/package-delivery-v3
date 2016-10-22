@@ -78,6 +78,7 @@
     register = function(user) {
       console.log('register being called');
       return $http.post('/api/register', user).success(function(data){
+      	toastr.success('Account created', 'Success');
         saveToken(data.token);
       });
     };
@@ -90,13 +91,8 @@
     };
 
 		updateUser = function(user) {
-			console.log(user);
-			return $http.put('/api/update/details', user).success(function(data, err){
-				if (err) {
-					console.log('error' + err);
-				}
-        toastr.success('Updated Profile', 'Success');
-				console.log("Update user fin");
+			return $http.put('/api/update/details', user).success(function(data){
+        toastr.success('Updated profile', 'Success');
 				console.log(data);
 				saveToken(data.token);
 			});
@@ -110,6 +106,7 @@
     placeOrder = function(order){
       console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
+      	toastr.success('Order placed', 'Success');
         console.log(data);
       });
     };

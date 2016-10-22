@@ -45,14 +45,17 @@ module.exports.register = function(req, res) {
   console.log(user);
   user.save(function(err) {
     if (err){
-      console.log(err);
+	    res.status(500).json(err);
+    } else {
+	    var token;
+	    token = user.generateJwt();
+	    res.status(200).json({ "token": token });
+	    // res.status(200);
+	    // res.json({
+		   //  "token" : token
+	    // });
     }
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
+
   });
 };
 

@@ -2,7 +2,6 @@
 
 	angular
 		.module('packageDelivery')
-		// TODO
 		.controller('updateUserCtrl', updateUserCtrl);
 
 	updateUserCtrl.$inject = ['$location', 'functionService', 'toastr'];
@@ -37,10 +36,8 @@
 		};
 
 		vm.updateUser = function(){
-			// console.log();
 			functionService.updateUser(vm.newCredentials);
-			$location.path('profile');
-			toastr.success('Updated account details', 'Success');
+			$location.path('/profile');
 		}
 	}
 
