@@ -3,18 +3,14 @@ var crypto = require('crypto');
 
 
 var orders = new mongoose.Schema({
-  userID: {
-    type: String,
-    required: true
-  },
-  userName: {
-    type: String,
-    required: true
-  },
-  pickUpNumber: {
-    type: Number,
-    required: true
-  },
+	userID: {
+		type: String,
+		required: true
+	},
+	pickUpNumber: {
+		type: Number,
+		required: true
+	},
 	pickUpName: {
 		type: String,
 		required: true
@@ -47,41 +43,45 @@ var orders = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-  notes: {
-    type: String,
-    required: false
-  },
-  isFragile: {
-    type: Boolean,
-    required: false
-  },
-  isExpress: {
-    type: Boolean,
-    required: false
-  },
+	notes: {
+		type: String,
+		required: false
+	},
+	isFragile: {
+		type: Boolean,
+		required: false
+	},
+	isExpress: {
+		type: Boolean,
+		required: false
+	},
 	pickUpDate: {
-  	type: String
+		type: String
 	},
-	timestamp: {
-		type: Object,
-		default: {
-			orderPlaced: Date.now(),
-			pickedUp: null,
-			delivered: null
-		},
+	orderPlaced: {
+		type: Date,
+		default: Date.now
 	},
-  state: {
-    type: String,
-    required: true,
+	pickedUp:{
+		type: Date,
+		default: null
+	},
+	delivered:{
+		type: Date,
+		default: null
+	},
+	state: {
+		type: String,
+		required: true,
 		default: 'Order Placed'
-  },
+	},
 	driver: {
-  	type: String
+		type: String
 	}
 });
 
 orders.methods.setState = function(action){
-  this.state = action;
+	this.state = action;
 	inputIntoTimestampArray(action);
 };
 
@@ -92,10 +92,10 @@ orders.methods.setState = function(action){
 function inputIntoTimestampArray(action) {
 	switch (action.toLowerCase().replace(" ","")) {
 		case "orderplaced":
-			return this.timestamp.orderPlaced = Date.now();
+			return this.orderPlaced = Date.now;
 			break;
 		case "pickedup":
-			return this.timestamp.pickedup = Date.now();
+			return this.pickedup = Date.now;
 			break;
 		case "delivered":
 			return this.delivered = Date.now();
