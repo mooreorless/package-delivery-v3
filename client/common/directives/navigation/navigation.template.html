@@ -1,12 +1,30 @@
 <div class="row">
 	<div class="col-md-12 top-bar">
 		<ul class="nav nav-tabs">
-			<li id="myOrders" class="active" ng-class="{active: isActive('/orders')}">
+			<!--Admin changed from ng-if-->
+			<li id="dashboard" ng-show="navvm.userType === 'admin'" ng-class="{ active: isActive('/orders') }">
+				<a href="admin/dashboard" data-toggle="tab"><i class="material-icons account-icon">dashboard</i>DASHBOARD</a>
+			</li>
+
+			<li id="myOrders" ng-show="navvm.userType === 'admin'" ng-class="{active: isActive('/orders')}">
+				<a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>ALL ORDERS</a>
+			</li>
+
+			<!--Driver-->
+			<li id="myOrders" ng-show="navvm.userType === 'driver'" ng-class="{active: isActive('/orders')}">
+				<a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>MY JOBS</a>
+			</li>
+
+			<!--Customer-->
+			<li id="myOrders" ng-show="navvm.userType === 'customer'" ng-class="{active: isActive('/orders')}">
 				<a href="orders" data-toggle="tab"><i class="material-icons account-icon">dvr</i>MY ORDERS</a>
 			</li>
+
+			<!--All-->
 			<li id="newOrder" ng-class="{active: isActive('/orders')}">
 				<a href="orders/new" data-toggle="tab"><i class="material-icons account-icon">add</i>NEW ORDER</a>
 			</li>
+
 
 			<ul class="nav nav-tabs navbar-right">
 				<li id="myProfile">

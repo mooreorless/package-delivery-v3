@@ -25,11 +25,10 @@
 				functionService
 					.register(vm.credentials)
 					.error(function(err){
-						toastr.error('Something went wrong, please try again', 'Error');
-						console.log(err);
+						toastr.error('There\'s already an account registered with that email address', 'Error');
 					})
 					.then(function(){
-						$location.path('profile');
+						$location.path('/profile');
 				});
 			}
     };

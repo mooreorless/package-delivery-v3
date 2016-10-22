@@ -57,7 +57,6 @@
 	  };
 
   	vm.updateDetails = function(){
-		// console.log();
 		functionService.updateUser(vm.user);
 	};
   }

@@ -61,7 +61,7 @@
 		};
 
 	  function validateFields() {
-		  return checkPickUpStreetNumber() && checkPickUpStreetName() && checkPickUpSuburb() && checkDropOffStreetNumber() && checkDropOffStreetName() && checkDropOffSuburb() && checkDropOffPostcode();
+		  return checkPickUpStreetNumber() && checkPickUpStreetName() && checkPickUpSuburb() && checkPickupPostcode() && checkDropOffStreetNumber() && checkDropOffStreetName() && checkDropOffSuburb() && checkDropOffPostcode();
 	  }//end validateFields()
 
 
@@ -72,10 +72,7 @@
 		  var regExprContainsLetters = /[a-zA-Z]/;
 
 		  if((regExprContainsLetters.test(streetNumber)) || streetNumber == ''){
-			  document.getElementById("pickUpNumber").style.borderColor = "red";
-			  document.getElementById("pickUpNumber").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up street number";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  	formatInput("pickUpNumber", "Error: Please enter a valid pick up street number");
 			  return false;
 		  } else {
 			  return true;
@@ -87,10 +84,7 @@
 		  var regExprContainsNumbers = /[0-9]/;
 
 		  if((regExprContainsNumbers.test(streetName)) || streetName == ''){
-			  document.getElementById("pickUpName").style.borderColor = "red";
-			  document.getElementById("pickUpName").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up street name";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  	formatInput("pickUpName", "Error: Please enter a valid pick up street name");
 			  return false;
 		  } else {
 			  return true;
@@ -102,10 +96,7 @@
 		  var regExprContainsNumbers = /[0-9]/;
 
 		  if((regExprContainsNumbers.test(suburb)) || suburb == ''){
-			  document.getElementById("pickUpSuburb").style.borderColor = "red";
-			  document.getElementById("pickUpSuburb").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up suburb";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  	formatInput("pickUpSuburb", "Error: Please enter a valid pick up suburb");
 			  return false;
 		  } else {
 			  return true;
@@ -115,12 +106,10 @@
 	  function checkPickupPostcode() {
 		  var postCode = document.getElementById('pickUpPostcode').value;
 		  var regExprContainsLetters = /[a-zA-Z]/;
+		  var regExprInvalidPostcode = /([0-3][0-9]{3})|([5-9][0-9]{3})/;
 
-		  if((regExprContainsLetters.test(postCode)) || postCode == '' || postCode.length > 4 || postCode.length < 4){
-			  document.getElementById("pickUpPostcode").style.borderColor = "red";
-			  document.getElementById("pickUpPostcode").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid pick up postcode";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  if((regExprContainsLetters.test(postCode)) || regExprInvalidPostcode.test(postCode) || postCode == '' || postCode.length > 4 || postCode.length < 4){
+		  	formatInput("pickUpPostcode", "Error: Please enter a valid QLD pick up postcode");
 			  return false;
 		  } else {
 			  return true;
@@ -134,10 +123,7 @@
 		  var regExprContainsLetters = /[a-zA-Z]/;
 
 		  if((regExprContainsLetters.test(streetNumber)) || streetNumber == ''){
-			  document.getElementById("dropOffNumber").style.borderColor = "red";
-			  document.getElementById("dropOffNumber").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery street number";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  	formatInput("dropOffNumber", "Error: Please enter a valid delivery street number");
 			  return false;
 		  } else {
 			  return true;
@@ -149,10 +135,7 @@
 		  var regExprContainsNumbers = /[0-9]/;
 
 		  if((regExprContainsNumbers.test(streetName)) || streetName == ''){
-			  document.getElementById("dropOffName").style.borderColor = "red";
-			  document.getElementById("dropOffName").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery street name";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  	formatInput("dropOffName", "Error: Please enter a valid delivery street name");
 			  return false;
 		  } else {
 			  return true;
@@ -164,10 +147,7 @@
 		  var regExprContainsNumbers = /[0-9]/;
 
 		  if((regExprContainsNumbers.test(suburb)) || suburb == ''){
-			  document.getElementById("dropOffSuburb").style.borderColor = "red";
-			  document.getElementById("dropOffSuburb").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery suburb";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  	formatInput("dropOffSuburb", "Error: Please enter a valid delivery suburb");
 			  return false;
 		  } else {
 			  return true;
@@ -177,17 +157,24 @@
 	  function checkDropOffPostcode() {
 		  var postCode = document.getElementById('dropOffPostcode').value;
 		  var regExprContainsLetters = /[a-zA-Z]/;
+		  var regExprInvalidPostcode = /([0-3][0-9]{3})|([5-9][0-9]{3})/;
 
-		  if((regExprContainsLetters.test(postCode)) || postCode == '' || postCode.length > 4 || postCode.length < 4){
-			  document.getElementById("dropOffPostcode").style.borderColor = "red";
-			  document.getElementById("dropOffPostcode").focus();
-			  document.getElementById("order-error-msg").innerHTML = "Error: Please enter a valid delivery postcode";
-			  document.getElementById("order-error-msg").style.display = "block";
+		  if((regExprContainsLetters.test(postCode)) || regExprInvalidPostcode.test(postCode) || postCode == '' || postCode.length > 4 || postCode.length < 4){
+			  formatInput("dropOffPostcode", "Error: Please enter a valid QLD delivery postcode");
 			  return false;
 		  } else {
 			  return true;
 		  }
 	  }//end checkDropOffPostcode()
+
+	  function formatInput(inputID, err) {
+
+  		document.getElementById(inputID).style.borderColor = "red";
+		document.getElementById(inputID).focus();
+		document.getElementById("order-error-msg").innerHTML = err;
+		document.getElementById("order-error-msg").style.display = "block";
+
+	  }
 
   }
 
