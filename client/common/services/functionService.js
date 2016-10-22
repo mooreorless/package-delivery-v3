@@ -9,6 +9,7 @@
 
     var orders;
     var order;
+	  var drivers;
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
@@ -155,16 +156,32 @@
     };
 
     getPlacedOrders = function() {
-    	return $http.get('/api/order/awaiting').success(function(data) {
+    	return $http.get('/api/orders/awaiting').success(function(data) {
     	  orders = data;
 	    });
     };
 
     updateJobState = function(update){
       return $http.put('/api/update/jobstate', update).success(function(data){
-        console.log('job state changed');
         toastr.success('Job State Changed', 'Success');
       });
+    };
+
+    loadDrivers = function() {
+      return drivers;
+    };
+
+    getAllDrivers = function() {
+    	return $http.get('/api/drivers/all').success(function(data) {
+				drivers = data;
+	    });
+    };
+
+    assignDriver = function(driver) {
+    	return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
+		    var driverName = driver.driver.charAt(0).toUpperCase() + driver.driver.slice(1);
+    		toastr.success('Assigned ' + driverName + ' to job');
+	    });
     };
 
     return {
@@ -188,6 +205,10 @@
       order: order,
       loggedInUserType: loggedInUserType,
       updateJobState: updateJobState,
+	    drivers: drivers,
+	    loadDrivers: loadDrivers,
+	    getAllDrivers: getAllDrivers,
+	    assignDriver: assignDriver,
       markJobAsSeen: markJobAsSeen
     };
   }
