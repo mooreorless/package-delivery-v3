@@ -47,7 +47,7 @@
 					<h5>Other</h5>
 					<span class="text-muted">Other</span>
 					<hr>
-					<h2 class="text-center">{{ vm.deliveredOrderCount }}</h2>
+					<h2 class="text-center">10</h2>
 				</div>
 			</div>
 		</div>
@@ -58,8 +58,6 @@
 				<div class="widget-heading">
 					<!--<h5>Stats</h5>-->
 					<img src="http://i.stack.imgur.com/dApg7.png" width="425" height="400" alt="map">
-					<!--<span class="text-muted">extra info</span>-->
-					<!--<hr>-->
 				</div>
 			</div>
 		</div>
@@ -73,7 +71,6 @@
 					<hr>
 				</div>
 				<ul class="list-group">
-
 					<li class="list-group-item" ng-repeat="order in vm.orders | filter: { driver: 'unassigned' }">
 						OrderId# {{ order._id }}
 						<div class="btn-group dropup pull-right">
@@ -82,15 +79,11 @@
 							</button>
 							<ul class="dropdown-menu">
 								<li ng-repeat="driver in vm.drivers">
-									<a href="#">{{ driver.firstName }}</a>
+									<a href="#" ng-click="vm.assignDriver({ _id: order._id, driverName: driver.firstName })">{{ driver.firstName }}</a>
 								</li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Add New Driver</a></li>
 							</ul>
 						</div>
 					</li>
-
-
 				</ul>
 			</div>
 		</div>

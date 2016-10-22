@@ -30,12 +30,12 @@
 		$location.path('/');
 	})
 	.then(function(){
-		if (functionService.loggedInUserType() === 'admin') {
-			functionService.getCurrentOrders()
-				.then(function() {
-					vm.orders = functionService.loadOrders();
-				})
-		} else {
+		// if (functionService.loggedInUserType() === 'admin') {
+		// 	functionService.getCurrentOrders()
+		// 		.then(function() {
+		// 			vm.orders = functionService.loadOrders();
+		// 		});
+		// } else {
 			functionService
 				.getUserOrders(vm.currentUser)
 				.error(function(err){
@@ -46,7 +46,7 @@
 					//if no orders found, have watermark/empty state view etc
 					vm.orders = functionService.loadOrders();
 				});
-		}
+		//}
 	});
 
     vm.openOrder = function(order){

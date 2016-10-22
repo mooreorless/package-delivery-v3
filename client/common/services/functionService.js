@@ -149,14 +149,13 @@
     };
 
     getPlacedOrders = function() {
-    	return $http.get('/api/order/awaiting').success(function(data) {
+    	return $http.get('/api/orders/awaiting').success(function(data) {
     	  orders = data;
 	    });
     };
 
     updateJobState = function(update){
       return $http.put('/api/update/jobstate', update).success(function(data){
-        console.log('job state changed');
         toastr.success('Job State Changed', 'Success');
       });
     };
@@ -173,8 +172,8 @@
 
     assignDriver = function(driver) {
     	return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
-    		console.log('assigned driver');
-		    toastr.success('Assigned ' + driver + 'to job');
+		    var driverName = driver.driver.charAt(0).toUpperCase() + driver.driver.slice(1);
+    		toastr.success('Assigned ' + driverName + ' to job');
 	    });
     };
 
