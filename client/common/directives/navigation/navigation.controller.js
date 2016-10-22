@@ -9,6 +9,8 @@
     var navvm = this;
     var path = $location.path();
 
+	  navvm.userType = '';
+
     if(path == "/orders"){
       document.getElementById('myOrders').className = "active";
       document.getElementById('newOrder').className = "";
@@ -24,12 +26,25 @@
     }
 
     navvm.isLoggedIn = functionService.isLoggedIn();
-
     navvm.currentUser = functionService.currentUser();
 
+    // Show/Hide tabs based on logged in user type
+	  var type = functionService.loggedInUserType();
+	  switch(type) {
+		  case 'driver':
+		  	navvm.userType = 'driver';
+			  break;
+		  case 'admin':
+		  	navvm.userType = 'admin';
+			  break;
+		  case 'customer':
+		  	navvm.userType = 'customer';
+			  break;
+	  }
+
     navvm.logout = function(){
-		functionService.logout();
-		toastr.warning('You have logged out', 'Warning');
+			functionService.logout();
+			toastr.warning('You have logged out', 'Warning');
     };
   }
 
