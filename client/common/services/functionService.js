@@ -66,13 +66,11 @@
         if (userEmail[1] != 'onthespot.com'){
           return 'customer';
         }
-        else {
-          if (userEmail[0] == 'admin'){
-            return 'admin';
-          }
-          else{
-            return 'driver';
-          }
+        else if (userEmail[0] == 'admin'){
+          return 'admin';
+        }
+        else{
+          return 'driver';
         }
       }
     };

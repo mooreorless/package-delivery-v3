@@ -36,11 +36,11 @@ var packageUsers = new mongoose.Schema({
   },
   isDriver: {
     type: Boolean,
-    required: true
+    default: false
   },
   isAdmin: {
     type: Boolean,
-    required: true
+    default: false
   },
   hash: String,
   salt: String
