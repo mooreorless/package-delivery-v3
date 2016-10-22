@@ -41,10 +41,6 @@
 			vm.orders = functionService.loadOrders();
 		});
 	});
-    
-	
-
-
 
     vm.openOrder = function(order){
       console.log(order);

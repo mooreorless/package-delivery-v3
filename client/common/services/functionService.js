@@ -135,6 +135,13 @@
       return order;
     };
 
+    markJobAsSeen = function(order){
+      return $http.put('/api/update/jobSeen', order).success(function(data){
+        // console.log(data);
+        console.log(order + ' marked as seen!');
+      });
+    };
+
     getCurrentOrders = function() {
     	return $http.get('/api/orders/current').success(function(data) {
     		orders = data;
@@ -180,7 +187,8 @@
 	    getPlacedOrders: getPlacedOrders,
       order: order,
       loggedInUserType: loggedInUserType,
-      updateJobState: updateJobState
+      updateJobState: updateJobState,
+      markJobAsSeen: markJobAsSeen
     };
   }
 

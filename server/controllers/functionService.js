@@ -188,8 +188,26 @@ module.exports.getUserOrders = function(req, res){
 module.exports.getSingleOrder = function(req, res){
   // console.log(req.query.orderID);
   Order.findOne({ _id: req.query.orderID }, function (err, order) {
-    // if (err) console.log(err);
-    res.send(order);
+    if (err) {
+      console.log(err);
+    }
+    else{
+      res.send(order);
+    }
+  });
+};
+
+module.exports.markJobAsSeen = function(req, res){
+  console.log('heyheyhey');
+  console.log(req.body);
+  Order.findOneAndUpdate({ _id:req.body._id}, {seenByDriver: true}, function (err, order){
+    if (err) {
+      console.log(err);
+    }
+    else{
+      console.log('job marked as seen');
+      res.send(order);
+    }
   });
 };
 
