@@ -76,7 +76,12 @@ var orders = new mongoose.Schema({
 		default: 'Order Placed'
 	},
 	driver: {
-		type: String
+		type: String,
+		default: 'unassigned'
+	},
+	seenByDriver: {
+		type: Boolean,
+		default: false
 	}
 });
 
