@@ -76,9 +76,12 @@ var orders = new mongoose.Schema({
 		default: 'Order Placed'
   },
 	driver: {
-  	type: String
+  	type: String,
+		default: 'unassigned'
 	}
 });
+
+//changed default state on job to 'unassigned'
 
 orders.methods.setState = function(action){
   this.state = action;

@@ -11,7 +11,7 @@
 			<div class="panel-heading">
 				Order Details
 				<!-- Begin Job State Input -->
-				<select ng-model='vm.state' ng-change='vm.updateJobState(vm.state)' class='pull-right jobstate-dropdown'
+				<select ng-model='vm.state' ng-change='vm.updateJobState(vm.state)' class='selectpicker dropdown pull-right jobstate-dropdown'
 				ng-hide='vm.loggedInUserType() == "customer"'>
 					<option selected="vm.state == 'Order Placed'" value='Order Placed'>Order Placed</option>
 					<option selected="vm.state == 'Picked Up'" value='Picked Up'>Picked Up</option>

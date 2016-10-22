@@ -101,12 +101,12 @@ module.exports.placeOrder = function(req, res) {
   order.isExpress = req.body.isExpress;
 	order.pickUpDate = req.body.pickUpDate;
 
-  if (Math.random() > 0.5){
-    order.driver = 'jono';
-  }
-  else{
-    order.driver = 'marco';
-  }
+  // if (Math.random() > 0.5){
+  //   order.driver = 'jono';
+  // }
+  // else{
+  //   order.driver = 'marco';
+  // }
 
   console.log(order);
 
@@ -132,29 +132,21 @@ module.exports.updateDetails = function (req, res) {
 		if(err) {
       console.log(err);
     }
-    console.log('logging updated user');
-    console.log(doc);
     var token;
     token = doc.generateJwt();
     res.status(200);
     res.json({
       "token" : token
     });
-    // res.send(token);
 	});
 };
 
 module.exports.updateJobState = function(req, res){
   Order.findOneAndUpdate({_id:req.body._id}, {state:req.body.state}, {mutli:false, new:true}, function(err, doc){
     if(err) {
-      console.log(err);
+      res.status(500).json(err);
     }
-    console.log('updating job state');
-    console.log(doc);
-    res.status(200);
-    res.json({
-      "job" : doc
-    });
+    res.status(200).json({ job: doc });
   });
 };
 
@@ -185,12 +177,46 @@ module.exports.getUserOrders = function(req, res){
 };
 
 module.exports.getSingleOrder = function(req, res){
-  // console.log(req.query.orderID);
   Order.findOne({ _id: req.query.orderID }, function (err, order) {
-    // if (err) console.log(err);
+    if (err) {
+    	console.log(err);
+    }
     res.send(order);
   });
 };
+
+/* Driver Assignment */
+
+/*
+  Get all drivers
+ */
+module.exports.getAllDrivers = function(req, res) {
+	User.find({ isDriver: true, isAdmin: false }, function(err, drivers) {
+		if (!err) {
+			res.status(200).json(drivers);
+		} else {
+			res.status(500).json({ message: err });
+		}
+	});
+};
+
+/*
+	Assign driver
+*/
+module.exports.assignDriver = function(req, res) {
+	console.log(req.body);
+	Order.findOneAndUpdate({ _id: req.body._id }, { driver: req.body.driverName }, { new: true }, function(err, assignedDriver) {
+		if (err) {
+			res.status(500).json(err);
+		} else {
+			res.status(200).json(assignedDriver);
+		}
+	});
+};
+
+//get jobs for that driver
+
+
 
 /* Admin actions */
 
@@ -198,11 +224,11 @@ module.exports.getSingleOrder = function(req, res){
 	Retrieves all orders that we placed at today's date
  */
 module.exports.getCurrentOrderCount = function(req, res) {
-	Order.find({ state: 'Order Placed' }, function(err, orders) {
+	Order.find({}, function(err, orders) {
 		if (!err) {
-			res.send(orders);
+			res.status(200).json(orders);
 		} else {
-			console.error(err);
+			res.status(500).json(err);
 		}
 	});
 };
@@ -211,11 +237,11 @@ module.exports.getCurrentOrderCount = function(req, res) {
 	Retrieves all orders that have been delivered today
  */
 module.exports.getDeliveredCount = function(req, res) {
-	Order.find({ state: 'delivered' }, function(err, orders) {
+	Order.find({ state: 'Dropped Off' }, function(err, orders) {
 		if (!err) {
-			res.send(orders);
+			res.status(200).json(orders);
 		} else {
-			console.error(err);
+			res.status(500).json(err);
 		}
 	});
 };
@@ -226,9 +252,9 @@ module.exports.getDeliveredCount = function(req, res) {
 module.exports.getPlacedOrders = function(req, res) {
 	Order.find({ state: 'Order Placed' }, function(err, orders) {
 		if (!err) {
-			res.sendStatus(200).json(orders);
+			res.status(200).json(orders);
 		} else {
-			console.error(err);
+			res.status(500).json(err);
 		}
 	});
 };
