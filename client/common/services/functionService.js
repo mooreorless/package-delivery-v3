@@ -109,7 +109,8 @@
       console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
       	toastr.success('Order placed', 'Success');
-        console.log(data);
+	      toastr.hidden('Hidden', 'Hidden');
+	      console.log(data);
       });
     };
 
