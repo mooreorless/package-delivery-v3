@@ -218,9 +218,9 @@ module.exports.getAllDrivers = function(req, res) {
 module.exports.getCurrentOrderCount = function(req, res) {
 	Order.find({ state: 'Order Placed' }, function(err, orders) {
 		if (!err) {
-			res.send(orders);
+			res.status(200).json(orders);
 		} else {
-			console.error(err);
+			res.status(500).json(err);
 		}
 	});
 };

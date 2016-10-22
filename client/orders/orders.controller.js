@@ -30,21 +30,24 @@
 		$location.path('/');
 	})
 	.then(function(){
-		functionService
-		.getUserOrders(vm.currentUser)
-		.error(function(err){
-			toastr.warning(err, 'Error');
-		})
-		.then(function(){
-			$location.path('orders');
-			//if no orders found, have watermark/empty state view etc
-			vm.orders = functionService.loadOrders();
-		});
+		if (functionService.loggedInUserType() === 'admin') {
+			functionService.getCurrentOrders()
+				.then(function() {
+					vm.orders = functionService.loadOrders();
+				})
+		} else {
+			functionService
+				.getUserOrders(vm.currentUser)
+				.error(function(err){
+					toastr.warning(err, 'Error');
+				})
+				.then(function(){
+					$location.path('orders');
+					//if no orders found, have watermark/empty state view etc
+					vm.orders = functionService.loadOrders();
+				});
+		}
 	});
-    
-	
-
-
 
     vm.openOrder = function(order){
       console.log(order);
