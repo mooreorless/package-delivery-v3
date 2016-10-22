@@ -61,7 +61,7 @@
         payload = JSON.parse(payload);
         //split logged in email address
         userEmail = payload.email.split('@');
-        // console.log(userEmail);
+	      // console.log(userEmail);
         //check for a customer
         if (userEmail[1] != 'onthespot.com'){
           return 'customer';
