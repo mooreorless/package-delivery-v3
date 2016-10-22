@@ -21,8 +21,7 @@
 	</div>
 
   <div class='row'>
-		<div class="col-md-6" ng-repeat="order in vm.orders">
-
+		<div class="col-md-6" ng-repeat="order in vm.orders | orderBy:'orders.orderPlacedAt'">
 			<div class="{{order.panelClass}}">
 				<div class="panel-heading ">
 					<h3 class="panel-title" ng-click="vm.openOrder(order)">Order ID# <strong>{{order._id}}</strong>

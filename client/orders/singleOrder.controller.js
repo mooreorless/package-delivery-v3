@@ -78,9 +78,6 @@
 				console.log(update);
 				//todo format date
 			}
-			else{
-				console.log('CUNT');
-			}
 
 
 			functionService.updateJobState(update).then(function(){
@@ -96,6 +93,5 @@
 				});
 			});
 		};
-
 	}
 })();
