@@ -22,7 +22,7 @@
 				<span class='pull-right' ng-show='vm.loggedInUserType() == "customer"'>Job Status: {{vm.state}}</span>
 			</div>
 			<div class="panel-body">
-				<b>Pick Up:</b> 
+				<b>Pick Up:</b>
 				<p class='singleOrderLabels'>{{vm.pickUpAddress}}</p>
 				<b>Drop Off:</b>
 				<p class='singleOrderLabels'>{{vm.dropOffAddress}}</p>
@@ -99,7 +99,7 @@
   <ng-map center="-27.46,153.02" zoom='11'>
 	<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png" on-click="vm.showCustomMarker()"></marker>
    	<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png' on-click="vm.showCustomMarker()"></marker>
-	<directions 
+	<directions
 		suppress-markers="true"
 		origin="{{vm.pickUpAddress}}"
 		destination="{{vm.dropOffAddress}}">
@@ -109,19 +109,19 @@
 	<ul ng-show="vm.loggedInUserType() == 'admin'">
 		<li>
 			Order placed at
-			{{vm.order.orderPlacedAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}
+			{{(vm.order.orderPlacedAt | date : "dd/MM/yyyy" )|| "Order waiting to be picked up"}}
 		</li>
 		<li>
 			Order picked up at
-			{{vm.order.pickedUpAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}
+			{{(vm.order.pickedUpAt | date : "dd/MM/yyyy" )|| "Order waiting to be picked up"}}
 		</li>
 		<li>
 			Order delivered at
-			{{vm.order.droppedOffAt | date : "dd/MM/yyyy" || 'Order waiting to be delivered'}}
+			{{(vm.order.droppedOffAt | date : "dd/MM/yyyy" )|| "Order waiting to be delivered"}}
 		</li>
 		<li>
 			Order paid for at
-			{{vm.order.paidAt | date : "dd/MM/yyyy" || 'Order waiting to be paid for'}}
+			{{(vm.order.paidAt | date : "dd/MM/yyyy") || "Order waiting to be paid for"}}
 		</li>
 	</ul>
 </div>
