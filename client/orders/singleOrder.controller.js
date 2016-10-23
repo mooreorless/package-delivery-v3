@@ -4,8 +4,8 @@
 		.module('packageDelivery')
 		.controller('singleOrderCtrl', singleOrderCtrl);
 
-	singleOrderCtrl.$inject = ['$location', '$rootScope', '$routeParams', '$route', 'functionService', 'NgMap'];
-	function singleOrderCtrl($location, $rootScope, $routeParams, $route, functionService, NgMap) {
+	singleOrderCtrl.$inject = ['$location', '$rootScope', '$routeParams', '$route', 'functionService', 'NgMap', 'toastr'];
+	function singleOrderCtrl($location, $rootScope, $routeParams, $route, functionService, NgMap, toastr) {
 
 		var vm = this;
 
@@ -55,7 +55,31 @@
 
 		NgMap.getMap();
 
+		vm.validatePaymentDetails = function(){
+			var cardNumberValue = vm.cardNumber.replace(/-/g, "");
+			var cardNumberValue = cardNumberValue.replace(/ /g, "");
+			var cardFormat = /[0-9]{16}/;
+			var cvvFormat = /[0-9]{3}/;
+			var expiryFormat = /[0-1][1-9]\/[1-9][0-9]/;
+			var containsLetters = /[a-z]+[A-Z]+/;
+
+			if (cardFormat.test(cardNumberValue) && cardNumberValue.length == 16 && cvvFormat.test(vm.cardCVV)
+					&& vm.cardCVV.length == 3 && expiryFormat.test(vm.cardExp) && vm.cardExp.length == 5){
+				return true;
+			} else {
+				toastr.error('Invalid Payment Details', 'Error');
+				toastr.hidden('Hidden', 'Hidden');
+				return false;
+			}
+		}
+
 		vm.updateJobState = function(newState){
+			if (newState == 'Paid'){
+				if(!vm.validatePaymentDetails()){
+					return false;
+				}
+			}
+
 			update = {
 				_id: vm.orderID,
 				state: newState,
@@ -66,13 +90,10 @@
 		
 			if (newState.toLowerCase().replace(' ', '') == 'pickedup'){
 				update.pickedUpAt = Date.now();
-				console.log('Picked Up Selected');
 			} else if (newState.toLowerCase().replace(' ', '') == 'droppedoff'){
 				update.droppedOffAt = Date.now();
-				console.log('Dropped Off Selected');
 			} else 	if (newState.toLowerCase().replace(' ', '') == 'paid'){
 				update.paidAt = Date.now();
-				console.log('Paid At Selected');
 				//todo format date
 			};
 
