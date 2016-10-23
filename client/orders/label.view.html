@@ -14,6 +14,10 @@
                     <strong>To</strong>
                     <span>{{vm.dropOffAddress}}</span>
                 </div>
+                <div class="col-md-6">
+                    <strong>Date</strong>
+                    <span>{{vm.order.pickedUpAt | date : dd-mm-yyyy}}</span>
+                </div>
             </div>
         </div>
     </div>
