@@ -44,7 +44,7 @@
 			.then(function() {
 				vm.orders = functionService.loadOrders();
 				vm.orders.forEach(function(item, index){
-					if (item.state == 'Order Placed'){
+					if ((item.state == 'Order Placed') || (item.state == 'Picked Up')){
 						vm.placedOrders.push(item);
 					}
 				});

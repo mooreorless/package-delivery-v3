@@ -26,19 +26,20 @@
 					<p><input class="form-control-static" ng-model='vm.user.firstName' ng-blur='vm.updateDetails()'></input></p>
 
 					<label for="last-name"><strong>Last Name</strong></label>
-					<p class="form-control-static">{{ vm.user.lastName }}</p>
+					<p><input class="form-control-static" ng-model='vm.user.lastName' ng-blur='vm.updateDetails()'></input></p>
 
 					<label for="email"><strong>Email address</strong></label>
-					<p class="form-control-static">{{ vm.user.email }}</p>
+					<p><input class="email-input form-control-static" ng-model='vm.user.email' ng-blur='vm.updateDetails()'></input></p>
 
 					<hr>
 
 					<label for="address"><strong>Current Pickup Address</strong></label>
 					<p class="form-control-static">
-						{{ vm.user.streetNumber }}
-						{{ vm.user.streetName }}
-						{{ vm.user.postCode }}
-					</p>
+						<p>
+							<input class="form-control-static" ng-model='vm.user.streetNumber' ng-blur='vm.updateDetails()'></input>
+							<input class="address-input form-control-static" ng-model='vm.user.streetName' ng-blur='vm.updateDetails()'></input>
+							<input class="address-input form-control-static" ng-model='vm.user.suburb' ng-blur='vm.updateDetails()'></input>
+						</p>
 					<!--<a href="/update/details"><i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit details">border_color</i></a>-->
 				</div>
 			</div>
