@@ -76,13 +76,11 @@
 	});
 
     vm.openOrder = function(order){
-      console.log(order);
-      $location.path('order/' + order._id);
+			if (functionService.loggedInUserType() === 'admin') {
+				$location.path('admin/dashboard/' + order._id);
+			} else {
+				$location.path('order/' + order._id);
+			}
     };
- //    vm.openLabel = function(order) {
- //        console.log(order);
- //        $location.path('label/' + order._id);
-	// }
-
   }
 })();

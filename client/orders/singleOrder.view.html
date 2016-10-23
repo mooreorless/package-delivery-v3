@@ -2,7 +2,7 @@
 
 <div class='container'>
   <div class='row'>
-  	<a href='/orders'>Back to all Orders</a>
+  	<a class="btn btn-default" href='/orders'>Back to all Orders</a>
   	<h4>Order #{{vm.order._id}}</h4>
   </div>
   <div class='row'>
@@ -89,9 +89,9 @@
 			</div>
 			<div class="panel-body">
 				<b>Paid By:</b>
-				<p class='singleOrderLabels'>{{vm.order.driver}}</p>
+				<p class='singleOrderLabels'>{{vm.driverName}}</p>
 				<b>Paid On:</b>
-				<p class='singleOrderLabels'>{{vm.order.timestamp.paidAt || 'Order waiting to be paid for'}}</p>
+				<p class='singleOrderLabels'>{{vm.order.paidAt || 'Order waiting to be paid for'}}</p>
 			</div>
 		</div>
     </div>
@@ -105,24 +105,5 @@
 			destination="{{vm.dropOffAddress}}">
 		</directions>
 	</ng-map>
-
-	<ul ng-show="vm.loggedInUserType() == 'admin'">
-		<li>
-			Order placed at
-			{{(vm.order.orderPlacedAt | date : "dd/MM/yyyy" )|| "Order waiting to be picked up"}}
-		</li>
-		<li>
-			Order picked up at
-			{{(vm.order.pickedUpAt | date : "dd/MM/yyyy" )|| "Order waiting to be picked up"}}
-		</li>
-		<li>
-			Order delivered at
-			{{(vm.order.droppedOffAt | date : "dd/MM/yyyy" )|| "Order waiting to be delivered"}}
-		</li>
-		<li>
-			Order paid for at
-			{{(vm.order.paidAt | date : "dd/MM/yyyy") || "Order waiting to be paid for"}}
-		</li>
-	</ul>
 </div>
 <br><br>
