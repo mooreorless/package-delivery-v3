@@ -157,40 +157,47 @@
       });
     };
 
+    //helper function for getting orders into admin panel
     getCurrentOrders = function() {
       return $http.get('/api/orders/current').success(function(data) {
         orders = data;
       });
     };
 
+    //helper function for getting orders into admin panel
     getDeliveredOrders = function() {
       return $http.get('/api/orders/delivered').success(function(data) {
         orders = data;
       });
     };
 
+    //helper function for getting orders into admin panel
     getPlacedOrders = function() {
       return $http.get('/api/orders/awaiting').success(function(data) {
         orders = data;
       });
     };
 
+    //function to change job state in database
     updateJobState = function(update){
       return $http.put('/api/update/jobstate', update).success(function(data){
         toastr.success('Job State Changed', 'Success');
       });
     };
 
+    //helper function for loading orders 
     loadDrivers = function() {
       return drivers;
     };
 
+    //helper function for getting drivers into admin panel
     getAllDrivers = function() {
       return $http.get('/api/drivers/all').success(function(data) {
 				drivers = data;
       });
     };
 
+    //assign driver to unassigned job
     assignDriver = function(driver) {
       return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
         var driverName = driver.driver.charAt(0).toUpperCase() + driver.driver.slice(1);
@@ -198,6 +205,7 @@
       });
     };
 
+    //get the amount of jobs currently assigned to driver 
     getJobCountForDriver = function(driver) {
       return $http.get('/api/orders/driver', { params: { driverName: driver } }).success(function(driver) {
         orders = driver;
