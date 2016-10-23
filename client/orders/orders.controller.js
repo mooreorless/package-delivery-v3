@@ -12,7 +12,7 @@
     vm.ordersMessage = '';
 
     vm.isLoggedIn = functionService.isLoggedIn();
-    
+
 	meanData.getProfile()
 	.success(function(data) {
 		vm.currentUser = data;
@@ -69,6 +69,11 @@
       console.log(order);
       $location.path('order/' + order._id);
     };
+
+    vm.openLabel = function(order) {
+        console.log(order);
+        $location.path('label/' + order._id);
+	}
   }
 
 })();
