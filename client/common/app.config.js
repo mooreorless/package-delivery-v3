@@ -34,6 +34,11 @@
         controller: 'singleOrderCtrl',
         controllerAs: 'vm'
       })
+        .when('/label/:orderID', {
+        templateUrl: '/orders/label.view.html',
+        controller: 'labelCtrl',
+        controllerAs: 'vm'
+      })
 			.when('/update/details', {
 				templateUrl: 'auth/update/details/user.view.html',
 				controller: 'updateUserCtrl',
