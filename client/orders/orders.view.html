@@ -33,7 +33,7 @@
 		<div class="col-md-6" ng-repeat="order in vm.orders | filter:{state : vm.filter} | orderBy: placedAt : reverse">
 			<div class="{{order.panelClass}}">
 				<div class="panel-heading ">
-					<h3 class="panel-title" ng-click="vm.openOrder(order)">Order ID# <strong>{{order._id}}</strong>
+					<h3 class="panel-title clickable" ng-click="vm.openOrder(order)">Order ID# <strong>{{order._id}}</strong>
 						<span class='card-dest-text pull-right'><strong>Status: </strong>{{order.state}}</span>
 					</h3>
 				</div>

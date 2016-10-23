@@ -99,7 +99,7 @@
 				</div>
 				<ul class="list-group">
 					<li class="list-group-item" ng-repeat="order in vm.orders | filter: { driver: 'unassigned' }">
-						OrderId# {{ order._id }}
+						<strong>OrderId#</strong> {{ order._id }}
 						<div class="btn-group dropup pull-right">
 							<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Choose Driver
@@ -110,6 +110,9 @@
 								</li>
 							</ul>
 						</div>
+							<p><strong>Customer Name</strong> {{ order.userName }}</p>
+							<p><strong>Pickup Location</strong> {{ order.pickUpNumber }} {{ order.pickUpName }} {{ order.pickUpSuburb }} {{ order.pickUpPostcode }}</p>
+							<p><strong>Dropoff Location</strong> {{ order.dropOffNumber }} {{ order.dropOffName }} {{ order.dropOffSuburb }} {{ order.dropOffPostcode }}</p>
 					</li>
 				</ul>
 			</div>

@@ -18,14 +18,24 @@
 			.then(function() {
 				vm.drivers = functionService.loadDrivers();
 			});
+		
 
 		vm.assignDriver = function(driver) {
 			var toBeAssigned = {
 				_id: driver._id,
 				driverName: driver.driverName.toLowerCase()
 			};
-			functionService.assignDriver(toBeAssigned);
-			// $route.reload();
+			// Checks if driver has too many jobs
+			functionService.getJobCountForDriver(toBeAssigned.driverName)
+				.then(function() {
+					vm.jobs = functionService.loadOrders();
+
+					if (vm.jobs.length > 5) {
+						toastr.warning('This driver has too many jobs, please select another', 'Warning');
+					} else {
+						functionService.assignDriver(toBeAssigned);
+					}
+				})
 		};
 
 		// Populates all orders

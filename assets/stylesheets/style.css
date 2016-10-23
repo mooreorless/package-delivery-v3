@@ -450,6 +450,11 @@ a:hover {
 	margin-bottom: 15px;
 }
 
+.clickable {
+	cursor: pointer;
+}
+
+
 @media (max-width: 460px){
 	.pay-btn-col{
 		position: absolute;

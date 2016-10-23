@@ -40,5 +40,6 @@ router.get('/orders/awaiting', ctrlFunctions.getPlacedOrders);
 
 router.get('/drivers/all', ctrlFunctions.getAllDrivers);
 router.put('/orders/assign/driver', ctrlFunctions.assignDriver);
+router.get('/orders/driver', ctrlFunctions.getJobsForDriver);
 
 module.exports = router;
