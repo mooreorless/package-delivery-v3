@@ -41,7 +41,7 @@
 					<p class='card-dest-text'><strong>Pick Up</strong>: {{order.pickUpNumber + ' ' + order.pickUpName + ' ' + order.pickUpSuburb}}</p>
 					<p class='card-dest-text'><strong>Destination</strong>: {{order.dropOffNumber + ' ' + order.dropOffName + ' ' + order.dropOffSuburb}}</p>
 					<span class='float-right'>
-						<a href='#'><i class="material-icons">print</i></a>
+						<a href='#'><i class="material-icons" ng-click="vm.openLabel(order)">print</i></a>
 					</span>
 					<div>
 						<!--Metadata Icons-->
