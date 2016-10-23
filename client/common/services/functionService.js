@@ -39,7 +39,7 @@
       }
     };
 
-    //retrieve user data from browser session
+    // A getter for the current user
     var currentUser = function() {
       if (isLoggedIn()) {
         var token = getToken();
@@ -58,6 +58,7 @@
       }
     };
 
+    //retrieve logged in user type
     var loggedInUserType = function(){
       if (isLoggedIn()) {
         var token = getToken();
@@ -85,7 +86,7 @@
     register = function(user) {
       console.log('register being called');
       return $http.post('/api/register', user).success(function(data){
-      	toastr.success('Account created', 'Success');
+        toastr.success('Account created', 'Success');
         saveToken(data.token);
       });
     };
@@ -119,9 +120,9 @@
     placeOrder = function(order){
       console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
-      	toastr.success('Order placed', 'Success');
-	      toastr.hidden('Hidden', 'Hidden');
-	      console.log(data);
+        toastr.success('Order placed', 'Success');
+        toastr.hidden('Hidden', 'Hidden');
+        console.log(data);
       });
     };
 
@@ -156,23 +157,22 @@
       });
     };
 
-
     getCurrentOrders = function() {
-    	return $http.get('/api/orders/current').success(function(data) {
-    		orders = data;
-	    });
+      return $http.get('/api/orders/current').success(function(data) {
+        orders = data;
+      });
     };
 
     getDeliveredOrders = function() {
-    	return $http.get('/api/orders/delivered').success(function(data) {
-    	  orders = data;
-	    });
+      return $http.get('/api/orders/delivered').success(function(data) {
+        orders = data;
+      });
     };
 
     getPlacedOrders = function() {
-    	return $http.get('/api/orders/awaiting').success(function(data) {
-    	  orders = data;
-	    });
+      return $http.get('/api/orders/awaiting').success(function(data) {
+        orders = data;
+      });
     };
 
     updateJobState = function(update){
@@ -186,16 +186,16 @@
     };
 
     getAllDrivers = function() {
-    	return $http.get('/api/drivers/all').success(function(data) {
+      return $http.get('/api/drivers/all').success(function(data) {
 				drivers = data;
-	    });
+      });
     };
 
     assignDriver = function(driver) {
-    	return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
-		    var driverName = driver.driver.charAt(0).toUpperCase() + driver.driver.slice(1);
-    		toastr.success('Assigned to ' + driverName);
-	    });
+      return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
+        var driverName = driver.driver.charAt(0).toUpperCase() + driver.driver.slice(1);
+        toastr.success('Assigned to ' + driverName);
+      });
     };
 
     getJobCountForDriver = function(driver) {
@@ -212,24 +212,24 @@
       isLoggedIn : isLoggedIn,
       register : register,
       login : login,
-			updateUser: updateUser,
+      updateUser: updateUser,
       logout : logout,
-	    placeOrder: placeOrder,
+      placeOrder: placeOrder,
       getUserOrders: getUserOrders,
       orders: orders,
       loadOrders: loadOrders,
       getSingleOrder: getSingleOrder,
       loadSingleOrder: loadSingleOrder,
-	    getCurrentOrders: getCurrentOrders,
-	    getDeliveredOrders: getDeliveredOrders,
-	    getPlacedOrders: getPlacedOrders,
+      getCurrentOrders: getCurrentOrders,
+      getDeliveredOrders: getDeliveredOrders,
+      getPlacedOrders: getPlacedOrders,
       order: order,
       loggedInUserType: loggedInUserType,
       updateJobState: updateJobState,
-	    drivers: drivers,
-	    loadDrivers: loadDrivers,
-	    getAllDrivers: getAllDrivers,
-	    assignDriver: assignDriver,
+      drivers: drivers,
+      loadDrivers: loadDrivers,
+      getAllDrivers: getAllDrivers,
+      assignDriver: assignDriver,
       getJobCountForDriver: getJobCountForDriver,
       markJobAsSeen: markJobAsSeen
     };

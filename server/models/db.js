@@ -6,7 +6,7 @@ var dbURI = 'mongodb://admin:admin@ds035816.mlab.com:35816/heroku_mlqnlrcw';
 
 mongoose.connect(dbURI);
 
-
+// Different states of the Mongo Connection
 mongoose.connection.on('connected', function() {
   console.log('Mongoose connected to ' + dbURI);
 });

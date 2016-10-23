@@ -8,7 +8,10 @@ var sendJSONresponse = function(res, status, content) {
   res.status(status).json(content);
 };
 
-//registration function that talks directly to our database
+
+/*
+Registers the user into the by adding them to the database and generating a jwt to validate them when needed
+ */
 module.exports.register = function(req, res) {
 
   //create new User Object Instance
@@ -48,16 +51,27 @@ module.exports.register = function(req, res) {
       token = user.generateJwt();
       res.status(200).json({ "token": token });
     }
+
+
+    // Token used to continually validate the user post registration
+    var token;
+    token = user.generateJwt();
+    res.status(200);
+    res.json({
+      "token" : token
+    });
   });
 };
 
-//login function
+/*
+The function used to log the user into website
+ */
 module.exports.login = function(req, res) {
 
   passport.authenticate('local', { failureFlash: true }, function(err, user, info){
     var token;
 
-		// If Passport throws/catches an error
+		// If Passport throws/catches an error, send the error status code
     if (err) {
       res.status(404).json(err);
       return;
@@ -71,16 +85,17 @@ module.exports.login = function(req, res) {
         "token" : token
       });
     } else {
-      // If user is not found
+      // If user is not found, send the error status code
       res.status(401).json(info);
     }
   })(req, res);
 };
 
-//Saving order into database
+/*
+Places an order into the database by adding the
+ */
 module.exports.placeOrder = function(req, res) {
 
-  //create new Order Object Instance
   var order = new Order();
 
   //populate new order instance with form data
@@ -98,6 +113,17 @@ module.exports.placeOrder = function(req, res) {
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
 
+  order.state = req.body.state;
+  // order.driver = 'jono';
+
+  // Distribution of the orders between the drivers
+  if (Math.random() > 0.5){
+    order.driver = 'jono';
+  }
+  else{
+    order.driver = 'marco';
+  }
+
   order.save(function(err) {
     if (err){
       console.log(err);
@@ -111,9 +137,11 @@ module.exports.placeOrder = function(req, res) {
   });
 };
 
-//update user details in database
+
+/*
+Updates the users details they wish to update
+ */
 module.exports.updateDetails = function (req, res) {
-	console.log(req.body);
 	User.findOneAndUpdate({ _id : req.body._id}, req.body, {multi:false, new:true}, function(err,doc){
 		if(err) {
       console.log(err);
@@ -127,6 +155,12 @@ module.exports.updateDetails = function (req, res) {
 	});
 };
 
+/**
+ * Updates the state of the job
+ * @param req
+ * @param res
+ */
+
 module.exports.updateJobState = function(req, res){
   // update job state
   Order.findOneAndUpdate({_id:req.body._id}, req.body, {mutli:false, new:true}, function(err, doc){
@@ -137,9 +171,12 @@ module.exports.updateJobState = function(req, res){
   });
 };
 
-//load users matching user ID from Database
+/**
+ * Sends a response of the orders given the login detials of the user
+ * @param req
+ * @param res
+ */
 module.exports.getUserOrders = function(req, res){
-  console.log(req.query.user);
   var user = JSON.parse(req.query.user);
   var userEmail = user.email.split('@');
 	//if logged in user is a driver, find orders where driver field is equal to their name
@@ -156,7 +193,7 @@ module.exports.getUserOrders = function(req, res){
 		console.log('fetching orders for ' + req.query.user);
 		Order.find({ userID: user._id }, function (err, orders) {
 			if (err) {
-				res.status(404).json(err);
+				res.status(404).json(err); // Error in case the server does not reply
 			}
 			console.log(orders);
 			res.send(orders);
@@ -164,11 +201,13 @@ module.exports.getUserOrders = function(req, res){
 	}
 };
 
-//load in single order by querying specific order ID
+/*
+Retrieves a single order from the database given who is logged in
+ */
 module.exports.getSingleOrder = function(req, res){
   Order.findOne({ _id: req.query.orderID }, function (err, order) {
     if (err) {
-    	console.log(err);
+      console.log(err);
     }
     else{
       res.send(order);
@@ -228,7 +267,7 @@ module.exports.getJobsForDriver = function(req, res) {
       res.status(404).json(err);
     }
   });
-}
+};
 
 
 
