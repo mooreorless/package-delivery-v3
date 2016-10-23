@@ -12,6 +12,7 @@
 		var date = new Date();
 		vm.currentDate = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
 		vm.selectedDriver = 'Select Driver';
+		vm.placedOrders = [];
 
 		// Get drivers to then be assigned
 		functionService.getAllDrivers()
@@ -42,6 +43,12 @@
 		functionService.getCurrentOrders()
 			.then(function() {
 				vm.orders = functionService.loadOrders();
+				vm.orders.forEach(function(item, index){
+					if (item.state == 'Order Placed'){
+						vm.placedOrders.push(item);
+					}
+				});
+				console.log(vm.placedOrders[0].driver);
 				vm.allOrders = functionService.loadOrders();
 				vm.currentOrderCount = vm.orders.length;
 			});
