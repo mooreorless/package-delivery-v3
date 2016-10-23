@@ -13,12 +13,7 @@
 		vm.currentDate = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
 
 		vm.loggedInUserType = functionService.loggedInUserType;
-		if (vm.loggedInUserType() == 'customer'){
-			vm.panelClass = 'col-md-8 col-md-offset-2';
-		}
-		else{
-			vm.panelClass = 'col-md-8';
-		}
+
 		//get order ID from route parameters 
 		vm.orderID = $routeParams.orderID;
 

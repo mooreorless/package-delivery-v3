@@ -48,7 +48,7 @@
               <div class="widget-heading">
                 <h5>Extra Info</h5>
                 <hr>
-                <h4 class="text-center">{{ vm.order.notes }}</h4>
+                <p class="text">{{ vm.order.notes }}</p>
               </div>
             </div>
           </div>
@@ -83,7 +83,37 @@
 		</div>
 
     <div class="row">
-      <div class="col-md-10 col-md-offset-2">
+			<div class="col-md-4">
+				<div class="panel panel-default" ng-show='vm.state == "Picked Up"'>
+				<!-- Begin Payment Details Input -->
+				<div class="panel-heading">
+					Payment Details
+				</div>
+				<div class="panel-body">
+					<div class='clearfix'>
+						<div class='col-xs-8'>
+							<b>Card Number:</b>
+							<p><input type='text' id='cardNumber' class='form-control' ng-model='vm.cardNumber' placeholder='XXXX-XXXX-XXXX-XXXX'></p>
+						</div>
+						<div class='col-xs-4'>
+							<b>Expiry:</b>
+							<p><input type='text' id='cardExp' class='form-control' ng-model='vm.cardExp' placeholder='MM/YY'></p>
+						</div>
+					</div>
+					<div class='clearfix'>
+						<div class='col-xs-4'>
+							<b>CVV:</b>
+							<p><input type='text' id='cardNumber' class='form-control' ng-model='vm.cardNumber' placeholder='XXX'></p>
+						</div>
+						<div class='col-xs-8 pay-btn-col'>
+							<button class='btn btn-primary btn-lg pull-right' ng-click='vm.updateJobState("Paid")'>Pay</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+
+      <div class="col-md-8">
         <ul ng-show="vm.loggedInUserType() === 'admin'" class="timeline" id="timeline">
           <li class="li complete">
             <div class="timestamp">

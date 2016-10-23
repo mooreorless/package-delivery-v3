@@ -1,34 +1,31 @@
 <navigation></navigation>
 
 <div class='container'>
-  <div class='row'>
-  	<a class="btn btn-default" href='/orders'>Back to all Orders</a>
-  	<h4>Order #{{vm.order._id}}</h4>
-  </div>
-  <div class='row'>
-    <div class='{{vm.panelClass}}'>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				Order Details
-				<!-- Begin Job State Input -->
-				<select ng-model='vm.state' ng-change='vm.updateJobState(vm.state)' class='selectpicker dropdown pull-right jobstate-dropdown'
-				ng-hide='vm.loggedInUserType() == "customer"'>
-					<option selected="vm.state == 'Order Placed'" value='Order Placed'>Order Placed</option>
-					<option selected="vm.state == 'Picked Up'" value='Picked Up'>Picked Up</option>
-					<option selected="vm.state == 'Paid'" value='Paid' disabled>Paid</option>
-					<option selected="vm.state == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
-				</select>
-				<span class='pull-right' ng-hide='vm.loggedInUserType() == "customer"'>Job Status</span>
-				<span class='pull-right' ng-show='vm.loggedInUserType() == "customer"'>Job Status: {{vm.state}}</span>
-			</div>
-			<div class="panel-body">
-				<b>Pick Up:</b>
-				<p class='singleOrderLabels'>{{vm.pickUpAddress}}</p>
-				<b>Drop Off:</b>
-				<p class='singleOrderLabels'>{{vm.dropOffAddress}}</p>
+  <div class='row' id="add-margin">
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Order Details {{ vm.order._id }}
+					<!-- Begin Job State Input -->
+					<select ng-model='vm.state' ng-change='vm.updateJobState(vm.state)' class='selectpicker dropdown pull-right jobstate-dropdown'
+					ng-hide='vm.loggedInUserType() == "customer"'>
+						<option selected="vm.state == 'Order Placed'" value='Order Placed'>Order Placed</option>
+						<option selected="vm.state == 'Picked Up'" value='Picked Up'>Picked Up</option>
+						<option selected="vm.state == 'Paid'" value='Paid' disabled>Paid</option>
+						<option selected="vm.state == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
+					</select>
+					<span class='pull-right' ng-hide='vm.loggedInUserType() == "customer"'>Job Status</span>
+					<span class='pull-right' ng-show='vm.loggedInUserType() == "customer"'>Job Status: {{vm.state}}</span>
+				</div>
+				<div class="panel-body">
+					<b>Pick Up:</b>
+					<p class='singleOrderLabels'>{{vm.pickUpAddress}}</p>
+					<b>Drop Off:</b>
+					<p class='singleOrderLabels'>{{vm.dropOffAddress}}</p>
+				</div>
 			</div>
 		</div>
-    </div>
+
     <!-- Additional Info Panel -->
     <div class='col-md-4' ng-hide='vm.loggedInUserType() == "customer"'>
     	<div class="panel panel-default" ng-show='vm.state == "Order Placed"'>
@@ -96,14 +93,27 @@
 		</div>
     </div>
   </div>
-  <ng-map center="-27.46,153.02" zoom='11'>
-		<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png"></marker>
-   	<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png'></marker>
-		<directions
-			suppress-markers="true"
-			origin="{{vm.pickUpAddress}}"
-			destination="{{vm.dropOffAddress}}">
-		</directions>
-	</ng-map>
+
+	<div class="row">
+		<div class="col-md-8">
+			<ng-map center="-27.46,153.02" zoom='11'>
+				<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png"></marker>
+				<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png'></marker>
+				<directions
+					suppress-markers="true"
+					origin="{{vm.pickUpAddress}}"
+					destination="{{vm.dropOffAddress}}">
+				</directions>
+			</ng-map>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Notes</div>
+				<div class="panel-body">{{ vm.order.notes }}</div>
+			</div>
+		</div>
+	</div>
+
+
 </div>
 <br><br>

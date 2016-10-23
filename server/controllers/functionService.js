@@ -106,15 +106,6 @@ module.exports.placeOrder = function(req, res) {
   order.isExpress = req.body.isExpress;
 
   order.state = req.body.state;
-  // order.driver = 'jono';
-
-  // Distribution of the orders between the drivers
-  if (Math.random() > 0.5){
-    order.driver = 'jono';
-  }
-  else{
-    order.driver = 'marco';
-  }
 
   order.save(function(err) {
     if (err){
