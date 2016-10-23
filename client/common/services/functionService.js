@@ -105,7 +105,6 @@
         toastr.success('Updated profile', 'Success');
 				// Forces toastr to show success more than once
 				toastr.hidden('Hidden', 'Hidden');
-				console.log(data);
 				saveToken(data.token);
 			});
 		};
@@ -118,11 +117,9 @@
 
     //send order creation form data off to server
     placeOrder = function(order){
-      console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
         toastr.success('Order placed', 'Success');
         toastr.hidden('Hidden', 'Hidden');
-        console.log(data);
       });
     };
 
@@ -153,7 +150,6 @@
     //mark job as 'seen by driver' when a driver opens it for the first time
     markJobAsSeen = function(order){
       return $http.put('/api/update/jobSeen', order).success(function(data){
-        console.log(order + ' marked as seen!');
       });
     };
 
@@ -182,6 +178,7 @@
     updateJobState = function(update){
       return $http.put('/api/update/jobstate', update).success(function(data){
         toastr.success('Job State Changed', 'Success');
+        toastr.hidden('Hidden', 'Hidden');
       });
     };
 
