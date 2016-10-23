@@ -1,3 +1,6 @@
+/*
+ Controller for the user
+ */
 (function () {
 
 	angular
@@ -5,6 +8,9 @@
 		.controller('updateUserCtrl', updateUserCtrl);
 
 	updateUserCtrl.$inject = ['$location', 'functionService', 'toastr'];
+	/*
+	 Updates the user with new crendtials or keeps the old ones
+	 */
 	function updateUserCtrl($location, functionService, toastr) {
 
 		var vm = this;
@@ -34,6 +40,25 @@
 			suburb: vm.currentUser.suburb,
 			postCode: vm.currentUser.postCode
 		};
+
+		/*
+		 When the user submits the, do all validation and transport data given to the back end
+		 */
+		vm.onSubmit = function () {
+			console.log('Submitting update user details');
+			console.log(vm.credentials);
+			functionService
+				.register(vm.credentials)
+				.error(function(err){
+					alert(err);
+				})
+				.then(function(){
+					$location.path('profile');
+				});
+		};
+		/*
+		 	Takes the user to the update user details page
+		 */
 
 		vm.updateUser = function(){
 			functionService.updateUser(vm.newCredentials);
