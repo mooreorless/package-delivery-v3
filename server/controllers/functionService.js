@@ -207,7 +207,6 @@ module.exports.getAllDrivers = function(req, res) {
 	Assign driver
 */
 module.exports.assignDriver = function(req, res) {
-	console.log(req.body);
 	Order.findOneAndUpdate({ _id: req.body._id }, { driver: req.body.driverName }, { new: true }, function(err, assignedDriver) {
 		if (err) {
 			res.status(500).json(err);
@@ -217,7 +216,18 @@ module.exports.assignDriver = function(req, res) {
 	});
 };
 
-//get jobs for that driver
+/* 
+  Check assigned jobs count per driver
+*/
+module.exports.getJobsForDriver = function(req, res) {
+  Order.find({ driver: req.query.driverName, state: 'Order Placed' }, function(err, orders) {
+    if (!err) {
+      res.status(200).json(orders);
+    } else {
+      res.status(404).json(err);
+    }
+  });
+}
 
 
 

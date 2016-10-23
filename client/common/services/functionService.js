@@ -128,7 +128,6 @@
     getSingleOrder = function(orderID){
       return $http.get('/api/singleOrder', {params: {orderID: orderID}}).success(function(data){
         order = data;
-        // console.log('from client side:' + data);
       });
     };
 
@@ -138,7 +137,6 @@
 
     markJobAsSeen = function(order){
       return $http.put('/api/update/jobSeen', order).success(function(data){
-        // console.log(data);
         console.log(order + ' marked as seen!');
       });
     };
@@ -180,8 +178,14 @@
     assignDriver = function(driver) {
     	return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
 		    var driverName = driver.driver.charAt(0).toUpperCase() + driver.driver.slice(1);
-    		toastr.success('Assigned ' + driverName + ' to job');
+    		toastr.success('Assigned to ' + driverName);
 	    });
+    };
+
+    getJobCountForDriver = function(driver) {
+      return $http.get('/api/orders/driver', { params: { driverName: driver } }).success(function(driver) {
+        orders = driver;
+      });
     };
 
     return {
@@ -209,6 +213,7 @@
 	    loadDrivers: loadDrivers,
 	    getAllDrivers: getAllDrivers,
 	    assignDriver: assignDriver,
+      getJobCountForDriver: getJobCountForDriver,
       markJobAsSeen: markJobAsSeen
     };
   }
