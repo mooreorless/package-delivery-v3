@@ -552,6 +552,14 @@ a:hover {
   }
 }
 
+.email-input{
+	width: 300px;
+}
+
+.address-input{
+	width: 200px;
+}
+
 /*
 button {
   position: absolute;

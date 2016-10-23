@@ -88,7 +88,7 @@
 				<b>Paid By:</b>
 				<p class='singleOrderLabels'>{{vm.driverName}}</p>
 				<b>Paid On:</b>
-				<p class='singleOrderLabels'>{{vm.order.paidAt || 'Order waiting to be paid for'}}</p>
+				<p class='singleOrderLabels'>{{vm.order.paidAt | date : "dd/MM/yyyy" || 'Order waiting to be paid for'}}</p>
 			</div>
 		</div>
     </div>
