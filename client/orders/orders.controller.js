@@ -79,10 +79,10 @@
       console.log(order);
       $location.path('order/' + order._id);
     };
-    vm.openLabel = function(order) {
-        console.log(order);
-        $location.path('label/' + order._id);
-	}
+ //    vm.openLabel = function(order) {
+ //        console.log(order);
+ //        $location.path('label/' + order._id);
+	// }
 
   }
 })();
