@@ -25,13 +25,21 @@ router.put('/update/details', ctrlFunctions.updateDetails);
 // removed auth middleware due to it clashing with the frontend
 router.get('/orders', ctrlFunctions.getUserOrders);
 router.post('/orders/new', ctrlFunctions.placeOrder);
+router.put('/update/jobstate', ctrlFunctions.updateJobState);
 
+//loading a single order for single order view
 router.get('/singleOrder', ctrlFunctions.getSingleOrder);
+
+//marking a job as seen when a driver opens it for the first time
+router.put('/update/jobSeen', ctrlFunctions.markJobAsSeen);
 
 // admin actions
 router.get('/orders/current', ctrlFunctions.getCurrentOrderCount);
 router.get('/orders/delivered', ctrlFunctions.getDeliveredCount);
 router.get('/orders/awaiting', ctrlFunctions.getPlacedOrders);
 
+router.get('/drivers/all', ctrlFunctions.getAllDrivers);
+router.put('/orders/assign/driver', ctrlFunctions.assignDriver);
+router.get('/orders/driver', ctrlFunctions.getJobsForDriver);
 
 module.exports = router;

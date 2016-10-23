@@ -18,10 +18,13 @@
         .login(vm.credentials)
         .error(function(err){
         	document.getElementById('login-error-msg').style.display = 'block';
-					console.log(err);
         })
         .then(function(){
-          $location.path('/profile');
+        	if (functionService.loggedInUserType() === 'admin') {
+        		$location.path('/admin/dashboard');
+	        } else {
+		        $location.path('/profile');
+	        }
         });
     };
   }

@@ -2,38 +2,127 @@
 
 <div class='container'>
   <div class='row'>
-    <div class='col-md-offset-2 col-md-8'>
-    	<a href='/orders'>Back to all Orders</a>
-  		<h4>Order #{{vm.order._id}}</h4>
+  	<a href='/orders'>Back to all Orders</a>
+  	<h4>Order #{{vm.order._id}}</h4>
+  </div>
+  <div class='row'>
+    <div class='{{vm.panelClass}}'>
 		<div class="panel panel-default">
-			<div class="panel-heading">Order Details</div>
-			<div class="panel-body">
-				Pick Up: 
-				<input ng-model='vm.order.pickUpNumber'>
-				<input ng-model='vm.order.pickUpName'>
-				<input ng-model='vm.order.pickUpSuburb'>
-				<input ng-model='vm.order.pickUpPostcode'>
+			<div class="panel-heading">
+				Order Details
+				<!-- Begin Job State Input -->
+				<select ng-model='vm.state' ng-change='vm.updateJobState(vm.state)' class='selectpicker dropdown pull-right jobstate-dropdown'
+				ng-hide='vm.loggedInUserType() == "customer"'>
+					<option selected="vm.state == 'Order Placed'" value='Order Placed'>Order Placed</option>
+					<option selected="vm.state == 'Picked Up'" value='Picked Up'>Picked Up</option>
+					<option selected="vm.state == 'Paid'" value='Paid' disabled>Paid</option>
+					<option selected="vm.state == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
+				</select>
+				<span class='pull-right' ng-hide='vm.loggedInUserType() == "customer"'>Job Status</span>
+				<span class='pull-right' ng-show='vm.loggedInUserType() == "customer"'>Job Status: {{vm.state}}</span>
 			</div>
 			<div class="panel-body">
-				Drop Off:
-				<input ng-model='vm.order.dropOffNumber'>
-				<input ng-model='vm.order.dropOffName'>
-				<input ng-model='vm.order.dropOffSuburb'>
-				<input ng-model='vm.order.dropOffPostcode'>
+				<b>Pick Up:</b> 
+				<p class='singleOrderLabels'>{{vm.pickUpAddress}}</p>
+				<b>Drop Off:</b>
+				<p class='singleOrderLabels'>{{vm.dropOffAddress}}</p>
 			</div>
 		</div>
     </div>
-    <!-- {{vm.order}} -->
+    <!-- Additional Info Panel -->
+    <div class='col-md-4' ng-hide='vm.loggedInUserType() == "customer"'>
+    	<div class="panel panel-default" ng-show='vm.state == "Order Placed"'>
+			<!-- Begin Job Placement Pane -->
+			<div class="panel-heading">
+				Placement Details
+			</div>
+			<div class="panel-body">
+				<b>Placed By:</b>
+				<p class='singleOrderLabels'>{{vm.order.userName || 'Old Order - No UserName Field'}}</p>
+				<b>Placed On:</b>
+				<p class='singleOrderLabels'>{{vm.order.orderPlacedAt | date : "dd/MM/yyyy"}}</p>
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show='vm.state == "Dropped Off"'>
+			<!-- Begin Picked Up Pane -->
+			<div class="panel-heading">
+				Dropped Off Details
+			</div>
+			<div class="panel-body">
+				<b>Dropped Off By:</b>
+				<p class='singleOrderLabels'>{{vm.order.driver.charAt(0).toUpperCase() + vm.order.driver.slice(1)}}</p>
+				<b>Dropped Off On:</b>
+				<p class='singleOrderLabels'>{{vm.order.droppedOffAt | date : "dd/MM/yyyy" || 'Order waiting to be dropped off'}}</p>
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show='vm.state == "Picked Up"'>
+			<!-- Begin Payment Details Input -->
+			<div class="panel-heading">
+				Payment Details
+			</div>
+			<div class="panel-body">
+				<div class='clearfix'>
+					<div class='col-xs-8'>
+						<b>Card Number:</b>
+						<p><input type='text' id='cardNumber' class='form-control' ng-model='vm.cardNumber' placeholder='XXXX-XXXX-XXXX-XXXX'></p>
+					</div>
+					<div class='col-xs-4'>
+						<b>Expiry:</b>
+						<p><input type='text' id='cardExp' class='form-control' ng-model='vm.cardExp' placeholder='MM/YY'></p>
+					</div>
+				</div>
+				<div class='clearfix'>
+					<div class='col-xs-4'>
+						<b>CVV:</b>
+						<p><input type='text' id='cardNumber' class='form-control' ng-model='vm.cardNumber' placeholder='XXX'></p>
+					</div>
+					<div class='col-xs-8 pay-btn-col'>
+						<button class='btn btn-primary btn-lg pull-right' ng-click='vm.updateJobState("Paid")'>Pay</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show='vm.state == "Paid"'>
+			<!-- Begin Payment Details Input -->
+			<div class="panel-heading">
+				Payment Details
+			</div>
+			<div class="panel-body">
+				<b>Paid By:</b>
+				<p class='singleOrderLabels'>{{vm.order.driver}}</p>
+				<b>Paid On:</b>
+				<p class='singleOrderLabels'>{{vm.order.timestamp.paidAt || 'Order waiting to be paid for'}}</p>
+			</div>
+		</div>
+    </div>
   </div>
   <ng-map center="-27.46,153.02" zoom='11'>
-		<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png" on-click="vm.showCustomMarker()"></marker>
-   	<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png' on-click="vm.showCustomMarker()"></marker>
-		<directions 
+		<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png"></marker>
+   	<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png'></marker>
+		<directions
 			suppress-markers="true"
 			origin="{{vm.pickUpAddress}}"
 			destination="{{vm.dropOffAddress}}">
 		</directions>
 	</ng-map>
-</div>
+
+	<ul ng-show="vm.loggedInUserType() == 'admin'">
+		<li>
+			Order placed at
+			{{vm.order.orderPlacedAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}
+		</li>
+		<li>
+			Order picked up at
+			{{vm.order.pickedUpAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}
+		</li>
+		<li>
+			Order delivered at
+			{{vm.order.droppedOffAt | date : "dd/MM/yyyy" || 'Order waiting to be delivered'}}
+		</li>
+		<li>
+			Order paid for at
+			{{vm.order.paidAt | date : "dd/MM/yyyy" || 'Order waiting to be paid for'}}
+		</li>
+	</ul>
 </div>
 <br><br>

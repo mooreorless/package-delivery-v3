@@ -9,10 +9,10 @@
 
     var orders;
     var order;
+	  var drivers;
 
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
-			toastr.success('Login successful', 'Success');
       console.log(token);
     };
 
@@ -54,9 +54,32 @@
       }
     };
 
+    var loggedInUserType = function(){
+      if (isLoggedIn()) {
+        var token = getToken();
+        var payload = token.split('.')[1];
+        payload = $window.atob(payload);
+        payload = JSON.parse(payload);
+        //split logged in email address
+        userEmail = payload.email.split('@');
+	      // console.log(userEmail);
+        //check for a customer
+        if (userEmail[1] != 'onthespot.com'){
+          return 'customer';
+        }
+        else if (userEmail[0] == 'admin'){
+            return 'admin';
+        }
+        else{
+          return 'driver';
+        }
+      }
+    };
+
     register = function(user) {
       console.log('register being called');
       return $http.post('/api/register', user).success(function(data){
+      	toastr.success('Account created', 'Success');
         saveToken(data.token);
       });
     };
@@ -64,16 +87,15 @@
     login = function(user) {
       return $http.post('/api/login', user).success(function(data) {
         saveToken(data.token);
+        toastr.success('Login successful', 'Success');
       });
     };
 
 		updateUser = function(user) {
-			console.log(user);
-			return $http.put('/api/update/details', user).success(function(err,data){
-				if (err) {
-					console.log(err);
-				}
-				console.log("Update user fin");
+			return $http.put('/api/update/details', user).success(function(data){
+        toastr.success('Updated profile', 'Success');
+				// Forces toastr to show success more than once
+				toastr.hidden('Hidden', 'Hidden');
 				console.log(data);
 				saveToken(data.token);
 			});
@@ -87,7 +109,9 @@
     placeOrder = function(order){
       console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
-        console.log(data);
+      	toastr.success('Order placed', 'Success');
+	      toastr.hidden('Hidden', 'Hidden');
+	      console.log(data);
       });
     };
 
@@ -104,12 +128,17 @@
     getSingleOrder = function(orderID){
       return $http.get('/api/singleOrder', {params: {orderID: orderID}}).success(function(data){
         order = data;
-        // console.log('from client side:' + data);
       });
     };
 
     loadSingleOrder = function(){
       return order;
+    };
+
+    markJobAsSeen = function(order){
+      return $http.put('/api/update/jobSeen', order).success(function(data){
+        console.log(order + ' marked as seen!');
+      });
     };
 
     getCurrentOrders = function() {
@@ -125,9 +154,38 @@
     };
 
     getPlacedOrders = function() {
-    	return $http.get('/api/order/awaiting').success(function(data) {
+    	return $http.get('/api/orders/awaiting').success(function(data) {
     	  orders = data;
 	    });
+    };
+
+    updateJobState = function(update){
+      return $http.put('/api/update/jobstate', update).success(function(data){
+        toastr.success('Job State Changed', 'Success');
+      });
+    };
+
+    loadDrivers = function() {
+      return drivers;
+    };
+
+    getAllDrivers = function() {
+    	return $http.get('/api/drivers/all').success(function(data) {
+				drivers = data;
+	    });
+    };
+
+    assignDriver = function(driver) {
+    	return $http.put('/api/orders/assign/driver', driver).success(function(driver) {
+		    var driverName = driver.driver.charAt(0).toUpperCase() + driver.driver.slice(1);
+    		toastr.success('Assigned to ' + driverName);
+	    });
+    };
+
+    getJobCountForDriver = function(driver) {
+      return $http.get('/api/orders/driver', { params: { driverName: driver } }).success(function(driver) {
+        orders = driver;
+      });
     };
 
     return {
@@ -148,7 +206,15 @@
 	    getCurrentOrders: getCurrentOrders,
 	    getDeliveredOrders: getDeliveredOrders,
 	    getPlacedOrders: getPlacedOrders,
-      order: order
+      order: order,
+      loggedInUserType: loggedInUserType,
+      updateJobState: updateJobState,
+	    drivers: drivers,
+	    loadDrivers: loadDrivers,
+	    getAllDrivers: getAllDrivers,
+	    assignDriver: assignDriver,
+      getJobCountForDriver: getJobCountForDriver,
+      markJobAsSeen: markJobAsSeen
     };
   }
 

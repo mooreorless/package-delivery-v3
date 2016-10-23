@@ -2,10 +2,10 @@
 
 <div class="container">
 	<div class="row">
-		<div class="dashboard-wrapper col-md-8 col-md-offset-2">
+		<div class="dashboard-wrapper col-md-12">
 
 			<!-- Current Orders -->
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="panel panel-default">
 					<div class="widget-heading">
 						<h5>Current Orders</h5>
@@ -17,7 +17,7 @@
 			</div>
 
 			<!-- Orders Waiting -->
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="panel panel-default">
 					<div class="widget-heading">
 						<h5>Orders Waiting</h5>
@@ -29,7 +29,7 @@
 		</div>
 
 		<!-- Delivered Today -->
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="widget-heading">
 					<h5>Delivered Today</h5>
@@ -40,19 +40,57 @@
 			</div>
 		</div>
 
-		<!-- Extra Info -->
-		<div class="col-md-4">
+		<!-- Other -->
+		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="widget-heading">
-					<h5>Stats</h5>
-					<span class="text-muted">extra info</span>
+					<h5>Other</h5>
+					<span class="text-muted">Other</span>
 					<hr>
+					<h2 class="text-center">10</h2>
+				</div>
+			</div>
+		</div>
+
+		<!-- Extra Info/Map -->
+		<div class="col-md-5">
+			<div class="panel panel-default">
+				<div class="widget-heading">
+					<p>
+						<span>Show Jobs For</span>
+						<select ng-model='vm.selectedDriver' class='selectpicker dropdown pull-right jobstate-dropdown'>
+							<option selected>Select Driver</option>
+							<option ng-repeat='driver in vm.drivers' 
+								value='{{driver.firstName}}'>{{driver.firstName}}
+							</option>
+						</select>
+					</p>
+					<ng-map center="-27.46,153.02" zoom='11'>
+						<!-- pick up marker -->
+						<marker ng-repeat='order in vm.allOrders | filter : {driver: vm.selectedDriver, state: "Order Placed"}' 
+							position="{{order.pickUpNumber+' '+order.pickUpName+' '+order.pickUpSuburb+' '+order.pickUpPostcode}}" 
+							title="{{order.pickUpNumber+' '+order.pickUpName+' '+order.pickUpSuburb+' '+order.pickUpPostcode}}" 
+							icon="img/pickUpMarker.png">
+						</marker>
+						<!-- drop off marker -->
+						<marker ng-repeat='order in vm.allOrders | filter : {driver: vm.selectedDriver, state: "Order Placed"}' 
+   						position="{{order.dropOffNumber+' '+order.dropOffName+' '+order.dropOffSuburb+' '+order.dropOffPostcode}}" 
+							title="{{order.dropOffNumber+' '+order.dropOffName+' '+order.dropOffSuburb+' '+order.dropOffPostcode}}" 
+							icon="img/dropOffMarker.png">
+						</marker>
+						<!-- directions -->
+						<directions ng-repeat='order in vm.allOrders | filter : {driver:vm.selectedDriver, state: "Order Placed"}'
+						suppress-markers="true"
+						origin="{{order.pickUpNumber+' '+order.pickUpName+' '+order.pickUpSuburb+' '+order.pickUpPostcode}}"
+						destination="{{order.dropOffNumber+' '+order.dropOffName+' '+order.dropOffSuburb+' '+order.dropOffPostcode}}">
+						</directions>
+					</ng-map>
 				</div>
 			</div>
 		</div>
 
 		<!-- Assign Drivers -->
-		<div class="col-md-8">
+		<div class="col-md-7">
 			<div class="panel panel-default">
 				<div class="widget-heading">
 					<h5>Orders Awaiting Assignment</h5>
@@ -60,23 +98,22 @@
 					<hr>
 				</div>
 				<ul class="list-group">
-
 					<li class="list-group-item" ng-repeat="order in vm.orders | filter: { driver: 'unassigned' }">
-						OrderId# {{ order._id }}
+						<strong>OrderId#</strong> {{ order._id }}
 						<div class="btn-group dropup pull-right">
 							<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Choose Driver
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">Marco</a></li>
-								<li><a href="#">Jono</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Add New Driver</a></li>
+								<li ng-repeat="driver in vm.drivers">
+									<a href="#" ng-click="vm.assignDriver({ _id: order._id, driverName: driver.firstName })">{{ driver.firstName }}</a>
+								</li>
 							</ul>
 						</div>
+							<p><strong>Customer Name</strong> {{ order.userName }}</p>
+							<p><strong>Pickup Location</strong> {{ order.pickUpNumber }} {{ order.pickUpName }} {{ order.pickUpSuburb }} {{ order.pickUpPostcode }}</p>
+							<p><strong>Dropoff Location</strong> {{ order.dropOffNumber }} {{ order.dropOffName }} {{ order.dropOffSuburb }} {{ order.dropOffPostcode }}</p>
 					</li>
-
-
 				</ul>
 			</div>
 		</div>

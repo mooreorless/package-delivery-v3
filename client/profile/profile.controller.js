@@ -11,17 +11,19 @@
 		vm.user = {};
 
 		meanData.getProfile()
-			.success(function(data) {
-				vm.user = data;
-				console.log(data);
-			})
-			.error(function (e) {
-				toastr.error('Please sign in or make an account', 'Error');
-				$location.path('/');
-        console.log(e);
-      });
+		.success(function(data) {
+			vm.user = data;
+			console.log(data);
+		})
+		.error(function (e) {
+			toastr.error('Please sign in or make an account', 'Error');
+			$location.path('/');
+			console.log(e);
+    });
 
-      $('[data-toggle="tooltip"]').tooltip();
+		console.log(functionService.loggedInUserType());
+
+    $('[data-toggle="tooltip"]').tooltip();
 
 	  vm.view = "Account";
 
@@ -55,9 +57,7 @@
 	  };
 
   	vm.updateDetails = function(){
-		// console.log();
 		functionService.updateUser(vm.user);
-		toastr.success('Updated account details', 'Success');
 	};
   }
 

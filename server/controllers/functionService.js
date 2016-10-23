@@ -5,18 +5,10 @@ var User = mongoose.model('User');
 var Order = mongoose.model('Order');
 
 var sendJSONresponse = function(res, status, content) {
-  res.status(status);
-  res.json(content);
+  res.status(status).json(content);
 };
 
 module.exports.register = function(req, res) {
-
-  // if(!req.body.name || !req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
 
   console.log(req.body);
   console.log('register being called');
@@ -29,45 +21,33 @@ module.exports.register = function(req, res) {
   user.streetName = req.body.streetName;
   user.suburb = req.body.suburb;
   user.postCode = req.body.postCode;
-  user.isDriver = false;
-  user.isAdmin = false;
 
-  emailDomain = req.body.email.split('@');
-  console.log(emailDomain[1]);
+	var userEmail = (req.body.email).split('@');
 
-  if (emailDomain[1] == 'onthespot.com'){
-    user.isDriver = true;
-  }
-
-  if (req.body.email == 'admin@onthespot.com'){
-    user.isAdmin = true;
-  }
+	var driverOrAdmin = function(username, domain) {
+		if (domain.includes('onthespot.com')) {
+			user.isDriver = true;
+		} else if (username.includes('admin')) {
+			user.isAdmin = true;
+		}
+	};
+	driverOrAdmin.apply(null, userEmail);
 
   user.setPassword(req.body.password);
 
   console.log(user);
   user.save(function(err) {
     if (err){
-      console.log(err);
+	    res.status(500).json(err);
+    } else {
+	    var token;
+	    token = user.generateJwt();
+	    res.status(200).json({ "token": token });
     }
-
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
   });
 };
 
 module.exports.login = function(req, res) {
-
-  // if(!req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
 
   passport.authenticate('local', { failureFlash: true }, function(err, user, info){
     var token;
@@ -93,17 +73,13 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.placeOrder = function(req, res) {
-// if(!req.body.name || !req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
+
   console.log(req.body);
 	console.log('Placing Order');
   var order = new Order();
 
   order.userID = req.body.userID;
+  order.userName = req.body.userName;
   order.pickUpNumber = req.body.pickUpNumber;
 	order.pickUpName = req.body.pickUpName;
 	order.pickUpSuburb = req.body.pickUpSuburb;
@@ -113,24 +89,8 @@ module.exports.placeOrder = function(req, res) {
 	order.dropOffSuburb = req.body.dropOffSuburb;
 	order.dropOffPostcode = req.body.dropOffPostcode;
   order.notes = req.body.notes;
-  order.pickUpDate = req.body.pickUpDate;
   order.isFragile = req.body.isFragile;
   order.isExpress = req.body.isExpress;
-
-  // Trying to setState
-  // order.state = order.setState('Order Placed');
-
-	order.pickUpDate = req.body.pickUpDate;
-  // order.driver = 'jono';
-
-  if (Math.random() > 0.5){
-    order.driver = 'jono';
-  }
-  else{
-    order.driver = 'marco';
-  }
-
-  console.log(order);
 
   order.save(function(err) {
     if (err){
@@ -141,30 +101,46 @@ module.exports.placeOrder = function(req, res) {
     } else {
 			console.log('order saved');
 			res.sendStatus(200);
-      // res.json({
-      //   status :'OK'
-      // });
 		}
   });
 };
 
 module.exports.updateDetails = function (req, res) {
 	console.log(req.body);
-	User.findOneAndUpdate({ email : req.body.email}, req.body, {multi:false}, function(err,doc){
+	User.findOneAndUpdate({ _id : req.body._id}, req.body, {multi:false, new:true}, function(err,doc){
 		if(err) {
       console.log(err);
     }
-    res.sendStatus(200);
-		console.log(doc);
+    var token;
+    token = doc.generateJwt();
+    res.status(200);
+    res.json({
+      "token" : token
+    });
 	});
 };
 
+module.exports.updateJobState = function(req, res){
+    // update job state
+    // change the created at
+    console.log(req.body);
+  Order.findOneAndUpdate({_id:req.body._id}, req.body, {mutli:false, new:true}, function(err, doc){
+    if(err) {
+      res.status(500).json(err);
+    }
+    res.status(200).json({ job: doc });
+  });
+};
+
 module.exports.getUserOrders = function(req, res){
-  var userEmail = req.query.user.split('@');
+  console.log(req.query.user);
+  var user = JSON.parse(req.query.user);
+  var userEmail = user.email.split('@');
+  // console.log(req.query.user.);
 	//if logged in user is a driver
 	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
 		console.log('fetching orders assigned to ' + req.query.user);
-		Order.find({ driver: userEmail[0] }, function (err, orders) {
+		Order.find({ driver: userEmail[0].toLowerCase() }, function (err, orders) {
 			if (err) console.log(err);
 			console.log(orders);
 			res.send(orders);
@@ -172,7 +148,7 @@ module.exports.getUserOrders = function(req, res){
 	}
 	else{
 		console.log('fetching orders for ' + req.query.user);
-		Order.find({ userID: req.query.user }, function (err, orders) {
+		Order.find({ userID: user._id }, function (err, orders) {
 			if (err) {
 				res.status(404).json(err);
 			}
@@ -183,12 +159,70 @@ module.exports.getUserOrders = function(req, res){
 };
 
 module.exports.getSingleOrder = function(req, res){
-  // console.log(req.query.orderID);
   Order.findOne({ _id: req.query.orderID }, function (err, order) {
-    // if (err) console.log(err);
-    res.send(order);
+    if (err) {
+    	console.log(err);
+    }
+    else{
+      res.send(order);
+    }
   });
 };
+
+module.exports.markJobAsSeen = function(req, res){
+  Order.findOneAndUpdate({ _id:req.body._id}, {seenByDriver: true}, function (err, order){
+    if (err) {
+      console.log(err);
+    }
+    else{
+      console.log('job marked as seen');
+      res.send(order);
+    }
+  });
+};
+
+/* Driver Assignment */
+
+/*
+  Get all drivers
+ */
+module.exports.getAllDrivers = function(req, res) {
+	User.find({ isDriver: true, isAdmin: false }, function(err, drivers) {
+		if (!err) {
+			res.status(200).json(drivers);
+		} else {
+			res.status(500).json({ message: err });
+		}
+	});
+};
+
+/*
+	Assign driver
+*/
+module.exports.assignDriver = function(req, res) {
+	Order.findOneAndUpdate({ _id: req.body._id }, { driver: req.body.driverName }, { new: true }, function(err, assignedDriver) {
+		if (err) {
+			res.status(500).json(err);
+		} else {
+			res.status(200).json(assignedDriver);
+		}
+	});
+};
+
+/* 
+  Check assigned jobs count per driver
+*/
+module.exports.getJobsForDriver = function(req, res) {
+  Order.find({ driver: req.query.driverName, state: 'Order Placed' }, function(err, orders) {
+    if (!err) {
+      res.status(200).json(orders);
+    } else {
+      res.status(404).json(err);
+    }
+  });
+}
+
+
 
 /* Admin actions */
 
@@ -196,11 +230,11 @@ module.exports.getSingleOrder = function(req, res){
 	Retrieves all orders that we placed at today's date
  */
 module.exports.getCurrentOrderCount = function(req, res) {
-	Order.find({ state: 'Order Placed' }, function(err, orders) {
+	Order.find({}, function(err, orders) {
 		if (!err) {
-			res.send(orders);
+			res.status(200).json(orders);
 		} else {
-			console.error(err);
+			res.status(500).json(err);
 		}
 	});
 };
@@ -209,11 +243,11 @@ module.exports.getCurrentOrderCount = function(req, res) {
 	Retrieves all orders that have been delivered today
  */
 module.exports.getDeliveredCount = function(req, res) {
-	Order.find({ state: 'delivered' }, function(err, orders) {
+	Order.find({ state: 'Dropped Off' }, function(err, orders) {
 		if (!err) {
-			res.send(orders);
+			res.status(200).json(orders);
 		} else {
-			console.error(err);
+			res.status(500).json(err);
 		}
 	});
 };
@@ -224,9 +258,9 @@ module.exports.getDeliveredCount = function(req, res) {
 module.exports.getPlacedOrders = function(req, res) {
 	Order.find({ state: 'Order Placed' }, function(err, orders) {
 		if (!err) {
-			res.sendStatus(200).json(orders);
+			res.status(200).json(orders);
 		} else {
-			console.error(err);
+			res.status(500).json(err);
 		}
 	});
 };
