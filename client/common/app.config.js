@@ -1,7 +1,13 @@
+/*
+ *Configuring the applications controllers and routes
+ */
 (function () {
 
-  angular.module('packageDelivery', ['ngRoute', 'toastr', 'ngMap']);
 
+  angular.module('packageDelivery', ['ngRoute', 'toastr', 'ngMap']);
+  /*
+  Configuring the templates html and connecting them to their respective controllers
+   */
   function config ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/register', {
@@ -61,6 +67,9 @@
 
   }
 
+  /*
+  Runs the specific route depending on the state of function service
+   */
   function run($rootScope, $location, $window, functionService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 
@@ -84,19 +93,9 @@
 				}
 			}
     });
-    // $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute){
-    //   if(currentRoute){
-    //     currURL = (nextRoute.$$route.originalPath);
-    //     prevURL = (currentRoute.$$route.originalPath);
-    //     if (currURL == '/login' || prevURL == '/login'){
-    //       console.log('force refresh!');
-    //       // $window.location.reload();
-    //       // $scope.$apply();
-    //     }
-    //   }
-    // });
   }
-  
+
+  // Alter the angular object so that all corresponding effects such as run and config are put onto it
   angular
     .module('packageDelivery', ['ngRoute', 'toastr', 'ngMap'])
     .config(['$routeProvider', '$locationProvider', config])
