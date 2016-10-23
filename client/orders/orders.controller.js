@@ -37,8 +37,13 @@
 					vm.orders = functionService.loadOrders();
 				})
 				.then(function() {
-					vm.orders.forEach(function(item, index) {
-						vm.orders[index].panelClass = 'panel panel-default';
+					vm.orders.forEach(function(item, index){
+						if (item.seenByDriver === false){
+							vm.orders[index].panelClass = 'panel panel-warning';
+						}
+						else{
+							vm.orders[index].panelClass = 'panel panel-default';
+						}
 					});
 				})
 		} else {
@@ -54,7 +59,6 @@
 					if (functionService.loggedInUserType() == 'driver'){
 						vm.orders.forEach(function(item, index){
 							if (item.seenByDriver === false){
-								vm.newOrderCount++;
 								vm.orders[index].panelClass = 'panel panel-warning';
 							}
 							else{
@@ -75,11 +79,6 @@
       console.log(order);
       $location.path('order/' + order._id);
     };
-
-    vm.updateFilter = function(filter){
-    	console.log(vm.filter);
-  		// $route.reload();
-  	};
   
   }
 })();

@@ -97,13 +97,13 @@
     </div>
   </div>
   <ng-map center="-27.46,153.02" zoom='11'>
-	<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png" on-click="vm.showCustomMarker()"></marker>
-   	<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png' on-click="vm.showCustomMarker()"></marker>
-	<directions 
-		suppress-markers="true"
-		origin="{{vm.pickUpAddress}}"
-		destination="{{vm.dropOffAddress}}">
-	</directions>
+		<marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png"></marker>
+   	<marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png'></marker>
+		<directions
+			suppress-markers="true"
+			origin="{{vm.pickUpAddress}}"
+			destination="{{vm.dropOffAddress}}">
+		</directions>
 	</ng-map>
 
 	<ul ng-show="vm.loggedInUserType() == 'admin'">
@@ -124,6 +124,5 @@
 			{{vm.order.paidAt | date : "dd/MM/yyyy" || 'Order waiting to be paid for'}}
 		</li>
 	</ul>
-</div>
 </div>
 <br><br>

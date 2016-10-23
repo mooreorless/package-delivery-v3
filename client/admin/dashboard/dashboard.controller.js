@@ -4,13 +4,14 @@
 		.module('packageDelivery')
 		.controller('DashBoardCtrl', DashBoardCtrl);
 
-	DashBoardCtrl.$inject = ['$location', '$route', 'functionService', 'toastr'];
-	function DashBoardCtrl($location, $route, functionService, toastr) {
+	DashBoardCtrl.$inject = ['$location', '$route', 'functionService', 'toastr', 'NgMap'];
+	function DashBoardCtrl($location, $route, functionService, toastr, NgMap ) {
 
 		var vm = this;
 
 		var date = new Date();
 		vm.currentDate = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+		vm.selectedDriver = 'Select Driver';
 
 		// Get drivers to then be assigned
 		functionService.getAllDrivers()
@@ -31,6 +32,7 @@
 		functionService.getCurrentOrders()
 			.then(function() {
 				vm.orders = functionService.loadOrders();
+				vm.allOrders = functionService.loadOrders();
 				vm.currentOrderCount = vm.orders.length;
 			});
 
@@ -47,5 +49,11 @@
 				vm.orders = functionService.loadOrders();
 				vm.awaitingOrderCount = vm.orders.length;
 			});
+
+		NgMap.getMap().then(function(map) {
+			// console.log(map.getCenter());
+			// console.log('markers', map.markers);
+			// console.log('shapes', map.shapes);
+		});
 	}
 })();
