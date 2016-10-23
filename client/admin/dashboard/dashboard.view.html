@@ -67,19 +67,19 @@
 					</p>
 					<ng-map center="-27.46,153.02" zoom='11'>
 						<!-- pick up marker -->
-						<marker ng-repeat='order in vm.placedOrders | filter : {driver: vm.selectedDriver, state: "Order Placed"}' 
+						<marker ng-repeat='order in vm.placedOrders | filter : {driver: vm.selectedDriver}' 
 							position="{{order.pickUpNumber+' '+order.pickUpName+' '+order.pickUpSuburb+' '+order.pickUpPostcode}}" 
 							title="{{order.pickUpNumber+' '+order.pickUpName+' '+order.pickUpSuburb+' '+order.pickUpPostcode}}" 
 							icon="img/pickUpMarker.png">
 						</marker>
 						<!-- drop off marker -->
-						<marker ng-repeat='order in vm.placedOrders | filter : {driver: vm.selectedDriver, state: "Order Placed"}' 
+						<marker ng-repeat='order in vm.placedOrders | filter : {driver: vm.selectedDriver}' 
    						position="{{order.dropOffNumber+' '+order.dropOffName+' '+order.dropOffSuburb+' '+order.dropOffPostcode}}" 
 							title="{{order.dropOffNumber+' '+order.dropOffName+' '+order.dropOffSuburb+' '+order.dropOffPostcode}}" 
 							icon="img/dropOffMarker.png">
 						</marker>
 						<!-- directions -->
-						<directions ng-repeat='order in vm.placedOrders | filter : {driver:vm.selectedDriver, state: "Order Placed"}'
+						<directions ng-repeat='order in vm.placedOrders | filter : {driver:vm.selectedDriver}'
 						suppress-markers="true"
 						origin="{{order.pickUpNumber+' '+order.pickUpName+' '+order.pickUpSuburb+' '+order.pickUpPostcode}}"
 						destination="{{order.dropOffNumber+' '+order.dropOffName+' '+order.dropOffSuburb+' '+order.dropOffPostcode}}">
