@@ -48,7 +48,6 @@
 						vm.placedOrders.push(item);
 					}
 				});
-				console.log(vm.placedOrders[0].driver);
 				vm.allOrders = functionService.loadOrders();
 				vm.currentOrderCount = vm.orders.length;
 			});
@@ -67,10 +66,6 @@
 				vm.awaitingOrderCount = vm.orders.length;
 			});
 
-		NgMap.getMap().then(function(map) {
-			// console.log(map.getCenter());
-			// console.log('markers', map.markers);
-			// console.log('shapes', map.shapes);
-		});
+		NgMap.getMap();
 	}
 })();
