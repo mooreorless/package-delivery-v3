@@ -140,7 +140,7 @@ module.exports.getUserOrders = function(req, res){
 	//if logged in user is a driver
 	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
 		console.log('fetching orders assigned to ' + req.query.user);
-		Order.find({ driver: userEmail[0] }, function (err, orders) {
+		Order.find({ driver: userEmail[0].toLowerCase() }, function (err, orders) {
 			if (err) console.log(err);
 			console.log(orders);
 			res.send(orders);
