@@ -9,17 +9,20 @@
 
     var orders;
     var order;
-	  var drivers;
+    var drivers;
 
+    //save token to hold session data in browser
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
       console.log(token);
     };
 
+    //retrieve token data
     var getToken = function () {
       return $window.localStorage['mean-token'];
     };
 
+    //check if someone is currently logged in
     var isLoggedIn = function() {
       var token = getToken();
       var payload;
@@ -36,6 +39,7 @@
       }
     };
 
+    //retrieve user data from browser session
     var currentUser = function() {
       if (isLoggedIn()) {
         var token = getToken();
@@ -62,20 +66,22 @@
         payload = JSON.parse(payload);
         //split logged in email address
         userEmail = payload.email.split('@');
-	      // console.log(userEmail);
-        //check for a customer
+        //if customer is logged in
         if (userEmail[1] != 'onthespot.com'){
           return 'customer';
         }
+        //if admin is logged in
         else if (userEmail[0] == 'admin'){
             return 'admin';
         }
+        //if driver is logged in
         else{
           return 'driver';
         }
       }
     };
 
+    //send form data to server for registration
     register = function(user) {
       console.log('register being called');
       return $http.post('/api/register', user).success(function(data){
@@ -84,6 +90,7 @@
       });
     };
 
+    //send login form data to check against database
     login = function(user) {
       return $http.post('/api/login', user).success(function(data) {
         saveToken(data.token);
@@ -91,6 +98,7 @@
       });
     };
 
+    //allow customer to update their details
 		updateUser = function(user) {
 			return $http.put('/api/update/details', user).success(function(data){
         toastr.success('Updated profile', 'Success');
@@ -101,11 +109,13 @@
 			});
 		};
 
+    //delete browser session
     logout = function() {
       $window.localStorage.removeItem('mean-token');
       $location.path('/login');
     };
 
+    //send order creation form data off to server
     placeOrder = function(order){
       console.log('calling placeOrder');
       return $http.post('/api/orders/new', order).success(function(data){
@@ -115,31 +125,37 @@
       });
     };
 
+    //retrieve orders for currently logged in user
     getUserOrders = function(user){
       return $http.get('/api/orders', {params: {user : user}}).success(function(data){
         orders = data;
       });
     };
 
+    //helper function to send order back to client
     loadOrders = function(){
       return orders;
     };
 
+    //retrieve data for individual order
     getSingleOrder = function(orderID){
       return $http.get('/api/singleOrder', {params: {orderID: orderID}}).success(function(data){
         order = data;
       });
     };
 
+    //helper function for retrieving individual order
     loadSingleOrder = function(){
       return order;
     };
 
+    //mark job as 'seen by driver' when a driver opens it for the first time
     markJobAsSeen = function(order){
       return $http.put('/api/update/jobSeen', order).success(function(data){
         console.log(order + ' marked as seen!');
       });
     };
+
 
     getCurrentOrders = function() {
     	return $http.get('/api/orders/current').success(function(data) {
@@ -188,6 +204,7 @@
       });
     };
 
+    //export functions and variables to allow them to be used in our controllers
     return {
       currentUser : currentUser,
       saveToken : saveToken,

@@ -43,18 +43,18 @@ var orders = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-  notes: {
-    type: String,
-    required: false
-  },
-  isFragile: {
-    type: Boolean,
-    required: false
-  },
-  isExpress: {
-    type: Boolean,
-    required: false
-  },
+	notes: {
+	type: String,
+	required: false
+	},
+	isFragile: {
+	type: Boolean,
+	required: false
+	},
+	isExpress: {
+	type: Boolean,
+	required: false
+	},
 	orderPlacedAt: {
 		type: Date,
 		default: Date.now
@@ -71,13 +71,13 @@ var orders = new mongoose.Schema({
 		type: Date,
 		default: null
 	},
-  state: {
-    type: String,
-    required: true,
+	state: {
+		type: String,
+		required: true,
 		default: 'Order Placed'
 	},
 	driver: {
-  	type: String,
+		type: String,
 		default: 'unassigned'
 	},
 	seenByDriver: {

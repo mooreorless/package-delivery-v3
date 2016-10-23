@@ -8,6 +8,7 @@
   function registerCtrl($location, functionService, toastr) {
     var vm = this;
 
+    //create object to be populated with form data, this will be sent in http request to server
     vm.credentials = {
       firstName : "",
       lastName : "",
@@ -19,6 +20,7 @@
       postCode: ""
     };
 
+    //handle form submission
     vm.onSubmit = function () {
       console.log('Submitting registration');
 			if (validateFields()) {

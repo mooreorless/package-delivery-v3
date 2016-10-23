@@ -8,12 +8,13 @@ var sendJSONresponse = function(res, status, content) {
   res.status(status).json(content);
 };
 
+//registration function that talks directly to our database
 module.exports.register = function(req, res) {
 
-  console.log(req.body);
-  console.log('register being called');
+  //create new User Object Instance
   var user = new User();
 
+  //set object field from form data
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
   user.email = req.body.email;
@@ -22,8 +23,10 @@ module.exports.register = function(req, res) {
   user.suburb = req.body.suburb;
   user.postCode = req.body.postCode;
 
+  //split user email address to determine the user type
 	var userEmail = (req.body.email).split('@');
 
+  //set User Object Fields based on email address used for signup
 	var driverOrAdmin = function(username, domain) {
 		if (domain.includes('onthespot.com')) {
 			user.isDriver = true;
@@ -33,20 +36,22 @@ module.exports.register = function(req, res) {
 	};
 	driverOrAdmin.apply(null, userEmail);
 
+  //hash password before storing to database
   user.setPassword(req.body.password);
 
-  console.log(user);
+  //save user to database
   user.save(function(err) {
     if (err){
-	    res.status(500).json(err);
+      res.status(500).json(err);
     } else {
-	    var token;
-	    token = user.generateJwt();
-	    res.status(200).json({ "token": token });
+      var token;
+      token = user.generateJwt();
+      res.status(200).json({ "token": token });
     }
   });
 };
 
+//login function
 module.exports.login = function(req, res) {
 
   passport.authenticate('local', { failureFlash: true }, function(err, user, info){
@@ -72,12 +77,13 @@ module.exports.login = function(req, res) {
   })(req, res);
 };
 
+//Saving order into database
 module.exports.placeOrder = function(req, res) {
 
-  console.log(req.body);
-	console.log('Placing Order');
+  //create new Order Object Instance
   var order = new Order();
 
+  //populate new order instance with form data
   order.userID = req.body.userID;
   order.userName = req.body.userName;
   order.pickUpNumber = req.body.pickUpNumber;
@@ -105,6 +111,7 @@ module.exports.placeOrder = function(req, res) {
   });
 };
 
+//update user details in database
 module.exports.updateDetails = function (req, res) {
 	console.log(req.body);
 	User.findOneAndUpdate({ _id : req.body._id}, req.body, {multi:false, new:true}, function(err,doc){
@@ -121,9 +128,7 @@ module.exports.updateDetails = function (req, res) {
 };
 
 module.exports.updateJobState = function(req, res){
-    // update job state
-    // change the created at
-    console.log(req.body);
+  // update job state
   Order.findOneAndUpdate({_id:req.body._id}, req.body, {mutli:false, new:true}, function(err, doc){
     if(err) {
       res.status(500).json(err);
@@ -132,12 +137,12 @@ module.exports.updateJobState = function(req, res){
   });
 };
 
+//load users matching user ID from Database
 module.exports.getUserOrders = function(req, res){
   console.log(req.query.user);
   var user = JSON.parse(req.query.user);
   var userEmail = user.email.split('@');
-  // console.log(req.query.user.);
-	//if logged in user is a driver
+	//if logged in user is a driver, find orders where driver field is equal to their name
 	if ((userEmail[1] == 'onthespot.com') && (userEmail[0] != 'admin')){
 		console.log('fetching orders assigned to ' + req.query.user);
 		Order.find({ driver: userEmail[0].toLowerCase() }, function (err, orders) {
@@ -146,6 +151,7 @@ module.exports.getUserOrders = function(req, res){
 			res.send(orders);
 		});
 	}
+  //if they arent a driver, get orders that are placed by them
 	else{
 		console.log('fetching orders for ' + req.query.user);
 		Order.find({ userID: user._id }, function (err, orders) {
@@ -158,6 +164,7 @@ module.exports.getUserOrders = function(req, res){
 	}
 };
 
+//load in single order by querying specific order ID
 module.exports.getSingleOrder = function(req, res){
   Order.findOne({ _id: req.query.orderID }, function (err, order) {
     if (err) {
@@ -169,6 +176,7 @@ module.exports.getSingleOrder = function(req, res){
   });
 };
 
+//update 'seenByDriver' field on order object
 module.exports.markJobAsSeen = function(req, res){
   Order.findOneAndUpdate({ _id:req.body._id}, {seenByDriver: true}, function (err, order){
     if (err) {
