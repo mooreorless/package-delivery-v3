@@ -55,9 +55,9 @@
 				controller: 'DashBoardCtrl',
 				controllerAs: 'vm'
 			})
-			.when('/admin/dashboard/item', {
+			.when('/admin/dashboard/:orderID', {
 				templateUrl: '/admin/dashboard/individual-item/individual-item.view.html',
-				controller: 'ItemDashBoardCtrl',
+				controller: 'singleOrderCtrl',
 				controllerAs: 'vm'
 			})
       .otherwise({redirectTo: '/login'});

@@ -24,7 +24,6 @@
 
 					<label for="first-name"><strong>First Name</strong></label>
 					<p><input class="form-control-static" ng-model='vm.user.firstName' ng-blur='vm.updateDetails()'></input></p>
-					<!-- <p class="form-control-static">{{ vm.user.firstName }}</p> -->
 
 					<label for="last-name"><strong>Last Name</strong></label>
 					<p class="form-control-static">{{ vm.user.lastName }}</p>
@@ -40,10 +39,9 @@
 						{{ vm.user.streetName }}
 						{{ vm.user.postCode }}
 					</p>
-					<a href="/update/details"<i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit details">border_color</i></a>
+					<!--<a href="/update/details"><i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit details">border_color</i></a>-->
 				</div>
 			</div>
-			<!-- <a href="/update/details" class="btn btn-primary pull-right">Edit Details</a> -->
 		</div>
 
 		<div class="col-sm-8" ng-show="vm.view == 'Billing'">
@@ -72,7 +70,7 @@
 							<label for="email"><strong>Expiry date</strong></label>
 							<p class="form-control-static">01/17</p>
 							<br><br>
-							<a href="#"<i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit payment details">border_color</i></a>
+							<a href="#"><i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit payment details">border_color</i></a>
 
 						</div>
     				</fieldset>
