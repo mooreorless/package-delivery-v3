@@ -15,8 +15,8 @@
 				ng-hide='vm.loggedInUserType() == "customer"'>
 					<option selected="vm.state == 'Order Placed'" value='Order Placed'>Order Placed</option>
 					<option selected="vm.state == 'Picked Up'" value='Picked Up'>Picked Up</option>
-					<option selected="vm.state == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
 					<option selected="vm.state == 'Paid'" value='Paid' disabled>Paid</option>
+					<option selected="vm.state == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
 				</select>
 				<span class='pull-right' ng-hide='vm.loggedInUserType() == "customer"'>Job Status</span>
 				<span class='pull-right' ng-show='vm.loggedInUserType() == "customer"'>Job Status: {{vm.state}}</span>
@@ -43,19 +43,19 @@
 				<p class='singleOrderLabels'>{{vm.order.orderPlacedAt | date : "dd/MM/yyyy"}}</p>
 			</div>
 		</div>
-		<div class="panel panel-default" ng-show='vm.state == "Picked Up"'>
+		<div class="panel panel-default" ng-show='vm.state == "Dropped Off"'>
 			<!-- Begin Picked Up Pane -->
 			<div class="panel-heading">
-				Pick Up Details
+				Dropped Off Details
 			</div>
 			<div class="panel-body">
-				<b>Picked Up By:</b>
+				<b>Dropped Off By:</b>
 				<p class='singleOrderLabels'>{{vm.order.driver.charAt(0).toUpperCase() + vm.order.driver.slice(1)}}</p>
-				<b>Picked Up On:</b>
-				<p class='singleOrderLabels'>{{vm.order.pickedUpAt | date : "dd/MM/yyyy" || 'Order waiting to be picked up'}}</p>
+				<b>Dropped Off On:</b>
+				<p class='singleOrderLabels'>{{vm.order.droppedOffAt | date : "dd/MM/yyyy" || 'Order waiting to be dropped off'}}</p>
 			</div>
 		</div>
-		<div class="panel panel-default" ng-show='vm.state == "Dropped Off"'>
+		<div class="panel panel-default" ng-show='vm.state == "Picked Up"'>
 			<!-- Begin Payment Details Input -->
 			<div class="panel-heading">
 				Payment Details

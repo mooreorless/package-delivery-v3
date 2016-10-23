@@ -19,7 +19,6 @@
 		vm.orderID = $routeParams.orderID;
 
 
-
 		//variable to help with page layout during different job states
 		vm.googleMapsUrl = '<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0ZemKOuENUDXYGs4GVAVIbkPs3vyqJXA"></script>';
 
@@ -90,6 +89,9 @@
 				})
 				.then(function(){
 					vm.order = functionService.loadSingleOrder();
+				})
+				.then(function(){
+					$route.reload();
 				});
 			});
 		};

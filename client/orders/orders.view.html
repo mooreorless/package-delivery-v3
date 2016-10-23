@@ -16,12 +16,21 @@
 
 	<div class="row">
 		<div class='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1'>
-			<p class="lead">{{vm.ordersMessage}}...</p>
+			<p class="lead"><span>{{vm.ordersMessage}}...</span>
+				<select ng-model='vm.filter' ng-change='vm.updateFilter(vm.filter)' class='selectpicker dropdown pull-right jobstate-dropdown'>
+					<option selected="vm.filter == ''" value=''>All</option>
+					<option selected="vm.filter == 'Order Placed'" value='Order Placed'>Order Placed</option>
+					<option selected="vm.filter == 'Picked Up'" value='Picked Up'>Picked Up</option>
+					<option selected="vm.filter == 'Paid'" value='Paid'>Paid</option>
+					<option selected="vm.filter == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
+				</select>
+				<span class='pull-right'>Filter By: </span>
+			</p>
 		</div>
 	</div>
 
   <div class='row'>
-		<div class="col-md-6" ng-repeat="order in vm.orders | orderBy:'orders.orderPlacedAt'">
+		<div class="col-md-6" ng-repeat="order in vm.orders | filter:{state : vm.filter} | orderBy: placedAt : reverse">
 			<div class="{{order.panelClass}}">
 				<div class="panel-heading ">
 					<h3 class="panel-title" ng-click="vm.openOrder(order)">Order ID# <strong>{{order._id}}</strong>

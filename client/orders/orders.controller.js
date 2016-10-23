@@ -4,12 +4,13 @@
     .module('packageDelivery')
     .controller('OrderCtrl', OrderCtrl);
 
-  OrderCtrl.$inject = ['$location', '$rootScope', 'meanData', 'functionService', 'toastr'];
-  function OrderCtrl($location, $rootScope, meanData, functionService, toastr) {
+  OrderCtrl.$inject = ['$location', '$rootScope', '$route', 'meanData', 'functionService', 'toastr'];
+  function OrderCtrl($location, $rootScope, $route, meanData, functionService, toastr) {
 
     var vm = this;
     vm.currentUser = {};
     vm.ordersMessage = '';
+    vm.filter = '';
 
     vm.isLoggedIn = functionService.isLoggedIn();
     
@@ -17,10 +18,10 @@
 	.success(function(data) {
 		vm.currentUser = data;
 		if (functionService.loggedInUserType() === 'driver'){
-			vm.ordersMessage = 'Displaying all orders assigned to you ' + vm.currentUser.firstName;
+			vm.ordersMessage = 'Displaying orders assigned to you ' + vm.currentUser.firstName;
 		}
 		else if (functionService.loggedInUserType() === 'customer') {
-			vm.ordersMessage = 'Displaying all orders placed by you ' + vm.currentUser.firstName;
+			vm.ordersMessage = 'Displaying orders placed by you ' + vm.currentUser.firstName;
 		} else {
 			vm.ordersMessage = 'Displaying all orders';
 		}
@@ -74,6 +75,11 @@
       console.log(order);
       $location.path('order/' + order._id);
     };
-  }
 
+    vm.updateFilter = function(filter){
+    	console.log(vm.filter);
+  		// $route.reload();
+  	};
+  
+  }
 })();
