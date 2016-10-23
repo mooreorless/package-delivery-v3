@@ -7,6 +7,10 @@ var orders = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	userName: {
+		type: String,
+		required: true
+	},
 	pickUpNumber: {
 		type: Number,
 		required: true

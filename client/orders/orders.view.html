@@ -16,24 +16,30 @@
 
 	<div class="row">
 		<div class='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1'>
-			<p class="lead">{{vm.newOrderCount}}{{vm.ordersMessage}}...</p>
+			<p class="lead"><span>{{vm.ordersMessage}}...</span>
+				<select ng-model='vm.filter' class='selectpicker dropdown pull-right jobstate-dropdown'>
+					<option selected="vm.filter == ''" value=''>All</option>
+					<option selected="vm.filter == 'Order Placed'" value='Order Placed'>Order Placed</option>
+					<option selected="vm.filter == 'Picked Up'" value='Picked Up'>Picked Up</option>
+					<option selected="vm.filter == 'Paid'" value='Paid'>Paid</option>
+					<option selected="vm.filter == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
+				</select>
+				<span class='pull-right'>Filter By: </span>
+			</p>
 		</div>
 	</div>
 
   <div class='row'>
-		<div class="col-md-6" ng-repeat="order in vm.orders | orderBy:'orders.orderPlacedAt'">
+		<div class="col-md-6" ng-repeat="order in vm.orders | filter:{state : vm.filter} | orderBy: placedAt : reverse">
 			<div class="{{order.panelClass}}">
 				<div class="panel-heading ">
-					<h3 class="panel-title" ng-click="vm.openOrder(order)">Order ID# <strong>{{order._id}}</strong>
+					<h3 class="panel-title clickable" ng-click="vm.openOrder(order)">Order ID# <strong>{{order._id}}</strong>
 						<span class='card-dest-text pull-right'><strong>Status: </strong>{{order.state}}</span>
 					</h3>
 				</div>
 				<div class="panel-body">
 					<p class='card-dest-text'><strong>Pick Up</strong>: {{order.pickUpNumber + ' ' + order.pickUpName + ' ' + order.pickUpSuburb}}</p>
 					<p class='card-dest-text'><strong>Destination</strong>: {{order.dropOffNumber + ' ' + order.dropOffName + ' ' + order.dropOffSuburb}}</p>
-					<span class='pull-right'>
-						<a href='#'><i class="material-icons">delete_forever</i></a>
-					</span>
 					<span class='float-right'>
 						<a href='#'><i class="material-icons" ng-click="vm.openLabel(order)">print</i></a>
 					</span>
