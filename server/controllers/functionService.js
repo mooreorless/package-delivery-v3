@@ -52,14 +52,6 @@ module.exports.register = function(req, res) {
       res.status(200).json({ "token": token });
     }
 
-
-    // Token used to continually validate the user post registration
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
   });
 };
 
