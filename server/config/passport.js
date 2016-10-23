@@ -4,6 +4,10 @@ var mongoose = require('mongoose');
 
 var User = mongoose.model('User');
 
+
+/*
+Validation of the user using the passport package
+ */
 passport.use(new LocalStrategy({
     usernameField: 'email'
   },

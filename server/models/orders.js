@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 
-
+ /*
+ The structure of the order object that gets put into the database
+  */
 var orders = new mongoose.Schema({
 	userID: {
 		type: String,
