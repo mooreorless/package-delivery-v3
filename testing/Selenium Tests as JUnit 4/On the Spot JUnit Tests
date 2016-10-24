@@ -1,0 +1,34 @@
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+public class On {
+
+  public static Test suite() {
+    TestSuite suite = new TestSuite();
+    suite.addTestSuite(New User.class);
+    suite.addTestSuite(Dupplicate User Denied.class);
+    suite.addTestSuite(Failed Login.class);
+    suite.addTestSuite(Successful Login.class);
+    suite.addTestSuite(Sign out.class);
+    suite.addTestSuite(Billing Page.class);
+    suite.addTestSuite(Help Page.class);
+    suite.addTestSuite(Create Order.class);
+    suite.addTestSuite(View Orders.class);
+    suite.addTestSuite(Update User Information.class);
+    suite.addTestSuite(Driver Destinations.class);
+    suite.addTestSuite(Admin Login.class);
+    suite.addTestSuite(Job Assignment.class);
+    suite.addTestSuite(Driver Login.class);
+    suite.addTestSuite(Parcel Status Picked Up.class);
+    suite.addTestSuite(Parcel Status Paid.class);
+    suite.addTestSuite(Parcel Status Payment Error.class);
+    suite.addTestSuite(Parcel Status Dropped Off.class);
+    suite.addTestSuite(Timestamps.class);
+    suite.addTestSuite(Custom Print Form.class);
+    return suite;
+  }
+
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
+}
