@@ -1,0 +1,58 @@
+<div class="container">
+	<div class='form-wrapper'>
+		<div class="row">
+			<form class='login-form' ng-submit='vm.updateUser()'>
+				<div>
+					<label id='login-title'>Update Details </label>
+				</div>
+				<div class='row'>
+					<div class='col-md-6'>
+						<label class='control-label' for='focusedInput'>First Name</label>
+						<input class='form-control' id='firstName' type='text'
+									 ng-model='vm.newCredentials.firstName'>
+					</div>
+					<div class='col-md-6'>
+						<label class='control-label' for='focusedInput'>Last Name</label>
+						<input class='form-control' id='lastName' type='text'
+									 ng-model='vm.newCredentials.lastName'>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-12'>
+						<label class='control-label' for='focusedInput'>Email Address</label>
+						<input class='form-control' id='email' type='text' placeholder='email'
+									 ng-model='vm.newCredentials.email'>
+					</div>
+				</div>
+
+				<div class='row'>
+					<div class='col-md-1'>
+						<label class='control-label' for='focusedInput'>Number</label>
+						<input class='form-control' id='streetNumber' type='text' placeholder='1'
+									 ng-model='vm.newCredentials.streetNumber' placeholder='{streetNumber}'>
+					</div>
+					<div class='col-md-5'>
+						<label class='control-label' for='focusedInput'>Street</label>
+						<input class='form-control' id='streetName' type='text'
+									 ng-model='vm.newCredentials.streetName'>
+					</div>
+					<div class='col-md-4'>
+						<label class='control-label' for='focusedInput'>Suburb</label>
+						<input class='form-control' id='suburb' type='text'
+									 ng-model='vm.newCredentials.suburb'>
+					</div>
+					<div class='col-md-2'>
+						<label class='control-label' for='focusedInput'>Post Code</label>
+						<input class='form-control' id='postCode' type='text'
+									 ng-model='vm.newCredentials.postCode'>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='login-button col-md-3 col-xs-12'>
+						<button type='submit' class='btn btn-primary btn-lg'>Update Details</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

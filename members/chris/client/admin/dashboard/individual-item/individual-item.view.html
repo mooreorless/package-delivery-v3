@@ -1,0 +1,151 @@
+<navigation></navigation>
+
+<div class="container">
+	<div class="row">
+		<div class="dashboard-wrapper col-md-12">
+      <div class="col-md-6">
+
+        <div class="row">
+          <!-- Job Id -->
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="widget-heading">
+                <h5>Order Id</h5>
+                <hr>
+                <h6 class="text-center">{{ vm.orderID }}</h6>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assigned Driver -->
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="widget-heading">
+                <h5>Assigned Driver</h5>
+                <hr>
+                <h6 class="text-center">{{ vm.driverName }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="widget-heading">
+                <h5>Destination Details</h5>
+                <hr>
+                <p><strong>Pickup:</strong></p> 
+                  <p class="text">{{ vm.pickUpAddress }}</p>
+                <p><strong>DropOff:</strong></p> 
+                  <p class="text"> {{ vm.dropOffAddress }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="widget-heading">
+                <h5>Extra Info</h5>
+                <hr>
+                <p class="text">{{ vm.order.notes }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Extra Info/Map -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="widget-heading">
+          <h5>Current Route</h5>
+          <span class="text-muted">Package Location</span>
+					<select ng-model='vm.state' ng-change='vm.updateJobState(vm.state)' id="toggleStateChange" class='selectpicker dropdown pull-right jobstate-dropdown'>
+						<option selected="vm.state == 'Order Placed'" value='Order Placed'>Order Placed</option>
+						<option selected="vm.state == 'Picked Up'" value='Picked Up'>Picked Up</option>
+						<option selected="vm.state == 'Paid'" value='Paid' disabled>Paid</option>
+						<option selected="vm.state == 'Dropped Off'" value='Dropped Off'>Dropped Off</option>
+					</select>
+					<span class='pull-right'>Job Status</span>
+          <hr>
+          <ng-map center="-27.46,153.02" zoom='11'>
+            <marker position="{{vm.pickUpAddress}}" title='{{vm.pickUpAddress}}' icon="img/pickUpMarker.png"></marker>
+            <marker position="{{vm.dropOffAddress}}" title='{{vm.dropOffAddress}}' icon='img/dropOffMarker.png'></marker>
+            <directions
+              suppress-markers="true"
+              origin="{{vm.pickUpAddress}}"
+              destination="{{vm.dropOffAddress}}">
+            </directions>
+          </ng-map>
+				</div>
+			</div>
+		</div>
+
+    <div class="row">
+			<div class="col-md-4">
+				<div class="panel panel-default" ng-show='vm.state == "Picked Up"'>
+				<!-- Begin Payment Details Input -->
+				<div class="panel-heading">
+					Payment Details
+				</div>
+				<div class="panel-body">
+					<div class='clearfix'>
+						<div class='col-xs-8'>
+							<b>Card Number:</b>
+							<p><input type='text' id='cardNumber' class='form-control' ng-model='vm.cardNumber' placeholder='XXXX-XXXX-XXXX-XXXX'></p>
+						</div>
+						<div class='col-xs-4'>
+							<b>Expiry:</b>
+							<p><input type='text' id='cardExp' class='form-control' ng-model='vm.cardExp' placeholder='MM/YY'></p>
+						</div>
+					</div>
+					<div class='clearfix'>
+						<div class='col-xs-4'>
+							<b>CVV:</b>
+							<p><input type='text' id='cardNumber' class='form-control' ng-model='vm.cardNumber' placeholder='XXX'></p>
+						</div>
+						<div class='col-xs-8 pay-btn-col'>
+							<button class='btn btn-primary btn-lg pull-right' ng-click='vm.updateJobState("Paid")'>Pay</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+
+      <div class="col-md-8">
+        <ul ng-show="vm.loggedInUserType() === 'admin'" class="timeline" id="timeline">
+          <li class="li complete">
+            <div class="timestamp">
+              <span class="author">Order Placed</span>
+              <span class="date">{{( vm.order.orderPlacedAt | date: "dd/MM/yyyy" ) || "Order waiting to be picked up" }}<span>
+            </div>
+            <div class="status"></div>
+         	</li>
+        	<li class="li {{vm.pickedUpAtStatus}}">
+            <div class="timestamp">
+              <span class="author">Picked Up At</span>
+              <span class="date">{{( vm.order.pickedUpAt | date: "dd/MM/yyyy" ) || "Order waiting to be picked up" }}<span>
+            </div>
+            <div class="status"></div>
+         	</li>
+        	<li class="li {{vm.droppedOffAtStatus}}">
+            <div class="timestamp">
+              <span class="author">Delivered</span>
+              <span class="date">{{( vm.order.droppedOffAt | date: "dd/MM/yyyy" ) || "Order waiting to be delivered" }}<span>
+            </div>
+            <div class="status"></div>
+         	</li>
+					<li class="li {{vm.paidAtStatus}}">
+            <div class="timestamp">
+              <span class="author">Paid</span>
+              <span class="date">{{( vm.order.paidAt | date: "dd/MM/yyyy" ) || "Order waiting to be paid for" }}<span>
+            </div>
+            <div class="status"></div>
+         </li>
+        </ul>      
+      </div>
+    </div>
+	</div>
+</div>
+</div>
