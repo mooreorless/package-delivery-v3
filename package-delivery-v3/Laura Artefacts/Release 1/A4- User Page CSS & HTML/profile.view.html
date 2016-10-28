@@ -1,0 +1,34 @@
+<navigation></navigation>
+
+<div class="account-form-wrapper">
+	<form class="user-form">
+		<div>
+			<div>
+				<h1>Account</h1>
+				<h5 class="help-block" id="user-caption">Change your basic account settings</h5>
+			</div>
+			<div class="row">
+				<div id="profile-picture" class="col">
+					<img src="http://images.nymag.com/news/business/boom-brands/business130930_grumpycat_2_560.jpg" alt="Image Currently Unavailable" height = "160px" width= "160px" class="img-circle">
+				</div>
+				<div id="user-details" class="col">
+					<div>
+						<label class="control-label" for="focusedInput">Name</label>
+						<p class="form-control-static">{{ vm.user.firstName }} {{vm.user.lastName}}</p>
+					</div>
+					<div>
+						<label class="control-label" for="focusedInput">Billing Address</label>
+						<p class="form-control-static">{{ vm.user.streetName }}</p>
+					</div>
+					<div>
+						<label class="control-label" for="focusedInput">Email Address</label>
+						<p class="form-control-static">{{ vm.user.email }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" clear="right">
+			<button type="submit" class="btn btn-primary btn-lg">EDIT</button>
+		</div>
+	</form>
+</div>

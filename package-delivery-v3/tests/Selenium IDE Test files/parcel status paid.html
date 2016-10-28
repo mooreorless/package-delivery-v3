@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://onthespot-production.herokuapp.com/login" />
+<title>Parcel Status Paid</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Parcel Status Paid</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=email</td>
+	<td>jono@onthespot.com</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=password</td>
+	<td>driver</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.toast-title</td>
+	<td>Success</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=dvrMY JOBS</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//body[@id='bootstrap-overrides']/div/div/div/div[3]/div[3]/div/div/h3/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='add-margin']/div/div/div/select</td>
+	<td>label=Picked Up</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cardNumber</td>
+	<td>1234 5467 8910 1112</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.col-xs-4 &gt; p &gt; #cardNumber</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cardExp</td>
+	<td>18/22</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='add-margin']/div[2]/div[3]/div[2]/div[2]/div[2]/button</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

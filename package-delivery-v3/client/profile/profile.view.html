@@ -1,0 +1,110 @@
+
+<navigation></navigation>
+<div class="container account-wrapper">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<ul class="nav nav-pills nav-stacked account-settings">
+						<li id="account" class="active"><a href="" ng-click="vm.setView('Account')">Account</a></li>
+						<li id="billing"><a href="" ng-click="vm.setView('Billing')">Billing</a></li>
+						<li id="help"><a href="" ng-click="vm.setView('Help')">Help</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-8" ng-show="vm.view == 'Account'">
+			<div class="panel panel-default">
+				<div class="panel-body">
+
+					<fieldset>
+						<legend>Personal details</legend>
+					</fieldset>
+
+					<label for="first-name"><strong>First Name</strong></label>
+					<p><input class="form-control-static" ng-model='vm.user.firstName' ng-blur='vm.updateDetails()'></input></p>
+
+					<label for="last-name"><strong>Last Name</strong></label>
+					<p><input class="form-control-static" ng-model='vm.user.lastName' ng-blur='vm.updateDetails()'></input></p>
+
+					<label for="email"><strong>Email address</strong></label>
+					<p><input class="email-input form-control-static" ng-model='vm.user.email' ng-blur='vm.updateDetails()'></input></p>
+
+					<hr>
+
+					<label for="address"><strong>Current Pickup Address</strong></label>
+					<p class="form-control-static">
+						<p>
+							<input class="form-control-static" ng-model='vm.user.streetNumber' ng-blur='vm.updateDetails()'></input>
+							<input class="address-input form-control-static" ng-model='vm.user.streetName' ng-blur='vm.updateDetails()'></input>
+							<input class="address-input form-control-static" ng-model='vm.user.suburb' ng-blur='vm.updateDetails()'></input>
+						</p>
+					<!--<a href="/update/details"><i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit details">border_color</i></a>-->
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-8" ng-show="vm.view == 'Billing'">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="well">
+						<p class="text-center">Amount to pay</p>
+						<h1 class="text-center">$12.50</h1>
+					</div>
+					<fieldset>
+    					<legend>Payment details</legend>
+    					<div class="col-md-6">
+							<label for="first-name"><strong>Name on card</strong></label>
+							<p class="form-control-static">John Smith</p>
+							
+							<label for="last-name"><strong>Card number</strong></label>
+							<p class="form-control-static">1234 5678 9101 1121</p>
+
+							<label for="email"><strong>CVV<sup class='delivery-tooltip' data-toggle="tooltip" data-placement="right" title="The three digits on the back of your card">?</sup></strong></label>
+							<p class="form-control-static">123</p>
+						</div>
+						<div class="col-md-6">
+							<label for="last-name"><strong>Card type</strong></label>
+							<p class="form-control-static">Mastercard</p>
+
+							<label for="email"><strong>Expiry date</strong></label>
+							<p class="form-control-static">01/17</p>
+							<br><br>
+							<a href="#"><i class="material-icons pull-right" data-toggle="tooltip" data-placement="top" title="Edit payment details">border_color</i></a>
+
+						</div>
+    				</fieldset>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-8" ng-show="vm.view == 'Help'">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<fieldset>
+    					<legend><div><i class="material-icons" id='help-info'>info_outline</i> 
+    						<span id='help-info2'>Help Information</span></div></legend>
+    					<h5 id="FAQ1">How do I place an order?</h5>
+    					<p>Placing an order with On-The-Spot is built to be easy and seamless. All you need is a registered account with us and then you have one of the quickest package delivery services in regional Queensland at your fingertips. To place an order simply click the New Order tab located along the top of the page. This will then redirect you to an order form, which after being filled out and submitted, will be sent to our drivers and managerial staff.</p>
+
+    					<h5 id="FAQ2">What if I have a fragile parcel?</h5>
+    					<p>Ship your fragile parcels with ease at On-The-Spot. To flag your parcel as fragile simply begin a new order placement by selecting New Order from the tabs located along the top of the page. On this order form, located under a number of fields used for addressing details, is a fragile parcel option. Simply check this option to flag your parcel as fragile and extra care will be taken.</p>
+
+    					<h5 id="FAQ3">How do I check the status of my order?</h5>
+    					<p>After placing an order, you may check the status of it by navigating to the My Orders tab along the top of the website. Upon reaching this tab, you are presented with a list panels displaying all of your current orders. The status of each parcel is displayed in the top right corner of each panel.</p>
+
+    					<h5 id="FAQ4">How do I request express shipping?</h5>
+    					<p>We understand that sometimes you need to send something to someone in a rush. That’s why at On-The-Spot we offer express shipping which provides users with same day regional delivery. To request express shipping, simply begin a new order placement by selecting New Order from the tabs located along the top of the page. On this order form, located under a number of fields used for addressing details, is an express delivery option. Simply check this option to flag your parcel as a high priority. </p>
+
+    					<h5 id="FAQ5">How do I change my pickup address?</h5>
+    					<p>Changing/updating details is quick and easy with On-The-Spot. To change your pick-up address, first navigate to your profile by clicking on your account’s first name located in the top right hand side of the website. Users are then presented with their account details such as name, email and addressing information. To edit any of these simply click on the pencil symbol located to the bottom right of the user details.</p>
+
+    					<h5 id="FAQ6">How do I pay for an order?</h5>
+    					<p>All parcel payments are done in person by one of our many friendly driving staff. Payment will be processed upon a driver arriving at the pick-up location. </p>
+    				</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 

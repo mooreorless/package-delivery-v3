@@ -1,0 +1,38 @@
+<div class="container" ng-controller="LoginCtrl">
+    <div class="account-form-wrapper">
+        <form class="user-form">
+			<div>
+				<div>
+					<label id="user-title">Account</label>
+					<label class="help-block" id="user-caption">Change your basic account settings</label>
+				</div>
+				<div class="row">
+					<div id="profile-picture" class="col">
+						<img src="http://images.nymag.com/news/business/boom-brands/business130930_grumpycat_2_560.jpg" alt="Image Currently Unavailable" height = "160px" width= "160px" class="img-circle">
+					</div>
+					<div id="user-details" class="col">
+						<div>
+							<label class="control-label" for="focusedInput">Name</label>
+							<input class="form-control" id="focusedInput" type="text" placeholder="Placeholder Name" readonly>
+						</div>
+						<div>
+							<label class="control-label" for="focusedInput">Billing Address</label>
+							<input class="form-control" id="focusedInput" type="text" placeholder="Placeholder Address" readonly>
+						</div>
+						<div>
+							<label class="control-label" for="focusedInput">Email Address</label>
+							<input class="form-control" id="focusedInput" type="text" placeholder="someone@example.com" readonly>
+						</div>
+						<div>
+							<label class="control-label" for="focusedInput">Phone Number</label>
+							<input class="form-control" id="focusedInput" type="text" placeholder="1234 5678" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="row" clear="right">
+                <div class="edit-button col-md-3 col-xs-12"><a href="/user" class="btn btn-primary btn-lg">EDIT</a></div>
+            </div>
+        </form>
+    </div>
+</div>

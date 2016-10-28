@@ -1,0 +1,582 @@
+* {
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+/*tabs bar*/
+.top-bar{
+	background-color: #10C3A2;
+	box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 4px 4px 0 rgba(0,0,0,0.24);
+}
+
+#add-margin {
+	margin-top: 20px;
+}
+
+/*inactive nav items*/
+.nav-tabs > li{
+	float: none;
+	display: inline-block;
+	color: #ffae00;
+	border-bottom: none !important;
+}
+
+/*active nav items*/
+.nav-tabs > li > a{
+	font-size: 14px;
+	color: rgba(255,255,255,0.70);
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+}
+
+.nav-tabs > li > a:active{
+	font-size: 14px;
+	color: red;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+}
+
+/*nav hovering*/
+.nav-tabs > li > a:hover{
+	font-size: 14px;
+	color: white;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+}
+
+.nav-tabs > li > a:focus:hover{
+	font-size: 14px;
+	color: white;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: none;
+}
+
+.nav-tabs > li > a:focus{
+	font-size: 14px;
+	color: white;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+.nav-tabs > li > a:active{
+	font-size: 14px;
+	color: red;
+	letter-spacing: 0.5px;
+	text-align: center;
+	box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+/*nav tabs general style (need for centering them)*/
+.nav-tabs{
+	text-align: center;
+	border-bottom: none !important;
+}
+
+/*current tab*/
+#bootstrap-overrides .active > a{
+	font-size: 14px;
+	letter-spacing: 0.5px;
+	color: white;
+	box-shadow: inset 0 -2px 0 #ffae00;
+}
+
+/*styling for form layout*/
+.form-wrapper{
+	/*flex-direction: column;*/
+	margin-top: 20vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*styling for form layout*/
+.account-form-wrapper{
+	/*flex-direction: column;*/
+	margin-top: 5vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*login form width*/
+.login-form{
+	width: 45vw;
+}
+
+/*user form width*/
+.user-form{
+	width: 40vw;
+	align-items: center;
+}
+
+
+/**/
+#bootstrap-overrides .form-control{
+	/*-webkit-box-shadow: inset 0 -1px 0 #ffae00;*/
+}
+
+#bootstrap-overrides input[type=text]:focus{
+	-webkit-box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+#bootstrap-overrides input[type=password]:focus{
+	-webkit-box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+#bootstrap-overrides textarea:focus{
+	-webkit-box-shadow: inset 0 -2px 0 #FFAE00;
+}
+
+#bootstrap-overrides input[type=checkbox]:checked:after{
+	background-color: #FFAE00;
+	border-color: #FFAE00;
+}
+
+#bootstrap-overrides input[type=checkbox]:after{
+	border-color: #666666;
+}
+
+/**/
+#bootstrap-overrides .form-control{
+	
+}
+
+#bootstrap-overrides .help-anchors{
+	color: #000000;
+	text-decoration: none;
+}
+
+#bootstrap-overrides a.help-anchors:hover{
+	color: #000000;
+	text-decoration: none;
+}
+
+.btn-primary:active {
+    background-color: #10C3A2;
+    background-image: -webkit-radial-gradient(circle, #10C3A2 10%, #10C3A2 11%);
+    background-image: -o-radial-gradient(circle, #10C3A2 10%, #10C3A2 11%);
+    background-image: radial-gradient(circle, #10C3A2 10%, #10C3A2 11%);
+    background-repeat: no-repeat;
+    -webkit-background-size: 1000% 1000%;
+    background-size: 1000% 1000%;
+    -webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+/*login button formatting*/
+#bootstrap-overrides .btn-primary{
+	background-color: #10C3A2;
+	color: white;
+}
+
+/*login button formatting*/
+.login-button{
+	text-align: right;
+	margin-top: 15px;
+	margin-bottom: 5em;
+}
+
+/*password reset link formatting*/
+.reset-link{
+	margin-top: 25px;
+	padding-left: 30px;
+}
+
+/*reset link coloured text*/
+.reset-link a{
+	color: #ffae00;
+}
+
+/*search bar formatting*/
+.search-bar{
+	height: 40px;
+	background-color: #10C3A2;
+	color: white;
+	align-items: center;
+}
+
+/*search input*/
+.search{
+	background-color: transparent;
+	color: white;
+	border: none;
+	width: 90%;
+	box-shadow: none !important;
+	vertical-align: -30%;
+	-webkit-box-shadow: none !important;
+}
+
+.col{
+	display: inline-block;
+	padding: 10px;
+	vertical-align: text-top;
+}
+
+.search:focus{
+	outline: none;
+}
+
+/*search input placeholder*/
+::-webkit-input-placeholder{
+	color: white;
+	font-size: 13px;
+}
+
+/*search icon aligning*/
+.search-icon{
+	vertical-align: -60%;
+	margin-right: 10px;
+}
+
+.account-icon{
+	vertical-align: -30%;
+	margin-right: 0.3em;
+	font-size: 18px;
+}
+
+.arrow-icon{
+	vertical-align: -10%;
+	margin-right: 0.3em;
+	font-size: 18px;
+}
+
+.express-icon{
+	color: #E57373;
+}
+
+.valuable-icon{
+	color: #FF6D00;
+}
+
+.form-control{
+	margin-bottom: 10px;
+}
+
+#login-title{
+	width: 75vw;
+	margin-bottom: 25px;
+	display: block;
+	text-align: left;
+	font-size: 40px;
+}
+
+#user-title{
+	width: 75vw;
+	margin-bottom: 10px;
+	display: block;
+	text-align: left;
+	font-size: 20px;
+}
+
+.card-container {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	/*margin-left: 20%;*/
+	padding: 2em;
+	padding-bottom: 0em;
+	margin-top: 2em;
+	position: relative;
+	box-shadow: 0px 3px 6px -4px black;
+}
+
+/*Order Number and Address*/
+.order-container {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	margin-left: 20%;
+	padding: 1em;
+	padding-bottom: 0em;
+	margin-top: 2em;
+	position: relative;
+	box-shadow: 0px 3px 6px -4px black;		
+	text-align: left;	
+}
+
+/*Progress Panel*/
+.div-panel {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	margin-left: 20%;
+	padding: 2em;
+	padding-bottom: 0em;
+	margin-top: 0em;
+	position: relative;
+	box-shadow: 0px 3px 6px -4px black;
+	background-color: transparent;	
+	display:block;	
+}
+
+.card-order-id {
+	display: inline-block;	
+	font-size: 17px;	
+}
+
+.float-right {
+	float: right;
+}
+
+/*OrderState*/
+.status-text-center {
+	text-align: center;
+	padding: 0;
+}
+
+/*OrderStateButton*/
+.status-text-button {
+	text-align: center;
+	padding: 0;
+	background-color: transparent;
+	border: none;
+	position: relative;
+	outline-color: #10C3A2;	
+}
+
+.status-text-button:active {
+	/*Need to get current time and date and update progress*/	
+}
+
+.orders-search {
+	font-size: 1.1em;
+	padding-top: 1em;
+	margin-top: 1em;
+}
+
+#bootstrap-overrides .form-control.order-search-bar {
+	box-shadow: none;
+}
+
+#bootstrap-overrides .form-control.order-search-bar:focus {
+	box-shadow: none;
+}
+
+
+a {
+	color: rgba(0, 0, 0, 0.2);
+}
+
+a:hover {
+	color: rgba(0, 0, 0, 0.4);
+}
+
+/* account settings */
+
+.account-wrapper {
+	margin-top: 35px;
+}
+
+#bootstrap-overrides .nav-pills .active > a {
+	background: #10c3a2;
+	box-shadow: none;
+}
+
+.account-settings > .active > a {
+	background: #10c3a2;
+	box-shadow: none;
+}
+
+.current-user {
+	vertical-align: top;
+	margin-left: 5px;
+}
+
+.settings-dropdown {
+	color: white;
+	margin-right: 50px;
+	margin-top: 10px;
+}
+
+/*dropdown*/
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+	background-color: transparent;
+}
+
+
+/* dashboard */
+
+.dashboard-wrapper {
+	margin-top: 25px;
+}
+
+.widget-heading {
+	padding: .8em;
+}
+
+#bootstrap-overrides hr {
+	margin-top:	10px !important;
+	margin-bottom:	10px !important;
+
+}
+
+.error-msg {
+	color: red;
+}
+
+#login-error-msg {
+	display: none;
+}
+
+#register-error-msg {
+	display: none;
+}
+
+#help-info{
+	vertical-align: middle;
+}
+
+#help-info2{
+	vertical-align: middle;
+}
+
+#myUser { 
+	height: 45px;
+}
+
+/*Job State Dropdown*/
+.jobstate-dropdown{
+	margin-left: 10px;
+	width: 110px;
+}
+
+/*pay button on payment panel*/
+.pay-btn-col{
+	position: absolute;
+    right: 35px;
+    bottom: 55px;
+}
+
+.singleOrderLabels{
+	margin-top: 12px;
+	margin-bottom: 15px;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+
+@media (max-width: 460px){
+	.pay-btn-col{
+		position: absolute;
+    	right: 35px;
+    	bottom: 25px;
+	}
+}
+
+/* hide map controls */
+.gm-style-mtc {
+	display: none;
+}
+
+/* order state timeline */
+.timeline {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.li {
+  transition: all 200ms ease-in;
+}
+
+.timestamp {
+  margin-bottom: 20px;
+  padding: 0px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 100;
+}
+
+.status {
+  padding: 0px 40px;
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #D6DCE0;
+  position: relative;
+  transition: all 200ms ease-in;
+}
+.status h4 {
+  font-weight: 600;
+}
+.status:before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: -15px;
+  left: 42%;
+  transition: all 200ms ease-in;
+}
+
+.li.complete .status {
+  border-top: 2px solid #FFAE00;
+}
+.li.complete .status:before {
+  background-color: #10c3a2;
+  border: none;
+  transition: all 200ms ease-in;
+}
+.li.complete .status h4 {
+  color: #66DC71;
+}
+
+@media (min-device-width: 320px) and (max-device-width: 700px) {
+  .timeline {
+    list-style-type: none;
+    display: block;
+  }
+
+  .li {
+    transition: all 200ms ease-in;
+    display: flex;
+    width: inherit;
+  }
+
+  .timestamp {
+    width: 100px;
+  }
+
+  .status:before {
+    left: -8%;
+    top: 30%;
+    transition: all 200ms ease-in;
+  }
+}
+
+.email-input{
+	width: 300px;
+}
+
+.address-input{
+	width: 200px;
+}
+
+/*
+button {
+  position: absolute;
+  width: 100px;
+  min-width: 100px;
+  padding: 20px;
+  margin: 20px;
+  font-family: "Titillium Web", sans serif;
+  border: none;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+}
+
+#toggleButton {
+  position: absolute;
+  left: 50px;
+  top: 20px;
+  background-color: #75C7F6;
+}*/
