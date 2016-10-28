@@ -5,7 +5,7 @@
     .service('meanData', meanData);
 
   meanData.$inject = ['$http', 'functionService'];
-  /*
+ /*
   A route so that the profile with auth can be gotten from another part of the application
    */
   function meanData ($http, functionService) {
